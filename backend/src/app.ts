@@ -4,7 +4,12 @@ import { router } from './routes';
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://monitoringmedi.vercel.app',
+  ],
+}));
 app.use(express.json());
 app.use('/api', router);
 
