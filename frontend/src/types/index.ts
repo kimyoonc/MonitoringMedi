@@ -36,16 +36,87 @@ export interface PlanStep {
   dispenseDays: number
   status: 'scheduled' | 'completed' | 'pending'
   visitId: string | null
+  canDispense?: boolean
 }
 
 export interface Plan {
   id: string
   prescriptionId: string
   patientId: string
+  patientName?: string
+  prescriptionInfo?: string
   totalVisits: number
   dispensingUnit: number
+  medications?: Array<{
+    name: string
+    category: string
+    dailyDose: number
+    unit: string
+    instructions: string
+  }>
   steps: PlanStep[]
   createdAt: string
+}
+
+// 복약 관리 계획 생성 폼
+export interface MedicationInput {
+  name: string
+  category: string
+  dailyDose: number
+  unit: string
+  instructions: string
+}
+
+export interface PlanCreateForm {
+  patientId: string
+  totalDays: number
+  visitCount: number
+  startDate: string
+  medications: MedicationInput[]
+}
+
+// 방문 기록 생성 폼
+export interface VisitCreateForm {
+  planId: string
+  patientId: string
+  visitDate: string
+  stepNumber: number
+  adherence: 'good' | 'fair' | 'poor'
+  adverseReaction: boolean
+  adverseReactionNote: string | null
+  storageCondition: 'good' | 'poor' | 'damaged'
+  pharmacistNote: string
+  dispensedMedications: Array<{
+    medicationId: string
+    name: string
+    quantity: number
+    unit: string
+  }>
+}
+
+// 조제 요청/결과
+export interface DispenseRequest {
+  medications: Array<{
+    medicationId: string
+    name: string
+    quantity: number
+    unit: string
+  }>
+}
+
+export interface DispenseResult {
+  id: string
+  planId: string
+  patientId: string
+  visitDate: string
+  stepNumber: number
+  dispensedAt: string
+  dispensedMedications: Array<{
+    medicationId: string
+    name: string
+    quantity: number
+    unit: string
+  }>
 }
 
 // 방문 기록

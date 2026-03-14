@@ -19,6 +19,8 @@ export default function AppRoutes() {
         <Route index element={<PharmacistDashboard />} />
         <Route path="patients" element={<PatientListPage />} />
         <Route path="patients/:id" element={<PatientDetailPage />} />
+        <Route path="patients/:id/plans/new" element={<PlanCreatePage />} />
+        <Route path="patients/:patientId/visits/new" element={<VisitRecordPage />} />
         <Route path="plans/new" element={<PlanCreatePage />} />
         <Route path="visits/:id" element={<VisitRecordPage />} />
       </Route>

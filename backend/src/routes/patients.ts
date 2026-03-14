@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import patients from '../fixtures/patients.json';
-import visits from '../fixtures/visits.json';
 import notifications from '../fixtures/notifications.json';
+import { visitsStore } from '../store';
 
 const router = Router();
 
@@ -19,13 +19,20 @@ router.get('/:id', (req, res) => {
 
 // 신규 환자 등록 (Mock: 고정 응답)
 router.post('/', (req, res) => {
-  const newPatient = { id: `P${Date.now()}`, ...req.body, registeredAt: new Date().toISOString().split('T')[0], status: 'active' };
+  const newPatient = {
+    id: `P${Date.now()}`,
+    ...req.body,
+    registeredAt: new Date().toISOString().split('T')[0],
+    status: 'active',
+  };
   res.status(201).json({ success: true, data: newPatient });
 });
 
-// 환자 방문 이력
+// 환자 방문 이력 (visitDate 내림차순 정렬)
 router.get('/:id/visits', (req, res) => {
-  const patientVisits = visits.filter(v => v.patientId === req.params.id);
+  const patientVisits = visitsStore
+    .filter(v => v.patientId === req.params.id)
+    .sort((a, b) => new Date(b.visitDate).getTime() - new Date(a.visitDate).getTime());
   res.json({ success: true, data: patientVisits });
 });
 

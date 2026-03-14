@@ -1,8 +1,159 @@
-.content { padding-top: var(--spacing-md); display: flex; flex-direction: column; gap: var(--spacing-md); }
-.sectionTitle { font-size: var(--font-size-base); font-weight: 700; margin-bottom: var(--spacing-md); }
-.form { display: flex; flex-direction: column; gap: var(--spacing-md); }
-.label { display: flex; flex-direction: column; gap: var(--spacing-xs); font-size: var(--font-size-sm); font-weight: 500; color: var(--color-neutral-700); }
-.input { padding: 10px var(--spacing-md); border: 1px solid var(--color-neutral-300); border-radius: var(--radius-md); font-size: var(--font-size-base); outline: none; transition: border-color 0.2s; }
-.input:focus { border-color: var(--color-primary); }
-.schedule { display: flex; flex-direction: column; gap: var(--spacing-sm); }
-.scheduleItem { padding: var(--spacing-sm) var(--spacing-md); background: var(--color-primary-light); border-radius: var(--radius-md); font-size: var(--font-size-sm); color: var(--color-primary-dark); }
+.content {
+  padding-top: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-neutral-700);
+}
+
+.input {
+  padding: 10px var(--spacing-md);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+}
+
+.select {
+  padding: 10px var(--spacing-md);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  background: white;
+  outline: none;
+  cursor: pointer;
+}
+
+.select:focus {
+  border-color: var(--color-primary);
+}
+
+/* 환자 정보 표시 */
+.patientInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-neutral-50);
+  border-radius: var(--radius-md);
+}
+
+.patientInfoItem {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-600);
+}
+
+/* 의약품 목록 */
+.medicationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.medicationItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+  background: var(--color-neutral-50);
+}
+
+.medicationRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+}
+
+.removeBtn {
+  align-self: flex-end;
+}
+
+/* 일정 미리보기 */
+.schedule {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.scheduleItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-primary-light);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+}
+
+.stepBadge {
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  min-width: 28px;
+}
+
+.stepDate {
+  color: var(--color-neutral-700);
+  flex: 1;
+}
+
+.stepDays {
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+.remainder {
+  font-size: 11px;
+  color: var(--color-warning, #f59e0b);
+  background: rgba(245, 158, 11, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* 오류 메시지 */
+.error {
+  color: var(--color-error, #ef4444);
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-error, #ef4444);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 480px) {
+  .medicationRow {
+    grid-template-columns: 1fr;
+  }
+}

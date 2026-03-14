@@ -1,10 +1,208 @@
-.content { padding-top: var(--spacing-md); display: flex; flex-direction: column; gap: var(--spacing-md); }
-.sectionTitle { font-size: var(--font-size-base); font-weight: 700; margin-bottom: var(--spacing-sm); }
-.info { display: grid; grid-template-columns: auto 1fr; gap: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm); }
-.info dt { color: var(--color-neutral-500); font-weight: 500; }
-.actions { display: flex; flex-direction: column; gap: var(--spacing-sm); }
-.visitCard { margin-bottom: var(--spacing-sm); }
-.visitHeader { display: flex; justify-content: space-between; margin-bottom: var(--spacing-xs); }
-.visitDate { font-weight: 600; }
-.note { font-size: var(--font-size-sm); color: var(--color-neutral-600); }
-.empty { color: var(--color-neutral-400); font-size: var(--font-size-sm); text-align: center; padding: var(--spacing-lg); }
+.content {
+  padding-top: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+}
+
+.info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+
+.info dt {
+  color: var(--color-neutral-500);
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* 복약 관리 계획 */
+.planMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-500);
+}
+
+.planId {
+  font-weight: 600;
+  color: var(--color-neutral-700);
+}
+
+.planUnit {
+  color: var(--color-neutral-500);
+}
+
+/* 의약품 목록 뱃지 */
+.medicationList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.medicationBadge {
+  display: inline-block;
+  padding: 2px 10px;
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* 단계 타임라인 */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.timelineItem {
+  display: flex;
+  gap: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  position: relative;
+}
+
+.timelineLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 36px;
+}
+
+.timelineStep {
+  width: 36px;
+  height: 36px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.timelineConnector {
+  width: 2px;
+  flex: 1;
+  background: var(--color-neutral-200);
+  margin-top: 4px;
+}
+
+.timelineItem:last-child .timelineConnector {
+  display: none;
+}
+
+.timelineContent {
+  flex: 1;
+  padding-bottom: var(--spacing-sm);
+}
+
+.timelineHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.timelineDate {
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-800);
+}
+
+.timelineDays {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-500);
+  margin-bottom: var(--spacing-xs);
+}
+
+.disabledHint {
+  font-size: 12px;
+  color: var(--color-neutral-400);
+  font-style: italic;
+}
+
+/* 방문 이력 */
+.visitCard {
+  margin-bottom: var(--spacing-sm);
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.visitCard:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.visitHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-xs);
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.visitDate {
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.visitBadges {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-wrap: wrap;
+}
+
+.visitStep {
+  font-size: 12px;
+  color: var(--color-neutral-500);
+  margin-bottom: var(--spacing-xs);
+}
+
+.note {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-600);
+}
+
+.empty {
+  color: var(--color-neutral-400);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  padding: var(--spacing-lg);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 480px) {
+  .visitHeader {
+    flex-direction: column;
+  }
+
+  .planMeta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+  }
+}

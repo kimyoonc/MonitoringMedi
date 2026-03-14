@@ -5,6 +5,10 @@
     "patientId": "P001",
     "totalVisits": 3,
     "dispensingUnit": 30,
+    "medications": [
+      {"name": "암로디핀 5mg", "category": "고혈압", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"},
+      {"name": "메트포르민 500mg", "category": "당뇨", "dailyDose": 2, "unit": "정", "instructions": "아침/저녁 식후 복용"}
+    ],
     "steps": [
       {"stepNumber": 1, "scheduledDate": "2026-01-15", "dispenseDays": 30, "status": "completed", "visitId": "V001"},
       {"stepNumber": 2, "scheduledDate": "2026-02-14", "dispenseDays": 30, "status": "completed", "visitId": "V002"},
@@ -18,6 +22,10 @@
     "patientId": "P002",
     "totalVisits": 2,
     "dispensingUnit": 30,
+    "medications": [
+      {"name": "로수바스타틴 10mg", "category": "고지혈증", "dailyDose": 1, "unit": "정", "instructions": "저녁 식후 복용"},
+      {"name": "세레콕시브 200mg", "category": "관절염", "dailyDose": 1, "unit": "캡슐", "instructions": "아침 식후 복용"}
+    ],
     "steps": [
       {"stepNumber": 1, "scheduledDate": "2026-02-03", "dispenseDays": 30, "status": "completed", "visitId": "V003"},
       {"stepNumber": 2, "scheduledDate": "2026-03-05", "dispenseDays": 30, "status": "scheduled", "visitId": null}
@@ -30,6 +38,9 @@
     "patientId": "P003",
     "totalVisits": 3,
     "dispensingUnit": 30,
+    "medications": [
+      {"name": "레보티록신 50mcg", "category": "갑상선", "dailyDose": 1, "unit": "정", "instructions": "아침 공복 복용"}
+    ],
     "steps": [
       {"stepNumber": 1, "scheduledDate": "2026-02-20", "dispenseDays": 30, "status": "scheduled", "visitId": null},
       {"stepNumber": 2, "scheduledDate": "2026-03-22", "dispenseDays": 30, "status": "pending", "visitId": null},
