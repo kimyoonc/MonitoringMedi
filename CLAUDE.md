@@ -16,23 +16,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```
 .claude/
   agents/          # Claude Code 서브 에이전트 정의
-    code-reviewer.md
-    prd-to-roadmap.md
-    sprint-close.md
-    sprint-planner.md
   skills/          # Claude Code 스킬 정의
-    karpathy-guidelines/
-    writing-plans/
-frontend/          # SPA 프론트엔드 (약사 화면 + 환자 화면)
-backend/           # Mock API 서버 (시나리오별 고정 응답)
+frontend/          # React + TypeScript SPA (Vite)
+  src/
+    api/           # Axios 클라이언트
+    components/
+      common/      # 공통 컴포넌트 (Header, Card, Badge, Button 등)
+      pharmacist/  # 약사 전용 컴포넌트 (InteractionWarning 등)
+    layouts/       # PharmacistLayout, PatientLayout
+    pages/
+      pharmacist/  # 대시보드, 환자 목록/상세, 계획 수립, 방문 기록, 교환 관리
+      patient/     # 방문 일정, 이상 반응 신고
+    routes/        # React Router v6 라우팅 설정
+    styles/        # globals.css (CSS 변수, 브레이크포인트)
+    types/         # 공통 TypeScript 타입 정의
+backend/           # Express.js + TypeScript Mock API 서버
+  src/
+    fixtures/      # 시나리오별 초기 데이터 JSON
+    routes/        # patients, plans, visits, exchanges, interactions, dashboard, notifications
+    store/         # 인메모리 CRUD store (fixtures 기반 초기화)
 docs/
-  PRD.md           # 제품 요구사항 문서
-  ROADMAP.md       # 프로젝트 로드맵 (prd-to-roadmap 에이전트가 생성)
-  plans/           # 구현 계획 문서 (YYYY-MM-DD-<feature-name>.md)
+  PRD.md           # 제품 요구사항 문서 (v2.0)
+  ROADMAP.md       # 프로젝트 로드맵
   sprint/          # 스프린트 문서 및 검증 보고서
     sprint{N}.md
-    sprint{N}/     # 스크린샷, Playwright 보고서
-README.md          # 저장소 소개 및 사용 방법
+    sprint{N}/     # 스크린샷, Playwright 보고서, deploy.md
 CLAUDE.md          # Claude Code 설정 파일
 ```
 
@@ -41,21 +49,24 @@ CLAUDE.md          # Claude Code 설정 파일
 | 영역 | 선택 | 비고 |
 |---|---|---|
 | 플랫폼 | 반응형 웹 | 모바일(375px~) / 태블릿(768px) / PC(1280px) |
-| 프론트엔드 | SPA | 모바일 친화적 UI |
-| 백엔드 | Mock 서버 | 실 DB 없이 시나리오별 고정 데이터로 동작 |
-| 데이터 | 테스트 픽스처 (JSON) | 시나리오별 샘플 데이터 정의 |
+| 프론트엔드 | React 18 + TypeScript (Vite 5) | CSS Modules, React Router v6, Axios |
+| 백엔드 | Express.js + TypeScript | 인메모리 store, fixtures 기반 초기화, tsx watch |
+| 데이터 | 테스트 픽스처 (JSON) + 인메모리 store | 서버 재시작 시 fixtures로 초기화 |
+| 프론트 배포 | Vercel | https://monitoringmedi.vercel.app |
+| 백엔드 배포 | Render | https://monitoringmedi.onrender.com |
+| 소스코드 | GitHub | https://github.com/kimyoonc/MonitoringMedi |
 
 ## 핵심 기능 (PRD 요약)
 
-| 기능 ID | 기능명 | 우선순위 |
-|---|---|---|
-| F-001 | 복약 관리 계획 수립 (방문 일정 자동 계산) | P0 |
-| F-002 | 단계적 조제 관리 | P0 |
-| F-003 | 환자 방문 일정 알림 (D-3, D-1) | P1 |
-| F-004 | 복약 상태 기록 | P0 |
-| F-005 | 의약품 교환/보충 관리 | P1 |
-| F-006 | 약물 상호작용 확인 | P1 |
-| F-007 | 복약 관리 현황 대시보드 | P1 |
+| 기능 ID | 기능명 | 우선순위 | 상태 |
+|---|---|---|---|
+| F-001 | 복약 관리 계획 수립 (방문 일정 자동 계산) | P0 | ✅ 완료 |
+| F-002 | 단계적 조제 관리 | P0 | ✅ 완료 |
+| F-003 | 환자 방문 일정 알림 (D-3, D-1) | P1 | ✅ 완료 |
+| F-004 | 복약 상태 기록 | P0 | ✅ 완료 |
+| F-005 | 의약품 교환/보충 관리 | P1 | ✅ 완료 |
+| F-006 | 약물 상호작용 확인 | P1 | ✅ 완료 |
+| F-007 | 복약 관리 현황 대시보드 | P1 | ✅ 완료 |
 
 ## 에이전트 파일 형식 (`.claude/agents/*.md`)
 
