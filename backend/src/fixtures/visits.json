@@ -1,0 +1,53 @@
+[
+  {
+    "id": "V001",
+    "planId": "PL001",
+    "patientId": "P001",
+    "visitDate": "2026-01-15",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "복약 순응도 양호. 특이사항 없음.",
+    "dispensedMedications": [
+      {"medicationId": "M001", "quantity": 30, "unit": "정"},
+      {"medicationId": "M002", "quantity": 60, "unit": "정"}
+    ],
+    "createdAt": "2026-01-15T10:30:00Z"
+  },
+  {
+    "id": "V002",
+    "planId": "PL001",
+    "patientId": "P001",
+    "visitDate": "2026-02-14",
+    "stepNumber": 2,
+    "adherence": "fair",
+    "adverseReaction": true,
+    "adverseReactionNote": "가끔 어지럼증 호소. 복용 시간 조정 권고.",
+    "storageCondition": "good",
+    "pharmacistNote": "이상 반응 기록. 증상 지속 시 재방문 권고.",
+    "dispensedMedications": [
+      {"medicationId": "M001", "quantity": 30, "unit": "정"},
+      {"medicationId": "M002", "quantity": 60, "unit": "정"}
+    ],
+    "createdAt": "2026-02-14T11:00:00Z"
+  },
+  {
+    "id": "V003",
+    "planId": "PL002",
+    "patientId": "P002",
+    "visitDate": "2026-02-03",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "초기 방문. 복약 지도 완료.",
+    "dispensedMedications": [
+      {"medicationId": "M003", "quantity": 30, "unit": "정"},
+      {"medicationId": "M004", "quantity": 30, "unit": "캡슐"}
+    ],
+    "createdAt": "2026-02-03T14:00:00Z"
+  }
+]

@@ -1,0 +1,34 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 크기 */
+.sm { padding: 6px 12px; font-size: var(--font-size-xs); }
+.md { padding: 10px 20px; font-size: var(--font-size-sm); }
+.lg { padding: 14px 28px; font-size: var(--font-size-base); }
+
+/* 종류 */
+.primary { background: var(--color-primary); color: white; }
+.primary:hover:not(:disabled) { background: var(--color-primary-dark); }
+
+.secondary { background: var(--color-neutral-100); color: var(--color-neutral-700); border: 1px solid var(--color-neutral-300); }
+.secondary:hover:not(:disabled) { background: var(--color-neutral-200); }
+
+.danger { background: var(--color-error); color: white; }
+.danger:hover:not(:disabled) { background: #b91c1c; }
+
+.ghost { background: transparent; color: var(--color-primary); }
+.ghost:hover:not(:disabled) { background: var(--color-primary-light); }
+
+.fullWidth { width: 100%; }

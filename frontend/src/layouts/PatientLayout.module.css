@@ -1,0 +1,18 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  padding: var(--container-padding-mobile);
+  padding-bottom: 72px;
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: var(--container-padding-tablet);
+    padding-bottom: 72px;
+  }
+}

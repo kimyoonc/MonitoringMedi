@@ -1,0 +1,16 @@
+[
+  {
+    "id": "EX001",
+    "visitId": "V003",
+    "patientId": "P002",
+    "exchangeDate": "2026-02-10",
+    "reason": "contamination",
+    "reasonLabel": "오염/훼손",
+    "medications": [
+      {"medicationId": "M003", "name": "로수바스타틴 10mg", "quantity": 15, "unit": "정"}
+    ],
+    "handlingMethod": "폐기 후 신규 조제",
+    "pharmacistNote": "포장 손상으로 일부 정제 오염 확인.",
+    "createdAt": "2026-02-10T14:00:00Z"
+  }
+]

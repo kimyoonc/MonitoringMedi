@@ -1,0 +1,6 @@
+.content { padding-top: var(--spacing-md); display: flex; flex-direction: column; gap: var(--spacing-sm); }
+.patientCard { display: flex; flex-direction: column; gap: var(--spacing-sm); }
+.row { display: flex; justify-content: space-between; align-items: center; }
+.name { font-size: var(--font-size-base); font-weight: 600; }
+.conditions { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); }
+.date { font-size: var(--font-size-xs); color: var(--color-neutral-400); }

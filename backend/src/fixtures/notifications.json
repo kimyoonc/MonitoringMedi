@@ -1,0 +1,22 @@
+[
+  {
+    "id": "N001",
+    "patientId": "P001",
+    "type": "visit_reminder",
+    "daysUntilVisit": 3,
+    "scheduledVisitDate": "2026-03-17",
+    "message": "3일 후 복약 관리 방문 예정입니다. (2026-03-17)",
+    "sentAt": "2026-03-14T09:00:00Z",
+    "isRead": false
+  },
+  {
+    "id": "N002",
+    "patientId": "P002",
+    "type": "visit_reminder",
+    "daysUntilVisit": 1,
+    "scheduledVisitDate": "2026-03-15",
+    "message": "내일 복약 관리 방문 예정입니다. (2026-03-15)",
+    "sentAt": "2026-03-14T09:00:00Z",
+    "isRead": false
+  }
+]

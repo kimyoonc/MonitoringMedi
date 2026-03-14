@@ -1,0 +1,10 @@
+.content { padding-top: var(--spacing-md); display: flex; flex-direction: column; gap: var(--spacing-md); }
+.sectionTitle { font-size: var(--font-size-base); font-weight: 700; margin-bottom: var(--spacing-sm); }
+.info { display: grid; grid-template-columns: auto 1fr; gap: var(--spacing-xs) var(--spacing-md); font-size: var(--font-size-sm); }
+.info dt { color: var(--color-neutral-500); font-weight: 500; }
+.actions { display: flex; flex-direction: column; gap: var(--spacing-sm); }
+.visitCard { margin-bottom: var(--spacing-sm); }
+.visitHeader { display: flex; justify-content: space-between; margin-bottom: var(--spacing-xs); }
+.visitDate { font-weight: 600; }
+.note { font-size: var(--font-size-sm); color: var(--color-neutral-600); }
+.empty { color: var(--color-neutral-400); font-size: var(--font-size-sm); text-align: center; padding: var(--spacing-lg); }

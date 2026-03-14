@@ -1,0 +1,40 @@
+[
+  {
+    "id": "PL001",
+    "prescriptionId": "RX001",
+    "patientId": "P001",
+    "totalVisits": 3,
+    "dispensingUnit": 30,
+    "steps": [
+      {"stepNumber": 1, "scheduledDate": "2026-01-15", "dispenseDays": 30, "status": "completed", "visitId": "V001"},
+      {"stepNumber": 2, "scheduledDate": "2026-02-14", "dispenseDays": 30, "status": "completed", "visitId": "V002"},
+      {"stepNumber": 3, "scheduledDate": "2026-03-16", "dispenseDays": 30, "status": "scheduled", "visitId": null}
+    ],
+    "createdAt": "2026-01-15"
+  },
+  {
+    "id": "PL002",
+    "prescriptionId": "RX002",
+    "patientId": "P002",
+    "totalVisits": 2,
+    "dispensingUnit": 30,
+    "steps": [
+      {"stepNumber": 1, "scheduledDate": "2026-02-03", "dispenseDays": 30, "status": "completed", "visitId": "V003"},
+      {"stepNumber": 2, "scheduledDate": "2026-03-05", "dispenseDays": 30, "status": "scheduled", "visitId": null}
+    ],
+    "createdAt": "2026-02-03"
+  },
+  {
+    "id": "PL003",
+    "prescriptionId": "RX003",
+    "patientId": "P003",
+    "totalVisits": 3,
+    "dispensingUnit": 30,
+    "steps": [
+      {"stepNumber": 1, "scheduledDate": "2026-02-20", "dispenseDays": 30, "status": "scheduled", "visitId": null},
+      {"stepNumber": 2, "scheduledDate": "2026-03-22", "dispenseDays": 30, "status": "pending", "visitId": null},
+      {"stepNumber": 3, "scheduledDate": "2026-04-21", "dispenseDays": 30, "status": "pending", "visitId": null}
+    ],
+    "createdAt": "2026-02-20"
+  }
+]

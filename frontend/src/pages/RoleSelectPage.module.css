@@ -1,0 +1,73 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--container-padding-mobile);
+  background: linear-gradient(135deg, var(--color-primary-light) 0%, white 100%);
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+  font-size: var(--font-size-base);
+  color: var(--color-neutral-500);
+}
+
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+  max-width: 320px;
+}
+
+.roleCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-xl);
+  background: white;
+  box-shadow: var(--shadow-md);
+  border: 2px solid transparent;
+  transition: all 0.2s;
+  gap: var(--spacing-sm);
+}
+
+.roleCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.pharmacist:hover { border-color: var(--color-primary); }
+.patient:hover { border-color: var(--color-success); }
+
+.roleIcon { font-size: 48px; }
+
+.roleName {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-neutral-800);
+}
+
+.roleDesc {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-500);
+}
+
+@media (min-width: 768px) {
+  .roles { flex-direction: row; max-width: 600px; }
+  .roleCard { flex: 1; }
+}

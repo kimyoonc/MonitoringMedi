@@ -1,0 +1,20 @@
+{
+  "date": "2026-03-14",
+  "summary": {
+    "todayVisits": 3,
+    "pendingDispense": 5,
+    "adverseReactions": 1
+  },
+  "todayVisitPatients": [
+    {"patientId": "P001", "name": "김영희", "scheduledTime": "10:00", "stepNumber": 3, "planId": "PL001", "conditions": ["고혈압", "당뇨"]},
+    {"patientId": "P002", "name": "이철수", "scheduledTime": "14:00", "stepNumber": 2, "planId": "PL002", "conditions": ["고지혈증", "관절염"]},
+    {"patientId": "P003", "name": "박순자", "scheduledTime": "16:00", "stepNumber": 1, "planId": "PL003", "conditions": ["갑상선 기능 저하증"]}
+  ],
+  "adverseReactionPatients": [
+    {"patientId": "P003", "name": "박순자", "reportedDate": "2026-03-13", "symptom": "구역감, 두통"}
+  ],
+  "pendingDispensePatients": [
+    {"patientId": "P001", "name": "김영희", "nextVisitDate": "2026-03-16", "stepNumber": 3},
+    {"patientId": "P002", "name": "이철수", "nextVisitDate": "2026-03-05", "stepNumber": 2}
+  ]
+}

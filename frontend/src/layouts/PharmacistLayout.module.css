@@ -1,0 +1,20 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+  padding: var(--container-padding-mobile);
+  padding-bottom: 72px; /* 하단 네비 높이만큼 */
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (min-width: 1280px) {
+  .main {
+    padding: var(--container-padding-desktop);
+    padding-left: calc(var(--container-padding-desktop) + 240px); /* 사이드바 너비 */
+    padding-bottom: var(--container-padding-desktop);
+  }
+}

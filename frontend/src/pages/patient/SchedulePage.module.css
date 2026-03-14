@@ -1,0 +1,11 @@
+.content { padding-top: var(--spacing-md); display: flex; flex-direction: column; gap: var(--spacing-lg); }
+.sectionTitle { font-size: var(--font-size-base); font-weight: 700; margin-bottom: var(--spacing-sm); }
+.notificationCard { display: flex; align-items: flex-start; gap: var(--spacing-sm); }
+.message { font-size: var(--font-size-sm); color: var(--color-neutral-700); }
+.planTitle { font-size: var(--font-size-sm); font-weight: 600; margin-bottom: var(--spacing-md); }
+.steps { display: flex; flex-direction: column; gap: var(--spacing-sm); }
+.step { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-sm); border-radius: var(--radius-md); background: var(--color-neutral-50); }
+.step.completed { background: var(--color-success-light); }
+.step.scheduled { background: var(--color-primary-light); }
+.stepNum { font-weight: 700; width: 30px; }
+.stepDate { flex: 1; font-size: var(--font-size-sm); }
