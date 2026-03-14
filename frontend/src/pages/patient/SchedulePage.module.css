@@ -1,11 +1,186 @@
-.content { padding-top: var(--spacing-md); display: flex; flex-direction: column; gap: var(--spacing-lg); }
-.sectionTitle { font-size: var(--font-size-base); font-weight: 700; margin-bottom: var(--spacing-sm); }
-.notificationCard { display: flex; align-items: flex-start; gap: var(--spacing-sm); }
-.message { font-size: var(--font-size-sm); color: var(--color-neutral-700); }
-.planTitle { font-size: var(--font-size-sm); font-weight: 600; margin-bottom: var(--spacing-md); }
-.steps { display: flex; flex-direction: column; gap: var(--spacing-sm); }
-.step { display: flex; align-items: center; gap: var(--spacing-sm); padding: var(--spacing-sm); border-radius: var(--radius-md); background: var(--color-neutral-50); }
-.step.completed { background: var(--color-success-light); }
-.step.scheduled { background: var(--color-primary-light); }
-.stepNum { font-weight: 700; width: 30px; }
-.stepDate { flex: 1; font-size: var(--font-size-sm); }
+.content {
+  padding-top: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+/* 다음 방문일 배너 */
+.nextVisitBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--color-primary-light, #EBF5FF);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-primary);
+}
+
+.nextVisitBanner.soon {
+  background: var(--color-info-light, #EBF5FF);
+  border-left-color: var(--color-info, #3B82F6);
+}
+
+.nextVisitBanner.urgent {
+  background: #FFF7ED;
+  border-left-color: var(--color-warning, #F59E0B);
+}
+
+.nextVisitLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-500);
+  font-weight: 500;
+}
+
+.nextVisitDate {
+  flex: 1;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-neutral-800);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-neutral-800);
+}
+
+/* 알림 목록 */
+.notificationList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.notificationCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+  transition: opacity 0.2s;
+  min-height: 48px;
+}
+
+.notificationCard.read {
+  opacity: 0.55;
+}
+
+/* D-1 경고 스타일 */
+.notificationCard.cardWarning {
+  border-left: 4px solid var(--color-warning, #F59E0B);
+  background: #FFFBEB;
+}
+
+/* D-3 안내 스타일 */
+.notificationCard.cardInfo {
+  border-left: 4px solid var(--color-info, #3B82F6);
+  background: #EFF6FF;
+}
+
+.notificationHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.unreadDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.message {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-700);
+  line-height: 1.5;
+}
+
+.message.urgent {
+  font-weight: 600;
+  color: var(--color-neutral-900);
+}
+
+.sentAt {
+  font-size: var(--font-size-xs);
+  color: var(--color-neutral-400);
+}
+
+.readLabel {
+  color: var(--color-neutral-400);
+}
+
+/* 복약 일정 */
+.planTitle {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-neutral-700);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  background: var(--color-neutral-50);
+  min-height: 48px;
+}
+
+.step.completed {
+  background: var(--color-success-light, #F0FDF4);
+}
+
+.step.scheduled {
+  background: var(--color-primary-light, #EBF5FF);
+}
+
+.stepNum {
+  font-weight: 700;
+  width: 30px;
+  flex-shrink: 0;
+}
+
+.stepDate {
+  flex: 1;
+  font-size: var(--font-size-sm);
+}
+
+/* PC 2컬럼 레이아웃 */
+@media (min-width: 768px) {
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-lg);
+    align-items: start;
+  }
+
+  .nextVisitBanner {
+    grid-column: 1 / -1;
+  }
+
+  .content > section:first-of-type {
+    grid-column: 1;
+  }
+
+  .content > section:last-of-type {
+    grid-column: 2;
+  }
+}
+
+@media (min-width: 1280px) {
+  .content {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+}

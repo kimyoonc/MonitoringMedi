@@ -149,6 +149,105 @@ export interface Exchange {
   createdAt: string
 }
 
+// 교환 신청 폼
+export interface ExchangeItem {
+  name: string
+  quantity: number
+  unit: string
+}
+
+export interface ExchangeRecord {
+  id: string
+  patientId: string
+  exchangeDate: string
+  reason: string
+  reasonLabel: string
+  medications: ExchangeItem[]
+  handlingMethod: string
+  pharmacistNote: string
+  createdAt: string
+}
+
+export interface ExchangeCreateForm {
+  visitId?: string
+  patientId: string
+  exchangeDate: string
+  reason: 'contamination' | 'damage' | 'expiry'
+  medications: Array<{
+    medicationId?: string
+    name: string
+    quantity: number
+    unit: string
+  }>
+  handlingMethod: string
+  pharmacistNote?: string
+}
+
+// 알림
+export interface Notification {
+  id: string
+  patientId: string
+  type: string
+  daysUntilVisit: number | null
+  scheduledVisitDate: string | null
+  message: string
+  sentAt: string
+  isRead: boolean
+}
+
+// 이상반응 신고
+export interface AdverseReactionReport {
+  id: string
+  patientId: string
+  symptom: string
+  severity: 'mild' | 'moderate' | 'severe'
+  note: string
+  reportedAt: string
+  status: string
+  message: string
+}
+
+// 약물 상호작용
+export interface InteractionWarningItem {
+  drug1: string
+  drug2: string
+  severity: 'high' | 'moderate' | 'low'
+  description: string
+  action: string
+}
+
+export interface InteractionResult {
+  hasInteractions: boolean
+  interactions: InteractionWarningItem[]
+}
+
+// 대시보드 데이터
+export interface DashboardPatient {
+  patientId: string
+  name: string
+  scheduledTime?: string
+  stepNumber: number
+  planId?: string
+  conditions?: string[]
+  reportedDate?: string
+  symptom?: string
+  nextVisitDate?: string
+  daysOverdue?: number
+}
+
+export interface DashboardData {
+  date: string
+  generatedAt?: string
+  summary: {
+    todayVisits: number
+    pendingDispense: number
+    adverseReactions: number
+  }
+  todayVisitPatients: DashboardPatient[]
+  adverseReactionPatients: DashboardPatient[]
+  pendingDispensePatients: DashboardPatient[]
+}
+
 // API 공통 응답
 export interface ApiResponse<T> {
   success: boolean

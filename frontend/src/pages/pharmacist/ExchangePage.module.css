@@ -1,0 +1,274 @@
+.content {
+  padding-top: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* 탭 네비게이션 */
+.tabs {
+  display: flex;
+  border-bottom: 2px solid var(--color-neutral-200);
+  gap: 0;
+}
+
+.tab {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-neutral-500);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.2s, border-color 0.2s;
+  min-height: 48px;
+}
+
+.tab:hover {
+  color: var(--color-primary);
+}
+
+.activeTab {
+  color: var(--color-primary);
+  font-weight: 700;
+  border-bottom-color: var(--color-primary);
+}
+
+/* 교환 신청 폼 */
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* 환자 카드 */
+.patientCard {
+  background: var(--color-primary-light, #EBF5FF);
+}
+
+.patientInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.patientName {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-neutral-900);
+}
+
+.patientId {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-500);
+}
+
+.visitRef {
+  font-size: var(--font-size-xs);
+  color: var(--color-neutral-400);
+  margin-top: var(--spacing-xs);
+  display: block;
+}
+
+/* 필드 제목 */
+.fieldTitle {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-neutral-700);
+  margin-bottom: var(--spacing-sm);
+}
+
+.required {
+  color: var(--color-error);
+}
+
+/* 라디오 그룹 */
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid var(--color-neutral-200);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  transition: border-color 0.2s, background 0.2s;
+  min-height: 48px;
+}
+
+.radioLabel input[type="radio"] {
+  accent-color: var(--color-primary);
+}
+
+.radioSelected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light, #EBF5FF);
+  font-weight: 600;
+}
+
+/* 입력 필드 */
+.input {
+  width: 100%;
+  padding: 10px var(--spacing-md);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+}
+
+.select {
+  padding: 10px var(--spacing-md);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  background: white;
+  outline: none;
+  cursor: pointer;
+}
+
+.select:focus {
+  border-color: var(--color-primary);
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px var(--spacing-md);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  resize: vertical;
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.textarea:focus {
+  border-color: var(--color-primary);
+}
+
+/* 의약품 행 */
+.medicationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.medicationRow {
+  display: grid;
+  grid-template-columns: 1fr 80px 80px auto;
+  gap: var(--spacing-sm);
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.qtyInput {
+  text-align: center;
+}
+
+/* 에러 메시지 */
+.error {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: #FEF2F2;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-error);
+}
+
+/* 교환 이력 */
+.historySection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.historyCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.historyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.historyDate {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-neutral-700);
+}
+
+.historyMeds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.medBadge {
+  padding: 2px 8px;
+  background: var(--color-neutral-100);
+  border-radius: 999px;
+  font-size: var(--font-size-xs);
+  color: var(--color-neutral-700);
+}
+
+.historyMethod {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-600);
+}
+
+.historyNote {
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-500);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* 모바일: 의약품 행 2컬럼 */
+@media (max-width: 480px) {
+  .medicationRow {
+    grid-template-columns: 1fr 70px;
+    row-gap: var(--spacing-xs);
+  }
+
+  .medicationRow .input:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* PC/태블릿 2컬럼 레이아웃 */
+@media (min-width: 768px) {
+  .radioGroup {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .radioLabel {
+    flex: 1;
+    min-width: 140px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}

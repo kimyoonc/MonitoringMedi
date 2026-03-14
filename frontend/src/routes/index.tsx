@@ -7,6 +7,7 @@ import PatientListPage from '@/pages/pharmacist/PatientListPage'
 import PatientDetailPage from '@/pages/pharmacist/PatientDetailPage'
 import PlanCreatePage from '@/pages/pharmacist/PlanCreatePage'
 import VisitRecordPage from '@/pages/pharmacist/VisitRecordPage'
+import ExchangePage from '@/pages/pharmacist/ExchangePage'
 import PatientSchedulePage from '@/pages/patient/SchedulePage'
 import PatientReportPage from '@/pages/patient/ReportPage'
 import NotFoundPage from '@/pages/NotFoundPage'
@@ -21,6 +22,9 @@ export default function AppRoutes() {
         <Route path="patients/:id" element={<PatientDetailPage />} />
         <Route path="patients/:id/plans/new" element={<PlanCreatePage />} />
         <Route path="patients/:patientId/visits/new" element={<VisitRecordPage />} />
+        <Route path="patients/:patientId/exchanges" element={<ExchangePage />} />
+        <Route path="patients/:patientId/exchanges/new" element={<ExchangePage />} />
+        <Route path="exchanges" element={<ExchangePage />} />
         <Route path="plans/new" element={<PlanCreatePage />} />
         <Route path="visits/:id" element={<VisitRecordPage />} />
       </Route>

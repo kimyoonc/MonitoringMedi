@@ -12,5 +12,19 @@
     "handlingMethod": "폐기 후 신규 조제",
     "pharmacistNote": "포장 손상으로 일부 정제 오염 확인.",
     "createdAt": "2026-02-10T14:00:00Z"
+  },
+  {
+    "id": "EX002",
+    "visitId": "V002",
+    "patientId": "P001",
+    "exchangeDate": "2026-02-20",
+    "reason": "expiry",
+    "reasonLabel": "유통기한 임박",
+    "medications": [
+      {"medicationId": "M002", "name": "메트포르민 500mg", "quantity": 20, "unit": "정"}
+    ],
+    "handlingMethod": "전량 교환",
+    "pharmacistNote": "유통기한 2026-03-01 임박으로 전량 교환.",
+    "createdAt": "2026-02-20T15:00:00Z"
   }
 ]

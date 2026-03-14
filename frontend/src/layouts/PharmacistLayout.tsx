@@ -6,6 +6,7 @@ import styles from './PharmacistLayout.module.css'
 const pharmacistNavItems = [
   { path: '/pharmacist', label: '대시보드', icon: '📊', exact: true },
   { path: '/pharmacist/patients', label: '환자 관리', icon: '👥' },
+  { path: '/pharmacist/exchanges', label: '교환 관리', icon: '🔄' },
 ]
 
 export default function PharmacistLayout() {

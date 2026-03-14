@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useNavigate, useSearchParams, useParams } from 'react-router-dom'
 import Header from '@/components/common/Header'
 import Card from '@/components/common/Card'
 import Button from '@/components/common/Button'
+import InteractionWarning from '@/components/pharmacist/InteractionWarning'
 import { api } from '@/api/client'
-import type { Patient, MedicationInput } from '@/types'
+import type { Patient, MedicationInput, InteractionResult } from '@/types'
 import styles from './PlanCreatePage.module.css'
 
 interface StepPreview {
@@ -32,12 +33,44 @@ export default function PlanCreatePage() {
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
+  // 약물 상호작용 관련 상태
+  const [interactionResult, setInteractionResult] = useState<InteractionResult | null>(null)
+  const [interactionConfirmed, setInteractionConfirmed] = useState(false)
+  const [showInteractionWarning, setShowInteractionWarning] = useState(false)
+
   // 환자 목록 로드
   useEffect(() => {
     api.get('/patients').then(res => {
       setPatients(res.data.data || [])
     })
   }, [])
+
+  // 약물 상호작용 체크 (debounce 적용)
+  const checkInteractions = useCallback(async (meds: MedicationInput[]) => {
+    const medicationNames = meds.map(m => m.name.trim()).filter(Boolean)
+    if (medicationNames.length < 2) {
+      setInteractionResult(null)
+      return
+    }
+
+    try {
+      const res = await api.post('/interactions/check', { medications: medicationNames })
+      const result: InteractionResult = res.data.data
+      setInteractionResult(result)
+      // 의약품 변경 시 확인 상태 초기화
+      setInteractionConfirmed(false)
+    } catch {
+      // 상호작용 체크 실패 시 조용히 무시
+    }
+  }, [])
+
+  // 의약품 목록 변경 시 상호작용 자동 체크 (debounce 500ms)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      checkInteractions(medications)
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [medications, checkInteractions])
 
   // 일정 미리보기 계산
   const calcSchedule = () => {
@@ -107,9 +140,8 @@ export default function PlanCreatePage() {
     return true
   }
 
-  // 계획 저장
-  const handleSubmit = async () => {
-    if (!validate()) return
+  // 계획 저장 실행
+  const savePlan = async () => {
     setSubmitting(true)
     setError('')
 
@@ -128,6 +160,19 @@ export default function PlanCreatePage() {
     } finally {
       setSubmitting(false)
     }
+  }
+
+  // 저장 버튼 클릭 핸들러
+  const handleSubmit = async () => {
+    if (!validate()) return
+
+    // 상호작용이 있고 아직 확인하지 않은 경우 경고 표시
+    if (interactionResult?.hasInteractions && !interactionConfirmed) {
+      setShowInteractionWarning(true)
+      return
+    }
+
+    await savePlan()
   }
 
   const selectedPatient = patients.find(p => p.id === selectedPatientId)
@@ -275,6 +320,18 @@ export default function PlanCreatePage() {
               )}
             </div>
           ))}
+
+          {/* 상호작용 체크 결과 인라인 표시 */}
+          {interactionResult && !interactionResult.hasInteractions && medications.filter(m => m.name.trim()).length >= 2 && (
+            <div className={styles.interactionSafe}>
+              ✅ 확인된 약물 상호작용 없음
+            </div>
+          )}
+          {interactionResult?.hasInteractions && interactionConfirmed && (
+            <div className={styles.interactionConfirmed}>
+              ⚠️ 상호작용 경고 확인 완료 — 저장 진행 가능
+            </div>
+          )}
         </Card>
 
         {/* 일정 미리보기 버튼 */}
@@ -314,6 +371,22 @@ export default function PlanCreatePage() {
           {submitting ? '저장 중...' : '계획 확정 및 저장'}
         </Button>
       </div>
+
+      {/* 약물 상호작용 경고 모달 */}
+      {showInteractionWarning && interactionResult?.interactions && (
+        <InteractionWarning
+          interactions={interactionResult.interactions}
+          onConfirm={() => {
+            setInteractionConfirmed(true)
+            setShowInteractionWarning(false)
+            // 확인 후 자동으로 저장 진행
+            savePlan()
+          }}
+          onCancel={() => {
+            setShowInteractionWarning(false)
+          }}
+        />
+      )}
     </div>
   )
 }

@@ -4,9 +4,9 @@
     "patientId": "P001",
     "type": "visit_reminder",
     "daysUntilVisit": 3,
-    "scheduledVisitDate": "2026-03-17",
-    "message": "3일 후 복약 관리 방문 예정입니다. (2026-03-17)",
-    "sentAt": "2026-03-14T09:00:00Z",
+    "scheduledVisitDate": "2026-03-18",
+    "message": "3일 후 복약 관리 방문 예정입니다. (2026-03-18)",
+    "sentAt": "2026-03-15T09:00:00Z",
     "isRead": false
   },
   {
@@ -14,9 +14,29 @@
     "patientId": "P002",
     "type": "visit_reminder",
     "daysUntilVisit": 1,
-    "scheduledVisitDate": "2026-03-15",
-    "message": "내일 복약 관리 방문 예정입니다. (2026-03-15)",
-    "sentAt": "2026-03-14T09:00:00Z",
+    "scheduledVisitDate": "2026-03-16",
+    "message": "내일 복약 관리 방문 예정입니다. (2026-03-16)",
+    "sentAt": "2026-03-15T09:00:00Z",
+    "isRead": false
+  },
+  {
+    "id": "N003",
+    "patientId": "P003",
+    "type": "adverse_reaction",
+    "daysUntilVisit": null,
+    "scheduledVisitDate": null,
+    "message": "이상 반응 신고가 접수되었습니다.",
+    "sentAt": "2026-03-13T14:00:00Z",
+    "isRead": true
+  },
+  {
+    "id": "N004",
+    "patientId": "P001",
+    "type": "visit_reminder",
+    "daysUntilVisit": 1,
+    "scheduledVisitDate": "2026-03-16",
+    "message": "내일 복약 관리 방문 예정입니다. (2026-03-16)",
+    "sentAt": "2026-03-15T09:00:00Z",
     "isRead": false
   }
 ]

@@ -5,6 +5,7 @@
   gap: var(--spacing-lg);
 }
 
+/* 요약 카드 그리드 */
 .summaryGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -18,7 +19,7 @@
 
 .summaryCard.alert {
   border-color: var(--color-error);
-  background: var(--color-error-light);
+  background: var(--color-error-light, #FEF2F2);
 }
 
 .summaryNumber {
@@ -27,7 +28,17 @@
   color: var(--color-primary);
 }
 
-.summaryCard.alert .summaryNumber { color: var(--color-error); }
+.visitNumber {
+  color: var(--color-primary);
+}
+
+.pendingNumber {
+  color: #D97706;
+}
+
+.summaryCard.alert .summaryNumber {
+  color: var(--color-error);
+}
 
 .summaryLabel {
   font-size: var(--font-size-xs);
@@ -35,17 +46,122 @@
   margin-top: 2px;
 }
 
-.section { display: flex; flex-direction: column; gap: var(--spacing-sm); }
-.sectionTitle { font-size: var(--font-size-base); font-weight: 700; color: var(--color-neutral-800); }
+/* 환자 목록 그리드 */
+.patientsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
 
-.list { display: flex; flex-direction: column; gap: var(--spacing-sm); }
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
 
-.patientCard { display: flex; flex-direction: column; gap: var(--spacing-sm); }
-.patientInfo { display: flex; justify-content: space-between; align-items: center; }
-.patientName { font-size: var(--font-size-base); font-weight: 600; }
-.patientMeta { display: flex; align-items: center; gap: var(--spacing-sm); font-size: var(--font-size-sm); color: var(--color-neutral-500); }
-.conditions { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); }
+.sectionTitle {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-neutral-800);
+}
 
-.alertCard { border-left: 4px solid var(--color-error); }
-.symptom { font-size: var(--font-size-sm); color: var(--color-error); margin-top: 2px; }
-.reportDate { font-size: var(--font-size-xs); color: var(--color-neutral-400); }
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+/* 환자 카드 */
+.patientCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.clickable {
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.clickable:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.patientInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.patientName {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-neutral-900);
+}
+
+.patientMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  color: var(--color-neutral-500);
+}
+
+.conditions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.nextVisitDate {
+  font-size: var(--font-size-xs);
+  color: var(--color-neutral-400);
+}
+
+/* 기간 초과 카드 */
+.overdueCard {
+  border-left: 4px solid var(--color-error);
+}
+
+/* 이상 반응 카드 */
+.alertCard {
+  border-left: 4px solid var(--color-error);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.alertCard:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.symptom {
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  margin-top: 2px;
+}
+
+.reportDate {
+  font-size: var(--font-size-xs);
+  color: var(--color-neutral-400);
+}
+
+/* 태블릿: 2컬럼 */
+@media (min-width: 768px) {
+  .patientsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: var(--spacing-lg);
+  }
+}
+
+/* PC: 3컬럼 */
+@media (min-width: 1280px) {
+  .patientsGrid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
