@@ -1,9 +1,9 @@
 # PRD: 장기처방 의약품 분할조제 복약 관리
 
-**문서 버전:** 3.0
+**문서 버전:** 3.1
 **최초 작성일:** 2026-03-14
 **최종 수정일:** 2026-03-15
-**상태:** 구현 완료 (Sprint 1~3 + DB 연동 + UI 개선 + 추가 기능)
+**상태:** 구현 완료 (Sprint 1~3 + DB 연동 + UI 개선 + 추가 기능 + CI 안정화)
 
 ---
 
@@ -177,8 +177,8 @@
 | 백엔드 | Express.js + TypeScript | Prisma v6 ORM, PostgreSQL 연동 |
 | 데이터 | PostgreSQL (Supabase) + Prisma ORM | 영구 저장, seed 데이터 초기화 |
 | 상태 관리 | Zustand | 환자/대시보드/알림 전역 상태 |
-| 테스트 | Vitest + Testing Library | 단위 테스트 21개 |
-| CI/CD | GitHub Actions | 빌드 + 테스트 자동화 |
+| 테스트 | Vitest + Testing Library + Playwright | 단위 테스트 21개, E2E 테스트 (chromium + mobile) |
+| CI/CD | GitHub Actions | 빌드 + 단위 테스트 + E2E 테스트 자동화 |
 | 프론트 배포 | Vercel | GitHub 연동 자동 배포 |
 | 백엔드 배포 | Render | Node.js Web Service (무료 플랜) |
 
@@ -233,7 +233,8 @@
 | 응답 시간 | 주요 조회/기록 작업 3초 이내 | ✅ Supabase PostgreSQL 연동 후 정상 응답 |
 | 보안 | 환자 개인정보 및 처방 정보 접근 권한 관리 | ⬜ 인증 미구현 (향후 과제) |
 | 법적 준수 | 개인정보보호법, 의약관계법령 준수 | ⬜ 실서비스 전 검토 필요 |
-| 테스트 커버리지 | 주요 시나리오별 Mock 케이스 100% 정의 | ✅ TC-01~TC-08 전 케이스 구현 |
+| 테스트 커버리지 | 주요 시나리오별 Mock 케이스 100% 정의 | ✅ TC-01~TC-10 전 케이스 구현 |
+| E2E 자동화 | Playwright chromium + mobile(375px) CI 자동 실행 | ✅ GitHub Actions 파이프라인 통합 |
 
 ---
 
@@ -327,4 +328,5 @@
 | DB 연동 | PostgreSQL (Supabase) + Prisma v6 ORM, 인메모리 store 제거 | ✅ 완료 (2026-03-15) |
 | UI 개선 | Apple HIG 디자인 시스템 전면 적용, 제품명 변경 | ✅ 완료 (2026-03-15) |
 | 기능 추가 | F-008 복약 순응도 차트, F-009 방문 캘린더 뷰 | ✅ 완료 (2026-03-15) |
+| CI 안정화 | Playwright E2E 9개 실패 수정 (mobile → chromium, sprint1 트리거 제거) | ✅ 완료 (2026-03-15) |
 | 향후 과제 | 사용자 인증/권한 관리, DUR 시스템 연동, 다중 약국 지원, Web Push 알림 | ⬜ 미정 |

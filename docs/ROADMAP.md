@@ -1,9 +1,9 @@
 # ROADMAP: 장기처방 의약품 분할조제 복약 관리
 
-**문서 버전:** 3.0
+**문서 버전:** 3.1
 **최초 작성일:** 2026-03-14
 **최종 수정일:** 2026-03-15
-**기반 문서:** docs/PRD.md v3.0
+**기반 문서:** docs/PRD.md v3.1
 
 ---
 
@@ -31,7 +31,7 @@
 | 상태 관리 | Zustand | 환자/대시보드/알림 전역 상태 |
 | 백엔드 | Express.js + TypeScript | Prisma v6 ORM, PostgreSQL 연동 |
 | 데이터베이스 | PostgreSQL (Supabase) | 영구 저장, seed 데이터 초기화 |
-| 테스트 | Vitest + Testing Library | 단위 테스트 21개 |
+| 테스트 | Vitest + Testing Library + Playwright | 단위 테스트 21개, E2E 테스트 (chromium + mobile) |
 | CI/CD | GitHub Actions | 빌드 + 테스트 자동화 |
 | 프론트 배포 | Vercel | GitHub 연동 자동 배포 |
 | 백엔드 배포 | Render | Node.js Web Service (무료 플랜) |
@@ -56,9 +56,9 @@
 
 ```
 Sprint 1         Sprint 2         Sprint 3         Post-Sprint
-[프로젝트 셋업]   [P0 핵심 기능]   [P1 확장 기능]   [DB연동 + UI + 추가기능]
+[프로젝트 셋업]   [P0 핵심 기능]   [P1 확장 기능]   [DB연동 + UI + 추가기능 + CI]
 인프라 구축       F-001,002,004    F-003,005,006    PostgreSQL, Apple HIG,
-                                  007              F-008, F-009
+                                  007              F-008, F-009, E2E 안정화
      ↓                ↓                ↓                 ↓
   ✅ 완료          ✅ 완료          ✅ 완료           ✅ 완료
  2026-03-15      2026-03-15      2026-03-15        2026-03-15
@@ -73,6 +73,7 @@ Sprint 1         Sprint 2         Sprint 3         Post-Sprint
 | M5: DB 연동 | 추가 작업 | PostgreSQL (Supabase) + Prisma v6, 인메모리 store 제거, seed 데이터 | ✅ 완료 |
 | M6: UI 개선 | 추가 작업 | Apple HIG 디자인 시스템 전면 적용, 제품명 변경, 대시보드 아이콘 | ✅ 완료 |
 | M7: 기능 추가 | 추가 작업 | F-008 복약 순응도 차트, F-009 방문 캘린더 뷰, `/api/calendar` 엔드포인트 | ✅ 완료 |
+| M8: CI 안정화 | 추가 작업 | Playwright E2E 9개 실패 수정, mobile → chromium 전환, sprint1 트리거 제거 | ✅ 완료 |
 
 ---
 
@@ -159,6 +160,14 @@ Sprint 1         Sprint 2         Sprint 3         Post-Sprint
 | F-008 복약 순응도 차트 | 순수 SVG 막대 차트, 방문 차수별 추이, 요약 통계, PatientDetailPage 삽입 | ✅ |
 | F-009 방문 캘린더 뷰 | GET /api/calendar 엔드포인트, 월별 달력, 날짜 클릭 패널, 환자 상세 이동 | ✅ |
 
+#### M8: CI 안정화
+
+| 작업 | 상태 |
+|---|---|
+| Playwright mobile 프로젝트 `browserName: 'chromium'` 지정 (WebKit 설치 불필요) | ✅ |
+| CI workflow에서 삭제된 `sprint1` 브랜치 push 트리거 제거 | ✅ |
+| E2E 테스트 9개 실패 → 전 케이스 통과 | ✅ |
+
 ---
 
 ## 4. 기능별 진행 현황
@@ -175,11 +184,12 @@ Sprint 1         Sprint 2         Sprint 3         Post-Sprint
 | F-007 | 복약 관리 현황 대시보드 | P1 | Sprint 3 | ✅ 완료 |
 | 테스트 | Vitest 단위 테스트 21개 | - | 추가 작업 | ✅ 완료 |
 | 상태관리 | Zustand 스토어 3개 | - | 추가 작업 | ✅ 완료 |
-| CI/CD | GitHub Actions 파이프라인 | - | 추가 작업 | ✅ 완료 |
+| CI/CD | GitHub Actions 파이프라인 (빌드 + 단위 + E2E) | - | 추가 작업 | ✅ 완료 |
 | DB | PostgreSQL (Supabase) + Prisma v6 | - | 추가 작업 | ✅ 완료 |
 | UI | Apple HIG 디자인 시스템 | - | 추가 작업 | ✅ 완료 |
 | F-008 | 복약 순응도 차트 | P2 | 추가 작업 | ✅ 완료 |
 | F-009 | 방문 캘린더 뷰 | P2 | 추가 작업 | ✅ 완료 |
+| CI E2E | Playwright E2E 안정화 (mobile chromium, sprint1 트리거 제거) | - | 추가 작업 | ✅ 완료 |
 
 ---
 
