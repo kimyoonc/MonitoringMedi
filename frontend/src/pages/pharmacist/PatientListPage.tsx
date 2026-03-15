@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '@/components/common/Header'
 import Card from '@/components/common/Card'
@@ -7,15 +7,8 @@ import Loading from '@/components/common/Loading'
 import EmptyState from '@/components/common/EmptyState'
 import Button from '@/components/common/Button'
 import { api } from '@/api/client'
+import { usePatientStore } from '@/store'
 import styles from './PatientListPage.module.css'
-
-interface Patient {
-  id: string
-  name: string
-  conditions: string[]
-  status: string
-  registeredAt: string
-}
 
 const statusMap: Record<string, { label: string; variant: 'success' | 'error' | 'neutral' }> = {
   active: { label: '정상', variant: 'success' },
@@ -24,15 +17,17 @@ const statusMap: Record<string, { label: string; variant: 'success' | 'error' | 
 }
 
 export default function PatientListPage() {
-  const [patients, setPatients] = useState<Patient[]>([])
-  const [loading, setLoading] = useState(true)
+  const { patients, loading, setPatients, setLoading } = usePatientStore()
   const navigate = useNavigate()
 
   useEffect(() => {
+    // store에 이미 환자 목록이 있으면 API 호출 스킵 (캐싱 효과)
+    if (patients.length > 0) return
+    setLoading(true)
     api.get('/patients').then(res => {
-      setPatients(res.data.data)
+      setPatients(res.data.data || [])
       setLoading(false)
-    })
+    }).catch(() => setLoading(false))
   }, [])
 
   if (loading) return <Loading />

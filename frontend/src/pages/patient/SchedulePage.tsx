@@ -6,6 +6,7 @@ import Badge from '@/components/common/Badge'
 import Loading from '@/components/common/Loading'
 import EmptyState from '@/components/common/EmptyState'
 import { api } from '@/api/client'
+import { useNotificationStore } from '@/store'
 import type { Notification } from '@/types'
 import styles from './SchedulePage.module.css'
 
@@ -34,7 +35,7 @@ function calcDaysUntil(dateStr: string): number {
 
 export default function SchedulePage() {
   const { patientId } = useParams<{ patientId: string }>()
-  const [notifications, setNotifications] = useState<Notification[]>([])
+  const { notifications, setNotifications, markAsRead } = useNotificationStore()
   const [plans, setPlans] = useState<Plan[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -47,6 +48,7 @@ export default function SchedulePage() {
       api.get(`/patients/${patientId}/notifications`),
       api.get(`/plans?patientId=${patientId}`),
     ]).then(([nRes, pRes]) => {
+      // store에 알림 목록 저장
       setNotifications(nRes.data.data || [])
       // API가 배열 또는 단일 객체를 반환할 수 있으므로 처리
       const planData = pRes.data.data
@@ -63,10 +65,8 @@ export default function SchedulePage() {
       await api.post(`/patients/${patientId}/notifications/read`, {
         notificationId: notification.id,
       })
-      // 로컬 상태 업데이트
-      setNotifications(prev =>
-        prev.map(n => n.id === notification.id ? { ...n, isRead: true } : n)
-      )
+      // store의 markAsRead로 전역 상태 업데이트
+      markAsRead(notification.id)
     } catch {
       // 읽음 처리 실패 시 조용히 무시 (UX 방해 없도록)
     }

@@ -1,21 +1,16 @@
 import { create } from 'zustand'
-
-interface DashboardSummary {
-  todayVisits: number
-  pendingDispense: number
-  adverseReactions: number
-}
+import type { DashboardData } from '@/types'
 
 interface DashboardState {
-  summary: DashboardSummary | null
-  lastUpdated: string | null
-  setSummary: (summary: DashboardSummary) => void
-  setLastUpdated: (date: string) => void
+  data: DashboardData | null
+  loading: boolean
+  setData: (data: DashboardData) => void
+  setLoading: (loading: boolean) => void
 }
 
 export const useDashboardStore = create<DashboardState>((set) => ({
-  summary: null,
-  lastUpdated: null,
-  setSummary: (summary) => set({ summary }),
-  setLastUpdated: (date) => set({ lastUpdated: date }),
+  data: null,
+  loading: false,
+  setData: (data) => set({ data }),
+  setLoading: (loading) => set({ loading }),
 }))

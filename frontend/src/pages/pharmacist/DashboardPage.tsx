@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '@/components/common/Header'
 import Card from '@/components/common/Card'
@@ -6,15 +6,17 @@ import Badge from '@/components/common/Badge'
 import Loading from '@/components/common/Loading'
 import EmptyState from '@/components/common/EmptyState'
 import { api } from '@/api/client'
-import type { DashboardData } from '@/types'
+import { useDashboardStore } from '@/store'
 import styles from './DashboardPage.module.css'
 
 export default function DashboardPage() {
-  const [data, setData] = useState<DashboardData | null>(null)
-  const [loading, setLoading] = useState(true)
+  const { data, loading, setData, setLoading } = useDashboardStore()
   const navigate = useNavigate()
 
   useEffect(() => {
+    // store에 이미 데이터가 있으면 API 호출 스킵 (캐싱 효과)
+    if (data !== null) return
+    setLoading(true)
     api.get('/dashboard').then(res => {
       setData(res.data.data)
       setLoading(false)
