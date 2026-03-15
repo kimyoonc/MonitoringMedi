@@ -151,6 +151,14 @@
   border-left: 3px solid var(--color-error, #ef4444);
 }
 
+/* 인라인 필드 에러 메시지 */
+.fieldError {
+  display: block;
+  color: var(--color-error, #ef4444);
+  font-size: var(--font-size-xs, 12px);
+  margin-top: var(--spacing-xs, 4px);
+}
+
 /* 약물 상호작용 안전 표시 */
 .interactionSafe {
   margin-top: var(--spacing-sm);

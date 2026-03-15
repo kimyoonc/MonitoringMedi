@@ -6,6 +6,32 @@
 
 ---
 
+## 자동 검증 완료 항목
+
+### Vitest 단위 테스트
+- ✅ planCalculator.test.ts — 5/5 통과
+- ✅ canDispense.test.ts — 4/4 통과
+- ✅ interactionCheck.test.ts — 5/5 통과
+- ✅ adherenceStatus.test.ts — 7/7 통과
+- ✅ **총 21/21 테스트 통과**
+
+### GitHub Actions CI
+- ✅ 프론트엔드 빌드: `npm run build` 성공 (128 modules)
+- ✅ 백엔드 빌드: `tsc` 성공
+- ✅ CI 파이프라인: `.github/workflows/ci.yml`
+
+### 배포 검증 (Live API)
+- ✅ `GET https://monitoringmedi.onrender.com/api/patients` → 환자 3명 응답
+- ✅ `GET https://monitoringmedi.onrender.com/api/dashboard` → 집계 데이터 응답
+- ✅ `GET https://monitoringmedi.onrender.com/api/notifications?patientId=P001` → 알림 4건 응답
+- ✅ PostgreSQL (Supabase) 연동: 데이터 영구 저장 확인
+
+## 수동 검증 필요 항목
+- ⬜ 실제 브라우저에서 TC-01~TC-08 전체 플로우 확인
+- ⬜ 모바일(375px) 실기기 터치 이벤트 확인
+
+---
+
 ## 자동 검증 완료
 
 ### Mock API 응답 검증

@@ -3,7 +3,9 @@ import { useNavigate, useSearchParams, useParams } from 'react-router-dom'
 import Header from '@/components/common/Header'
 import Card from '@/components/common/Card'
 import Button from '@/components/common/Button'
+import Toast from '@/components/common/Toast'
 import InteractionWarning from '@/components/pharmacist/InteractionWarning'
+import { useToast } from '@/hooks/useToast'
 import { api } from '@/api/client'
 import type { Patient, MedicationInput, InteractionResult } from '@/types'
 import styles from './PlanCreatePage.module.css'
@@ -32,6 +34,9 @@ export default function PlanCreatePage() {
   const [preview, setPreview] = useState<StepPreview[]>([])
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
+
+  // Toast 알림 훅
+  const { toast, showToast, hideToast } = useToast()
 
   // 약물 상호작용 관련 상태
   const [interactionResult, setInteractionResult] = useState<InteractionResult | null>(null)
@@ -119,14 +124,36 @@ export default function PlanCreatePage() {
     )
   }
 
+  // 의약품 인라인 에러 상태
+  const [medicationErrors, setMedicationErrors] = useState<Record<number, string>>({})
+  const [totalDaysError, setTotalDaysError] = useState('')
+
   // 유효성 검사
   const validate = (): boolean => {
-    if (!selectedPatientId) {
-      setError('환자를 선택해주세요.')
+    // 의약품 이름 검사
+    const medErrors: Record<number, string> = {}
+    medications.forEach((med, idx) => {
+      if (!med.name.trim()) {
+        medErrors[idx] = '의약품 이름을 입력해주세요.'
+      }
+    })
+    setMedicationErrors(medErrors)
+    if (Object.keys(medErrors).length > 0) {
+      showToast('의약품 이름을 모두 입력해주세요.', 'error')
       return false
     }
+
+    // 총 처방 기간 검사
     if (totalDays <= 0) {
-      setError('총 처방 기간은 1일 이상이어야 합니다.')
+      setTotalDaysError('총 처방 기간은 1일 이상이어야 합니다.')
+      showToast('총 처방 기간은 1일 이상이어야 합니다.', 'error')
+      return false
+    }
+    setTotalDaysError('')
+
+    if (!selectedPatientId) {
+      setError('환자를 선택해주세요.')
+      showToast('환자를 선택해주세요.', 'error')
       return false
     }
     if (visitCount < 1) {
@@ -153,10 +180,12 @@ export default function PlanCreatePage() {
         startDate,
         medications: medications.filter(m => m.name.trim() !== ''),
       })
-      navigate(`/pharmacist/patients/${selectedPatientId}`)
+      showToast('복약 관리 계획이 등록되었습니다.', 'success')
+      setTimeout(() => navigate(`/pharmacist/patients/${selectedPatientId}`), 1200)
     } catch (err: any) {
-      const msg = err.response?.data?.error || '계획 저장 중 오류가 발생했습니다.'
+      const msg = err.response?.data?.error || '계획 등록 중 오류가 발생했습니다.'
       setError(msg)
+      showToast('계획 등록 중 오류가 발생했습니다.', 'error')
     } finally {
       setSubmitting(false)
     }
@@ -220,9 +249,10 @@ export default function PlanCreatePage() {
                 className={styles.input}
                 type="number"
                 value={totalDays}
-                onChange={e => setTotalDays(+e.target.value)}
+                onChange={e => { setTotalDays(+e.target.value); setTotalDaysError('') }}
                 min={1}
               />
+              {totalDaysError && <span className={styles.fieldError}>{totalDaysError}</span>}
             </label>
             <label className={styles.label}>
               방문 횟수
@@ -260,9 +290,15 @@ export default function PlanCreatePage() {
                   <input
                     className={styles.input}
                     value={med.name}
-                    onChange={e => updateMedication(idx, 'name', e.target.value)}
+                    onChange={e => {
+                      updateMedication(idx, 'name', e.target.value)
+                      if (e.target.value.trim()) {
+                        setMedicationErrors(prev => { const next = { ...prev }; delete next[idx]; return next })
+                      }
+                    }}
                     placeholder="예: 암로디핀 5mg"
                   />
+                  {medicationErrors[idx] && <span className={styles.fieldError}>{medicationErrors[idx]}</span>}
                 </label>
                 <label className={styles.label}>
                   분류
@@ -385,6 +421,16 @@ export default function PlanCreatePage() {
           onCancel={() => {
             setShowInteractionWarning(false)
           }}
+        />
+      )}
+
+      {/* Toast 알림 */}
+      {toast && (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onClose={hideToast}
         />
       )}
     </div>

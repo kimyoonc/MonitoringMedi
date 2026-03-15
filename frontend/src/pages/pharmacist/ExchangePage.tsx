@@ -6,6 +6,8 @@ import Badge from '@/components/common/Badge'
 import Button from '@/components/common/Button'
 import Loading from '@/components/common/Loading'
 import EmptyState from '@/components/common/EmptyState'
+import Toast from '@/components/common/Toast'
+import { useToast } from '@/hooks/useToast'
 import { api } from '@/api/client'
 import type { ExchangeRecord, Patient } from '@/types'
 import styles from './ExchangePage.module.css'
@@ -53,6 +55,9 @@ export default function ExchangePage() {
   const [pharmacistNote, setPharmacistNote] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [formError, setFormError] = useState('')
+
+  // Toast 알림 훅
+  const { toast, showToast, hideToast } = useToast()
 
   // 교환 이력 상태
   const [exchanges, setExchanges] = useState<ExchangeRecord[]>([])
@@ -114,10 +119,12 @@ export default function ExchangePage() {
         handlingMethod,
         pharmacistNote,
       })
-      navigate(`/pharmacist/patients/${patientId}`)
+      showToast('교환 신청이 접수되었습니다.', 'success')
+      setTimeout(() => navigate(`/pharmacist/patients/${patientId}`), 1200)
     } catch (err: any) {
       const msg = err.response?.data?.error || '교환 신청 중 오류가 발생했습니다.'
       setFormError(msg)
+      showToast('교환 신청 중 오류가 발생했습니다.', 'error')
     } finally {
       setSubmitting(false)
     }
@@ -299,6 +306,16 @@ export default function ExchangePage() {
           </div>
         )}
       </div>
+
+      {/* Toast 알림 */}
+      {toast && (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onClose={hideToast}
+        />
+      )}
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Header from '@/components/common/Header'
 import Card from '@/components/common/Card'
 import Button from '@/components/common/Button'
@@ -7,10 +7,9 @@ import { api } from '@/api/client'
 import type { AdverseReactionReport } from '@/types'
 import styles from './ReportPage.module.css'
 
-const PATIENT_ID = 'P003'
-
 export default function ReportPage() {
   const navigate = useNavigate()
+  const { patientId } = useParams<{ patientId: string }>()
   const [form, setForm] = useState({ symptom: '', severity: 'mild', note: '' })
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -27,8 +26,8 @@ export default function ReportPage() {
     setError('')
 
     try {
-      const res = await api.post(`/patients/${PATIENT_ID}/adverse-reactions`, {
-        patientId: PATIENT_ID,
+      const res = await api.post(`/patients/${patientId}/adverse-reactions`, {
+        patientId,
         symptom: form.symptom,
         severity: form.severity,
         note: form.note,
@@ -37,7 +36,7 @@ export default function ReportPage() {
 
       setReportResult(res.data.data)
       setSubmitted(true)
-      setTimeout(() => navigate('/patient'), 2000)
+      setTimeout(() => navigate(`/patient/${patientId}`), 2000)
     } catch {
       setError('신고 접수 중 오류가 발생했습니다. 다시 시도해주세요.')
     } finally {

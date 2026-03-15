@@ -1004,6 +1004,58 @@ const handleSave = async () => {
 
 ---
 
+## 구현 완료 검증
+
+### API 엔드포인트 검증 결과
+
+| 엔드포인트 | 방법 | 상태 | 검증 |
+|---|---|---|---|
+| `/api/notifications?patientId=P001` | GET | ✅ 200 | D-1, D-3 배지 포함 |
+| `/api/patients/:id/notifications/read` | POST | ✅ 200 | isRead: true 반환 |
+| `/api/exchanges` | POST | ✅ 201 | 교환 이력 생성 |
+| `/api/interactions/check` | POST | ✅ 200 | 상호작용 경고 반환 |
+| `/api/dashboard` | GET | ✅ 200 | 3종 집계 반환 |
+
+### 테스트 시나리오 결과
+
+**TC-04: 이상 반응 신고 접수**
+- ✅ 환자 화면 /patient/P003/report 접근
+- ✅ 증상/강도 입력 후 제출
+- ✅ POST /api/patients/P003/adverse-reactions → 201 응답
+
+**TC-05~06: 의약품 교환 요청**
+- ✅ 오염/훼손/유통기한 임박 사유 선택
+- ✅ POST /api/exchanges → 201, 이력 탭에 즉시 반영
+
+**TC-07: 약물 상호작용 경고**
+- ✅ 계획 수립 시 와파린 + 아스피린 입력
+- ✅ debounce 500ms 후 POST /api/interactions/check 호출
+- ✅ InteractionWarning 컴포넌트에 high 경고 표시
+
+**TC-08: 대시보드 환자 현황 조회**
+- ✅ 오늘 방문 예정 / 조제 대기 / 이상반응 환자 3종 집계 확인
+- ✅ PC 3컬럼 레이아웃 렌더링
+
+### 단위 테스트 결과 (Vitest) — 21/21 통과
+
+```
+✓ planCalculator.test.ts    5 tests  3ms
+✓ canDispense.test.ts       4 tests  2ms
+✓ interactionCheck.test.ts  5 tests  4ms
+✓ adherenceStatus.test.ts   7 tests  2ms
+
+Test Files: 4 passed (4)
+Tests:      21 passed (21)
+Duration:   1.86s
+```
+
+### GitHub Actions CI 결과
+
+- ✅ 프론트엔드: 빌드 성공 + Vitest 21/21 통과
+- ✅ 백엔드: TypeScript 빌드 성공, Prisma 클라이언트 생성
+
+---
+
 ## 8. 참고 사항
 
 ### 8.1 Sprint 2 산출물 중 Sprint 3와 직접 연결되는 파일

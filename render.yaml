@@ -8,4 +8,8 @@ services:
     envVars:
       - key: PORT
         value: 3000
+      - key: DATABASE_URL
+        value: postgresql://USER:PASSWORD@HOST:PORT/DATABASE?pgbouncer=true
+      - key: DIRECT_URL
+        value: postgresql://USER:PASSWORD@HOST:PORT/DATABASE
     plan: free

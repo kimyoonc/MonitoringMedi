@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import Header from '@/components/common/Header'
 import Card from '@/components/common/Card'
 import Badge from '@/components/common/Badge'
@@ -22,8 +23,6 @@ interface Plan {
   steps: PlanStep[]
 }
 
-const PATIENT_ID = 'P001'
-
 // 다음 방문일까지 남은 일수 계산
 function calcDaysUntil(dateStr: string): number {
   const today = new Date()
@@ -34,27 +33,34 @@ function calcDaysUntil(dateStr: string): number {
 }
 
 export default function SchedulePage() {
+  const { patientId } = useParams<{ patientId: string }>()
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [plans, setPlans] = useState<Plan[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (!patientId) {
+      setLoading(false)
+      return
+    }
     Promise.all([
-      api.get(`/patients/${PATIENT_ID}/notifications`),
-      api.get('/plans/PL001'),
+      api.get(`/patients/${patientId}/notifications`),
+      api.get(`/plans?patientId=${patientId}`),
     ]).then(([nRes, pRes]) => {
       setNotifications(nRes.data.data || [])
-      setPlans([pRes.data.data])
+      // API가 배열 또는 단일 객체를 반환할 수 있으므로 처리
+      const planData = pRes.data.data
+      setPlans(Array.isArray(planData) ? planData : planData ? [planData] : [])
       setLoading(false)
     }).catch(() => setLoading(false))
-  }, [])
+  }, [patientId])
 
   // 알림 읽음 처리
   const handleMarkRead = async (notification: Notification) => {
     if (notification.isRead) return
 
     try {
-      await api.post(`/patients/${PATIENT_ID}/notifications/read`, {
+      await api.post(`/patients/${patientId}/notifications/read`, {
         notificationId: notification.id,
       })
       // 로컬 상태 업데이트

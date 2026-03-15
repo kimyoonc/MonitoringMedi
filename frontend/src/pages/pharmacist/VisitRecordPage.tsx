@@ -5,6 +5,8 @@ import Card from '@/components/common/Card'
 import Button from '@/components/common/Button'
 import Loading from '@/components/common/Loading'
 import Badge from '@/components/common/Badge'
+import Toast from '@/components/common/Toast'
+import { useToast } from '@/hooks/useToast'
 import { api } from '@/api/client'
 import type { Plan, Visit } from '@/types'
 import styles from './VisitRecordPage.module.css'
@@ -37,6 +39,9 @@ export default function VisitRecordPage() {
   const [submitting, setSubmitting] = useState(false)
   const [errorModal, setErrorModal] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
+
+  // Toast 알림 훅
+  const { toast, showToast, hideToast } = useToast()
 
   // 폼 상태
   const [form, setForm] = useState({
@@ -195,6 +200,7 @@ export default function VisitRecordPage() {
         // 조제 불가 오류
         const errCode = dispenseRes.data.code
         if (errCode === 'PREVIOUS_VISIT_REQUIRED') {
+          showToast('이전 방문 기록을 먼저 완료해주세요.', 'error')
           setErrorModal('이전 방문 기록이 확인되지 않아 조제를 진행할 수 없습니다.\n복약 기록은 저장되었습니다.')
         } else {
           setErrorModal(dispenseRes.data.error || '조제 처리 중 오류가 발생했습니다.')
@@ -203,13 +209,16 @@ export default function VisitRecordPage() {
         return
       }
 
+      showToast('방문 기록이 저장되었습니다.', 'success')
+      setTimeout(() => showToast('조제가 완료되었습니다.', 'success'), 400)
       setSuccessMsg('방문 기록이 저장되고 조제가 완료되었습니다.')
       setTimeout(() => {
         navigate(`/pharmacist/patients/${patientId}`)
-      }, 1200)
+      }, 1600)
     } catch (err: any) {
       const data = err.response?.data
       if (data?.code === 'PREVIOUS_VISIT_REQUIRED') {
+        showToast('이전 방문 기록을 먼저 완료해주세요.', 'error')
         setErrorModal('이전 방문 기록이 확인되지 않아 조제를 진행할 수 없습니다.\n복약 기록은 저장되었습니다.')
       } else {
         setErrorModal(data?.error || '저장 중 오류가 발생했습니다.')
@@ -353,6 +362,16 @@ export default function VisitRecordPage() {
             <Button onClick={() => setErrorModal('')} fullWidth>확인</Button>
           </div>
         </div>
+      )}
+
+      {/* Toast 알림 */}
+      {toast && (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onClose={hideToast}
+        />
       )}
     </div>
   )
