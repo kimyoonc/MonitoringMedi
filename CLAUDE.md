@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - 핵심 사용자: **약사** (관리/조제), **환자** (일정 확인/이상 반응 신고)
 - 플랫폼: 반응형 웹 (모바일 375px ~ PC 1280px)
-- 백엔드: Mock API 서버 (테스트 케이스 기반, 실 DB 없음)
+- 백엔드: Express.js + TypeScript, Prisma v6 ORM, PostgreSQL (Supabase)
 - 상세 요구사항: `PRD.md` 참고
 
 ## 저장소 구조
@@ -30,11 +30,14 @@ frontend/          # React + TypeScript SPA (Vite)
     routes/        # React Router v6 라우팅 설정
     styles/        # globals.css (CSS 변수, 브레이크포인트)
     types/         # 공통 TypeScript 타입 정의
-backend/           # Express.js + TypeScript Mock API 서버
+backend/           # Express.js + TypeScript API 서버 (Prisma + PostgreSQL)
+  prisma/
+    schema.prisma  # Prisma 스키마 (8개 모델)
+    seed.ts        # fixtures → DB 초기 데이터 삽입
   src/
-    fixtures/      # 시나리오별 초기 데이터 JSON
+    fixtures/      # 시나리오별 초기 데이터 JSON (seed 용도)
+    lib/           # Prisma Client 싱글톤
     routes/        # patients, plans, visits, exchanges, interactions, dashboard, notifications
-    store/         # 인메모리 CRUD store (fixtures 기반 초기화)
 docs/
   PRD.md           # 제품 요구사항 문서 (v2.0)
   ROADMAP.md       # 프로젝트 로드맵
@@ -50,8 +53,8 @@ CLAUDE.md          # Claude Code 설정 파일
 |---|---|---|
 | 플랫폼 | 반응형 웹 | 모바일(375px~) / 태블릿(768px) / PC(1280px) |
 | 프론트엔드 | React 18 + TypeScript (Vite 5) | CSS Modules, React Router v6, Axios |
-| 백엔드 | Express.js + TypeScript | 인메모리 store, fixtures 기반 초기화, tsx watch |
-| 데이터 | 테스트 픽스처 (JSON) + 인메모리 store | 서버 재시작 시 fixtures로 초기화 |
+| 백엔드 | Express.js + TypeScript | Prisma v6 ORM, tsx watch |
+| 데이터베이스 | PostgreSQL (Supabase) | Prisma 스키마 8개 모델, seed 초기화 |
 | 프론트 배포 | Vercel | https://monitoringmedi.vercel.app |
 | 백엔드 배포 | Render | https://monitoringmedi.onrender.com |
 | 소스코드 | GitHub | https://github.com/kimyoonc/MonitoringMedi |

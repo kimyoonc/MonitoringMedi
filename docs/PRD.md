@@ -1,9 +1,9 @@
 # PRD: 장기 처방 의약품 복약 관리 시스템
 
-**문서 버전:** 2.0
+**문서 버전:** 2.1
 **최초 작성일:** 2026-03-14
 **최종 수정일:** 2026-03-15
-**상태:** 구현 완료 (Sprint 1~3)
+**상태:** 구현 완료 (Sprint 1~3 + PostgreSQL DB 연동)
 
 ---
 
@@ -159,8 +159,11 @@
 |---|---|---|
 | 플랫폼 | 반응형 웹 (Responsive Web) | 모바일(375px~) / 태블릿(768px) / PC(1280px) |
 | 프론트엔드 | React 18 + TypeScript (Vite 5) | SPA, CSS Modules, React Router v6 |
-| 백엔드 | Express.js + TypeScript | 인메모리 CRUD, fixtures 기반 Mock 데이터 |
-| 데이터 | 테스트 픽스처 (JSON) + 인메모리 store | 서버 재시작 시 fixtures로 초기화 |
+| 백엔드 | Express.js + TypeScript | Prisma v6 ORM, PostgreSQL 연동 |
+| 데이터 | PostgreSQL (Supabase) + Prisma ORM | 영구 저장, seed 데이터 초기화 |
+| 상태 관리 | Zustand | 환자/대시보드/알림 전역 상태 |
+| 테스트 | Vitest + Testing Library | 단위 테스트 21개 |
+| CI/CD | GitHub Actions | 빌드 + 테스트 자동화 |
 | 프론트 배포 | Vercel | GitHub 연동 자동 배포 |
 | 백엔드 배포 | Render | Node.js Web Service (무료 플랜) |
 
@@ -209,7 +212,7 @@
 | 항목 | 요구사항 | 현황 |
 |---|---|---|
 | 반응형 UI | 모바일(375px~) / 태블릿 / PC 전 해상도 지원 | ✅ 구현 완료 |
-| 응답 시간 | 주요 조회/기록 작업 3초 이내 | ✅ Mock API 즉시 응답 |
+| 응답 시간 | 주요 조회/기록 작업 3초 이내 | ✅ Supabase PostgreSQL 연동 후 정상 응답 |
 | 보안 | 환자 개인정보 및 처방 정보 접근 권한 관리 | ⬜ 인증 미구현 (향후 과제) |
 | 법적 준수 | 개인정보보호법, 의약관계법령 준수 | ⬜ 실서비스 전 검토 필요 |
 | 테스트 커버리지 | 주요 시나리오별 Mock 케이스 100% 정의 | ✅ TC-01~TC-08 전 케이스 구현 |
@@ -297,4 +300,5 @@
 | Sprint 1 | 프로젝트 셋업, 인프라, Mock API, 공통 컴포넌트 | ✅ 완료 (2026-03-15) |
 | Sprint 2 | P0 핵심 기능: F-001 계획 수립, F-002 단계 조제, F-004 복약 기록 | ✅ 완료 (2026-03-15) |
 | Sprint 3 | P1 확장 기능: F-003 알림, F-005 교환, F-006 상호작용, F-007 대시보드 | ✅ 완료 (2026-03-15) |
-| 향후 과제 | 사용자 인증/권한 관리, 실 DB 연동, DUR 시스템 연동, 다중 약국 지원 | ⬜ 미정 |
+| DB 연동 | PostgreSQL (Supabase) + Prisma v6 ORM, 인메모리 store 제거 | ✅ 완료 (2026-03-15) |
+| 향후 과제 | 사용자 인증/권한 관리, DUR 시스템 연동, 다중 약국 지원 | ⬜ 미정 |

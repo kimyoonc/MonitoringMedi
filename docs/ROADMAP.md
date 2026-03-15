@@ -1,6 +1,6 @@
 # ROADMAP: 장기 처방 의약품 복약 관리 시스템
 
-**문서 버전:** 2.0
+**문서 버전:** 2.1
 **최초 작성일:** 2026-03-14
 **최종 수정일:** 2026-03-15
 **기반 문서:** docs/PRD.md v2.0
@@ -28,7 +28,8 @@
 | 플랫폼 | 반응형 웹 | 모바일(375px~) / 태블릿(768px) / PC(1280px) |
 | 프론트엔드 | React 18 + TypeScript (Vite 5) | CSS Modules, React Router v6, Axios |
 | 상태 관리 | Zustand | 환자/대시보드/알림 전역 상태 |
-| 백엔드 | Express.js + TypeScript | 인메모리 store, fixtures 기반 초기화 |
+| 백엔드 | Express.js + TypeScript | Prisma v6 ORM, PostgreSQL 연동 |
+| 데이터베이스 | PostgreSQL (Supabase) | 영구 저장, seed 데이터 초기화 |
 | 테스트 | Vitest + Testing Library | 단위 테스트 21개 |
 | CI/CD | GitHub Actions | 빌드 + 테스트 자동화 |
 | 프론트 배포 | Vercel | GitHub 연동 자동 배포 |
@@ -66,6 +67,7 @@ Sprint 1              Sprint 2              Sprint 3
 | M2: MVP (v1.0) | Sprint 2 | F-001 복약 관리 계획, F-002 단계적 조제, F-004 복약 기록 | ✅ 완료 |
 | M3: 완성 (v2.0) | Sprint 3 | F-003 알림, F-005 교환 관리, F-006 약물 상호작용, F-007 대시보드 | ✅ 완료 |
 | M4: 품질 강화 | 추가 작업 | Zustand 상태 관리, Vitest 테스트 21개, GitHub Actions CI/CD | ✅ 완료 |
+| M5: DB 연동 | 추가 작업 | PostgreSQL (Supabase) + Prisma v6, 인메모리 store 제거, seed 데이터 | ✅ 완료 |
 
 ---
 
@@ -186,10 +188,10 @@ Sprint 1              Sprint 2              Sprint 3
 
 ## 6. 향후 과제
 
-| 항목 | 내용 |
-|---|---|
-| 사용자 인증 | 약사/환자 로그인, JWT 기반 권한 관리 |
-| 실 DB 연동 | PostgreSQL 또는 MongoDB 연동, Prisma ORM |
-| DUR 연동 | 의약품 안전나라 DUR API 실 연동 |
-| 푸시 알림 | Web Push API 또는 FCM 기반 실제 알림 발송 |
-| 다중 약국 지원 | 약국별 데이터 분리, 관리자 대시보드 |
+| 항목 | 내용 | 상태 |
+|---|---|---|
+| 실 DB 연동 | PostgreSQL (Supabase) + Prisma v6 ORM | ✅ 완료 |
+| 사용자 인증 | 약사/환자 로그인, JWT 기반 권한 관리 | ⬜ 미정 |
+| DUR 연동 | 의약품 안전나라 DUR API 실 연동 | ⬜ 미정 |
+| 푸시 알림 | Web Push API 또는 FCM 기반 실제 알림 발송 | ⬜ 미정 |
+| 다중 약국 지원 | 약국별 데이터 분리, 관리자 대시보드 | ⬜ 미정 |
