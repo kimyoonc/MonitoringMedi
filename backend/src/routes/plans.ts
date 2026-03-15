@@ -1,52 +1,68 @@
 import { Router } from 'express';
-import { plansStore, updatePlanStep } from '../store';
+import prisma from '../lib/prisma';
+import type { PlanStep } from '@prisma/client';
 
 const router = Router();
 
-// 전체 계획 목록 (patientId 쿼리 파라미터 지원)
-router.get('/', (req, res) => {
-  const { patientId } = req.query;
-  const result = patientId
-    ? plansStore.filter(p => p.patientId === patientId)
-    : plansStore;
-
-  // canDispense 필드 계산 후 반환
-  const withCanDispense = result.map(plan => ({
-    ...plan,
-    steps: plan.steps.map((step: any, index: number) => ({
-      ...step,
-      canDispense: index === 0
-        ? true
-        : plan.steps[index - 1].visitId !== null,
-    })),
+// canDispense 계산 헬퍼 함수
+function computeCanDispense(steps: PlanStep[]): (PlanStep & { canDispense: boolean })[] {
+  return steps.map((step, index) => ({
+    ...step,
+    canDispense: index === 0 ? true : steps[index - 1].visitId !== null,
   }));
+}
 
-  res.json({ success: true, data: withCanDispense });
+// 전체 계획 목록 (patientId 쿼리 파라미터 지원)
+router.get('/', async (req, res) => {
+  try {
+    const { patientId } = req.query;
+    const plans = await prisma.plan.findMany({
+      where: patientId ? { patientId: patientId as string } : {},
+      include: {
+        steps: { orderBy: { stepNumber: 'asc' } },
+      },
+    });
+
+    const withCanDispense = plans.map(plan => ({
+      ...plan,
+      steps: computeCanDispense(plan.steps),
+    }));
+
+    res.json({ success: true, data: withCanDispense });
+  } catch (err) {
+    console.error('GET /plans 오류:', err);
+    res.status(500).json({ success: false, error: '서버 오류가 발생했습니다.' });
+  }
 });
 
 // 복약 관리 계획 상세 (canDispense 필드 포함)
-router.get('/:id', (req, res) => {
-  const plan = plansStore.find(p => p.id === req.params.id);
-  if (!plan) {
-    return res.status(404).json({ success: false, error: '복약 관리 계획을 찾을 수 없습니다.' });
+router.get('/:id', async (req, res) => {
+  try {
+    const plan = await prisma.plan.findUnique({
+      where: { id: req.params.id },
+      include: {
+        steps: { orderBy: { stepNumber: 'asc' } },
+      },
+    });
+
+    if (!plan) {
+      return res.status(404).json({ success: false, error: '복약 관리 계획을 찾을 수 없습니다.' });
+    }
+
+    const planWithCanDispense = {
+      ...plan,
+      steps: computeCanDispense(plan.steps),
+    };
+
+    res.json({ success: true, data: planWithCanDispense });
+  } catch (err) {
+    console.error('GET /plans/:id 오류:', err);
+    res.status(500).json({ success: false, error: '서버 오류가 발생했습니다.' });
   }
-
-  // 각 단계의 canDispense 계산
-  const planWithCanDispense = {
-    ...plan,
-    steps: plan.steps.map((step: any, index: number) => ({
-      ...step,
-      canDispense: index === 0
-        ? true
-        : plan.steps[index - 1].visitId !== null,
-    })),
-  };
-
-  res.json({ success: true, data: planWithCanDispense });
 });
 
 // 신규 복약 관리 계획 생성
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { patientId, totalDays, visitCount, startDate, medications = [] } = req.body;
 
@@ -86,25 +102,33 @@ router.post('/', (req, res) => {
         dispenseDays,
         status: i === 0 ? 'scheduled' : 'pending',
         visitId: null,
-        canDispense: i === 0,
       };
     });
 
-    const newPlan = {
-      id: `PL_${Date.now()}`,
-      prescriptionId: `RX_${Date.now()}`,
-      patientId,
-      totalVisits: visitCount,
-      dispensingUnit,
-      medications,
-      steps,
-      createdAt: today,
+    const newPlan = await prisma.plan.create({
+      data: {
+        id: `PL_${Date.now()}`,
+        prescriptionId: `RX_${Date.now()}`,
+        patientId,
+        totalVisits: visitCount,
+        dispensingUnit,
+        medications,
+        createdAt: today,
+        steps: {
+          create: steps,
+        },
+      },
+      include: {
+        steps: { orderBy: { stepNumber: 'asc' } },
+      },
+    });
+
+    const responseData = {
+      ...newPlan,
+      steps: computeCanDispense(newPlan.steps),
     };
 
-    // 인메모리 저장소에 추가
-    plansStore.push(newPlan);
-
-    res.status(201).json({ success: true, data: newPlan });
+    res.status(201).json({ success: true, data: responseData });
   } catch (err) {
     console.error('POST /plans 오류:', err);
     res.status(500).json({ success: false, error: '서버 오류가 발생했습니다.' });
@@ -112,21 +136,25 @@ router.post('/', (req, res) => {
 });
 
 // 복약 관리 계획 단계 목록 (canDispense 포함)
-router.get('/:id/steps', (req, res) => {
-  const plan = plansStore.find(p => p.id === req.params.id);
-  if (!plan) {
-    return res.status(404).json({ success: false, error: '복약 관리 계획을 찾을 수 없습니다.' });
+router.get('/:id/steps', async (req, res) => {
+  try {
+    const plan = await prisma.plan.findUnique({
+      where: { id: req.params.id },
+      include: {
+        steps: { orderBy: { stepNumber: 'asc' } },
+      },
+    });
+
+    if (!plan) {
+      return res.status(404).json({ success: false, error: '복약 관리 계획을 찾을 수 없습니다.' });
+    }
+
+    const stepsWithCanDispense = computeCanDispense(plan.steps);
+    res.json({ success: true, data: stepsWithCanDispense });
+  } catch (err) {
+    console.error('GET /plans/:id/steps 오류:', err);
+    res.status(500).json({ success: false, error: '서버 오류가 발생했습니다.' });
   }
-
-  const stepsWithCanDispense = plan.steps.map((step: any, index: number) => ({
-    ...step,
-    canDispense: index === 0
-      ? true
-      : plan.steps[index - 1].visitId !== null,
-  }));
-
-  res.json({ success: true, data: stepsWithCanDispense });
 });
 
-export { updatePlanStep };
 export default router;

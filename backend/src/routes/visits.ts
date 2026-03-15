@@ -1,20 +1,24 @@
 import { Router } from 'express';
-import exchanges from '../fixtures/exchanges.json';
-import { visitsStore, plansStore, updatePlanStep } from '../store';
+import prisma from '../lib/prisma';
 
 const router = Router();
 
 // 방문 기록 상세
-router.get('/:id', (req, res) => {
-  const visit = visitsStore.find(v => v.id === req.params.id);
-  if (!visit) {
-    return res.status(404).json({ success: false, error: '방문 기록을 찾을 수 없습니다.' });
+router.get('/:id', async (req, res) => {
+  try {
+    const visit = await prisma.visit.findUnique({ where: { id: req.params.id } });
+    if (!visit) {
+      return res.status(404).json({ success: false, error: '방문 기록을 찾을 수 없습니다.' });
+    }
+    res.json({ success: true, data: visit });
+  } catch (err) {
+    console.error('GET /visits/:id 오류:', err);
+    res.status(500).json({ success: false, error: '서버 오류가 발생했습니다.' });
   }
-  res.json({ success: true, data: visit });
 });
 
 // 신규 방문 기록 생성
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const {
       planId,
@@ -29,23 +33,22 @@ router.post('/', (req, res) => {
       dispensedMedications = [],
     } = req.body;
 
-    const newVisit = {
-      id: `V_${Date.now()}`,
-      planId,
-      patientId,
-      visitDate: visitDate || new Date().toISOString().split('T')[0],
-      stepNumber,
-      adherence: adherence || 'good',
-      adverseReaction: adverseReaction || false,
-      adverseReactionNote: adverseReactionNote || null,
-      storageCondition: storageCondition || 'good',
-      pharmacistNote: pharmacistNote || '',
-      dispensedMedications,
-      createdAt: new Date().toISOString(),
-    };
-
-    // 인메모리 저장소에 추가
-    visitsStore.push(newVisit);
+    const newVisit = await prisma.visit.create({
+      data: {
+        id: `V_${Date.now()}`,
+        planId,
+        patientId,
+        visitDate: visitDate || new Date().toISOString().split('T')[0],
+        stepNumber,
+        adherence: adherence || 'good',
+        adverseReaction: adverseReaction || false,
+        adverseReactionNote: adverseReactionNote || null,
+        storageCondition: storageCondition || 'good',
+        pharmacistNote: pharmacistNote || '',
+        dispensedMedications,
+        createdAt: new Date().toISOString(),
+      },
+    });
 
     res.status(201).json({ success: true, data: newVisit });
   } catch (err) {
@@ -55,47 +58,68 @@ router.post('/', (req, res) => {
 });
 
 // 단계별 조제 처리
-router.post('/:id/dispense', (req, res) => {
+router.post('/:id/dispense', async (req, res) => {
   try {
-    const visit = visitsStore.find(v => v.id === req.params.id);
+    const visit = await prisma.visit.findUnique({ where: { id: req.params.id } });
     if (!visit) {
       return res.status(404).json({ success: false, error: '방문 기록을 찾을 수 없습니다.' });
     }
 
     // stepNumber > 1 인 경우 이전 단계 방문 기록 확인
     if (visit.stepNumber > 1) {
-      const plan = plansStore.find(p => p.id === visit.planId);
-      if (plan) {
-        const prevStep = plan.steps.find((s: any) => s.stepNumber === visit.stepNumber - 1);
-        if (!prevStep || prevStep.visitId === null) {
-          return res.status(400).json({
-            success: false,
-            error: '이전 방문 기록이 확인되지 않아 조제를 진행할 수 없습니다.',
-            code: 'PREVIOUS_VISIT_REQUIRED',
-          });
-        }
+      const prevStep = await prisma.planStep.findUnique({
+        where: {
+          planId_stepNumber: {
+            planId: visit.planId,
+            stepNumber: visit.stepNumber - 1,
+          },
+        },
+      });
+
+      if (!prevStep || prevStep.visitId === null) {
+        return res.status(400).json({
+          success: false,
+          error: '이전 방문 기록이 확인되지 않아 조제를 진행할 수 없습니다.',
+          code: 'PREVIOUS_VISIT_REQUIRED',
+        });
       }
     }
 
-    // 조제 처리 — plan의 step.visitId 업데이트
-    if (visit.planId && visit.stepNumber) {
-      updatePlanStep(visit.planId, visit.stepNumber, visit.id);
-    }
+    const dispensedAt = new Date().toISOString();
 
-    // visit 데이터에 dispensedAt 기록
-    visit.dispensedAt = new Date().toISOString();
-    if (req.body.medications && req.body.medications.length > 0) {
-      visit.dispensedMedications = req.body.medications;
-    }
+    // plan step 업데이트 (visitId 기록 및 completed 처리)
+    await prisma.planStep.update({
+      where: {
+        planId_stepNumber: {
+          planId: visit.planId,
+          stepNumber: visit.stepNumber,
+        },
+      },
+      data: {
+        visitId: visit.id,
+        status: 'completed',
+      },
+    });
+
+    // 조제된 의약품 목록 및 dispensedAt 업데이트
+    const updatedVisit = await prisma.visit.update({
+      where: { id: visit.id },
+      data: {
+        dispensedAt,
+        ...(req.body.medications && req.body.medications.length > 0
+          ? { dispensedMedications: req.body.medications }
+          : {}),
+      },
+    });
 
     const result = {
-      id: visit.id,
-      planId: visit.planId,
-      patientId: visit.patientId,
-      visitDate: visit.visitDate,
-      stepNumber: visit.stepNumber,
-      dispensedAt: visit.dispensedAt,
-      dispensedMedications: visit.dispensedMedications,
+      id: updatedVisit.id,
+      planId: updatedVisit.planId,
+      patientId: updatedVisit.patientId,
+      visitDate: updatedVisit.visitDate,
+      stepNumber: updatedVisit.stepNumber,
+      dispensedAt: updatedVisit.dispensedAt,
+      dispensedMedications: updatedVisit.dispensedMedications,
     };
 
     res.json({ success: true, data: result });
@@ -106,9 +130,16 @@ router.post('/:id/dispense', (req, res) => {
 });
 
 // 방문 기록의 교환 이력
-router.get('/:id/exchanges', (req, res) => {
-  const visitExchanges = exchanges.filter(e => e.visitId === req.params.id);
-  res.json({ success: true, data: visitExchanges });
+router.get('/:id/exchanges', async (req, res) => {
+  try {
+    const visitExchanges = await prisma.exchange.findMany({
+      where: { visitId: req.params.id },
+    });
+    res.json({ success: true, data: visitExchanges });
+  } catch (err) {
+    console.error('GET /visits/:id/exchanges 오류:', err);
+    res.status(500).json({ success: false, error: '서버 오류가 발생했습니다.' });
+  }
 });
 
 export default router;

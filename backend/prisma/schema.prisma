@@ -1,0 +1,124 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Patient {
+  id           String   @id
+  name         String
+  birthDate    String
+  phone        String
+  address      String
+  conditions   Json     @default("[]")
+  registeredAt String
+  status       String   @default("active")
+
+  plans            Plan[]
+  visits           Visit[]
+  exchanges        Exchange[]
+  notifications    Notification[]
+  adverseReactions AdverseReaction[]
+}
+
+model Plan {
+  id             String     @id
+  prescriptionId String
+  patientId      String
+  totalVisits    Int
+  dispensingUnit Int
+  medications    Json       @default("[]")
+  createdAt      String
+
+  patient Patient    @relation(fields: [patientId], references: [id])
+  steps   PlanStep[]
+  visits  Visit[]
+}
+
+model PlanStep {
+  id            String  @id @default(cuid())
+  planId        String
+  stepNumber    Int
+  scheduledDate String
+  dispenseDays  Int
+  status        String  @default("pending")
+  visitId       String?
+
+  plan Plan @relation(fields: [planId], references: [id])
+
+  @@unique([planId, stepNumber])
+}
+
+model Visit {
+  id                   String  @id
+  planId               String
+  patientId            String
+  visitDate            String
+  stepNumber           Int
+  adherence            String
+  adverseReaction      Boolean @default(false)
+  adverseReactionNote  String?
+  storageCondition     String
+  pharmacistNote       String  @default("")
+  dispensedMedications Json    @default("[]")
+  dispensedAt          String?
+  createdAt            String
+
+  plan      Plan       @relation(fields: [planId], references: [id])
+  patient   Patient    @relation(fields: [patientId], references: [id])
+  exchanges Exchange[]
+}
+
+model Exchange {
+  id             String  @id
+  visitId        String?
+  patientId      String
+  exchangeDate   String
+  reason         String
+  reasonLabel    String
+  medications    Json    @default("[]")
+  handlingMethod String
+  pharmacistNote String  @default("")
+  createdAt      String
+
+  visit   Visit?  @relation(fields: [visitId], references: [id])
+  patient Patient @relation(fields: [patientId], references: [id])
+}
+
+model Notification {
+  id                 String  @id
+  patientId          String
+  type               String
+  daysUntilVisit     Int?
+  scheduledVisitDate String?
+  message            String
+  sentAt             String
+  isRead             Boolean @default(false)
+
+  patient Patient @relation(fields: [patientId], references: [id])
+}
+
+model AdverseReaction {
+  id         String @id
+  patientId  String
+  symptom    String
+  severity   String
+  note       String @default("")
+  reportedAt String
+  status     String @default("received")
+
+  patient Patient @relation(fields: [patientId], references: [id])
+}
+
+model Interaction {
+  id          Int    @id @default(autoincrement())
+  drug1       String
+  drug2       String
+  severity    String
+  description String
+  action      String
+}
