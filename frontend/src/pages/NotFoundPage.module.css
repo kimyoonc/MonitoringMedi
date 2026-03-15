@@ -1,3 +1,32 @@
-.page { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--spacing-md); text-align: center; }
-.code { font-size: 80px; font-weight: 700; color: var(--color-neutral-300); }
-.message { font-size: var(--font-size-lg); color: var(--color-neutral-500); }
+/* Apple HIG — 404 Not Found */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  text-align: center;
+  background: var(--bg-grouped-primary);
+  padding: var(--spacing-xl);
+}
+
+.code {
+  font-size: 80px;
+  font-weight: 700;
+  color: var(--fill-secondary);
+  letter-spacing: -0.06em;
+}
+
+.message {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--label-primary);
+  letter-spacing: -0.03em;
+}
+
+.desc {
+  font-size: 15px;
+  color: var(--label-secondary);
+  line-height: 1.5;
+}

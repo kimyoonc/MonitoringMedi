@@ -1,3 +1,4 @@
+/* Apple HIG — Exchange Page */
 .content {
   padding-top: var(--spacing-md);
   display: flex;
@@ -5,36 +6,37 @@
   gap: var(--spacing-md);
 }
 
-/* 탭 네비게이션 */
+/* iOS Segmented Control 스타일 탭 */
 .tabs {
   display: flex;
-  border-bottom: 2px solid var(--color-neutral-200);
+  background: var(--fill-tertiary);
+  border-radius: var(--radius-md);
+  padding: 2px;
   gap: 0;
 }
 
 .tab {
   flex: 1;
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: var(--font-size-sm);
+  padding: 7px var(--spacing-sm);
+  font-size: 13px;
   font-weight: 500;
-  color: var(--color-neutral-500);
-  background: none;
+  color: var(--label-secondary);
+  background: transparent;
   border: none;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  transition: color 0.2s, border-color 0.2s;
-  min-height: 48px;
-}
-
-.tab:hover {
-  color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  min-height: 32px;
+  font-family: var(--font-family);
+  letter-spacing: -0.015em;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .activeTab {
-  color: var(--color-primary);
-  font-weight: 700;
-  border-bottom-color: var(--color-primary);
+  color: var(--label-primary);
+  font-weight: 600;
+  background: var(--bg-grouped-secondary);
+  box-shadow: var(--shadow-sm);
 }
 
 /* 교환 신청 폼 */
@@ -46,7 +48,7 @@
 
 /* 환자 카드 */
 .patientCard {
-  background: var(--color-primary-light, #EBF5FF);
+  background: var(--color-primary-light);
 }
 
 .patientInfo {
@@ -56,28 +58,31 @@
 }
 
 .patientName {
-  font-size: var(--font-size-base);
+  font-size: 17px;
   font-weight: 700;
-  color: var(--color-neutral-900);
+  color: var(--label-primary);
+  letter-spacing: -0.022em;
 }
 
 .patientId {
-  font-size: var(--font-size-sm);
-  color: var(--color-neutral-500);
+  font-size: 13px;
+  color: var(--label-secondary);
 }
 
 .visitRef {
-  font-size: var(--font-size-xs);
-  color: var(--color-neutral-400);
+  font-size: 12px;
+  color: var(--label-secondary);
   margin-top: var(--spacing-xs);
   display: block;
 }
 
 /* 필드 제목 */
 .fieldTitle {
-  font-size: var(--font-size-sm);
+  font-size: 13px;
   font-weight: 600;
-  color: var(--color-neutral-700);
+  color: var(--label-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   margin-bottom: var(--spacing-sm);
 }
 
@@ -85,79 +90,106 @@
   color: var(--color-error);
 }
 
-/* 라디오 그룹 */
+/* 라디오 그룹 — iOS 선택 셀 스타일 */
 .radioGroup {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 1px;
+  background: var(--separator-opaque);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 
 .radioLabel {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: 2px solid var(--color-neutral-200);
-  border-radius: var(--radius-md);
+  padding: 13px var(--spacing-md);
+  background: var(--bg-grouped-secondary);
   cursor: pointer;
-  font-size: var(--font-size-sm);
-  transition: border-color 0.2s, background 0.2s;
-  min-height: 48px;
+  font-size: 17px;
+  transition: background 0.15s ease;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .radioLabel input[type="radio"] {
   accent-color: var(--color-primary);
+  width: 18px;
+  height: 18px;
+}
+
+.radioLabel:hover {
+  background: var(--fill-quaternary);
 }
 
 .radioSelected {
-  border-color: var(--color-primary);
-  background: var(--color-primary-light, #EBF5FF);
+  background: var(--color-primary-light);
   font-weight: 600;
+  color: var(--color-primary-dark);
 }
 
 /* 입력 필드 */
 .input {
   width: 100%;
-  padding: 10px var(--spacing-md);
-  border: 1px solid var(--color-neutral-300);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-base);
+  padding: 12px var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 17px;
+  font-family: var(--font-family);
+  letter-spacing: -0.022em;
   outline: none;
-  box-sizing: border-box;
+  background: var(--bg-grouped-secondary);
+  color: var(--label-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .input:focus {
-  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.20), var(--shadow-sm);
 }
 
 .select {
-  padding: 10px var(--spacing-md);
-  border: 1px solid var(--color-neutral-300);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-base);
-  background: white;
+  padding: 12px var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 17px;
+  font-family: var(--font-family);
+  letter-spacing: -0.022em;
+  background: var(--bg-grouped-secondary);
+  color: var(--label-primary);
   outline: none;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238E8E93' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
 }
 
 .select:focus {
-  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.20), var(--shadow-sm);
 }
 
 .textarea {
   width: 100%;
-  padding: 10px var(--spacing-md);
-  border: 1px solid var(--color-neutral-300);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-base);
+  padding: 12px var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 17px;
+  font-family: var(--font-family);
+  letter-spacing: -0.022em;
+  background: var(--bg-grouped-secondary);
+  color: var(--label-primary);
   resize: vertical;
-  font-family: inherit;
   outline: none;
-  box-sizing: border-box;
+  box-shadow: var(--shadow-sm);
+  min-height: 96px;
 }
 
 .textarea:focus {
-  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.20), var(--shadow-sm);
 }
 
 /* 의약품 행 */
@@ -178,29 +210,34 @@
 
 .qtyInput {
   text-align: center;
+  padding: 12px 8px;
 }
 
 /* 에러 메시지 */
 .error {
   color: var(--color-error);
-  font-size: var(--font-size-sm);
+  font-size: 15px;
   padding: var(--spacing-sm) var(--spacing-md);
-  background: #FEF2F2;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-error);
+  background: var(--color-error-light);
+  border-radius: var(--radius-lg);
 }
 
 /* 교환 이력 */
 .historySection {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: 1px;
+  background: var(--separator-opaque);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 
 .historyCard {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+  background: var(--bg-grouped-secondary);
+  padding: var(--spacing-md);
 }
 
 .historyHeader {
@@ -210,9 +247,9 @@
 }
 
 .historyDate {
-  font-size: var(--font-size-sm);
+  font-size: 15px;
   font-weight: 600;
-  color: var(--color-neutral-700);
+  color: var(--label-primary);
 }
 
 .historyMeds {
@@ -222,22 +259,22 @@
 }
 
 .medBadge {
-  padding: 2px 8px;
-  background: var(--color-neutral-100);
-  border-radius: 999px;
-  font-size: var(--font-size-xs);
-  color: var(--color-neutral-700);
+  padding: 3px 9px;
+  background: var(--fill-tertiary);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  color: var(--label-secondary);
+  font-weight: 500;
 }
 
 .historyMethod {
-  font-size: var(--font-size-sm);
-  color: var(--color-neutral-600);
+  font-size: 15px;
+  color: var(--label-secondary);
 }
 
 .historyNote {
-  font-size: var(--font-size-sm);
-  color: var(--color-neutral-500);
-  font-style: italic;
+  font-size: 13px;
+  color: var(--label-secondary);
   line-height: 1.4;
 }
 
@@ -257,12 +294,13 @@
 @media (min-width: 768px) {
   .radioGroup {
     flex-direction: row;
-    flex-wrap: wrap;
+    gap: 1px;
+    flex-wrap: nowrap;
   }
 
   .radioLabel {
     flex: 1;
-    min-width: 140px;
+    min-width: 0;
   }
 }
 

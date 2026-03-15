@@ -1,6 +1,53 @@
-.content { padding-top: var(--spacing-md); display: flex; flex-direction: column; gap: var(--spacing-sm); }
-.patientCard { display: flex; flex-direction: column; gap: var(--spacing-sm); }
-.row { display: flex; justify-content: space-between; align-items: center; }
-.name { font-size: var(--font-size-base); font-weight: 600; }
-.conditions { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); }
-.date { font-size: var(--font-size-xs); color: var(--color-neutral-400); }
+/* Apple HIG — Patient List */
+.content {
+  padding-top: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--separator-opaque);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.patientCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  background: var(--bg-grouped-secondary);
+  padding: var(--spacing-md);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.patientCard:hover {
+  background: var(--fill-quaternary);
+}
+
+.patientCard:active {
+  background: var(--fill-tertiary);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--label-primary);
+  letter-spacing: -0.022em;
+}
+
+.conditions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.date {
+  font-size: 13px;
+  color: var(--label-secondary);
+}

@@ -1,3 +1,4 @@
+/* Apple HIG — Patient Detail */
 .content {
   padding-top: var(--spacing-md);
   display: flex;
@@ -6,21 +7,30 @@
 }
 
 .sectionTitle {
-  font-size: var(--font-size-base);
-  font-weight: 700;
-  margin-bottom: var(--spacing-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--label-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0 4px;
+  margin-bottom: var(--spacing-xs);
 }
 
 .info {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--spacing-xs) var(--spacing-md);
-  font-size: var(--font-size-sm);
+  font-size: 15px;
 }
 
 .info dt {
-  color: var(--color-neutral-500);
-  font-weight: 500;
+  color: var(--label-secondary);
+  font-weight: 400;
+}
+
+.info dd {
+  color: var(--label-primary);
+  font-weight: 400;
 }
 
 .actions {
@@ -35,17 +45,17 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-sm);
-  font-size: var(--font-size-sm);
-  color: var(--color-neutral-500);
+  font-size: 13px;
+  color: var(--label-secondary);
 }
 
 .planId {
   font-weight: 600;
-  color: var(--color-neutral-700);
+  color: var(--label-primary);
 }
 
 .planUnit {
-  color: var(--color-neutral-500);
+  color: var(--label-secondary);
 }
 
 /* 의약품 목록 뱃지 */
@@ -58,11 +68,11 @@
 
 .medicationBadge {
   display: inline-block;
-  padding: 2px 10px;
+  padding: 3px 10px;
   background: var(--color-primary-light);
   color: var(--color-primary-dark);
-  border-radius: 999px;
-  font-size: 12px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
   font-weight: 500;
 }
 
@@ -87,27 +97,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 36px;
+  min-width: 32px;
 }
 
 .timelineStep {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   background: var(--color-primary);
-  color: white;
+  color: #FFFFFF;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   flex-shrink: 0;
 }
 
 .timelineConnector {
-  width: 2px;
+  width: 1.5px;
   flex: 1;
-  background: var(--color-neutral-200);
+  background: var(--separator-opaque);
   margin-top: 4px;
 }
 
@@ -129,31 +139,31 @@
 
 .timelineDate {
   font-weight: 600;
-  font-size: var(--font-size-sm);
-  color: var(--color-neutral-800);
+  font-size: 15px;
+  color: var(--label-primary);
 }
 
 .timelineDays {
-  font-size: var(--font-size-sm);
-  color: var(--color-neutral-500);
+  font-size: 13px;
+  color: var(--label-secondary);
   margin-bottom: var(--spacing-xs);
 }
 
 .disabledHint {
   font-size: 12px;
-  color: var(--color-neutral-400);
-  font-style: italic;
+  color: var(--label-tertiary);
+  font-style: normal;
 }
 
 /* 방문 이력 */
 .visitCard {
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
   cursor: pointer;
-  transition: box-shadow 0.2s;
+  transition: background 0.15s ease;
 }
 
 .visitCard:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  background: var(--fill-quaternary);
 }
 
 .visitHeader {
@@ -167,7 +177,8 @@
 
 .visitDate {
   font-weight: 600;
-  font-size: var(--font-size-sm);
+  font-size: 15px;
+  color: var(--label-primary);
 }
 
 .visitBadges {
@@ -177,19 +188,20 @@
 }
 
 .visitStep {
-  font-size: 12px;
-  color: var(--color-neutral-500);
+  font-size: 13px;
+  color: var(--label-secondary);
   margin-bottom: var(--spacing-xs);
 }
 
 .note {
-  font-size: var(--font-size-sm);
-  color: var(--color-neutral-600);
+  font-size: 15px;
+  color: var(--label-secondary);
+  line-height: 1.45;
 }
 
 .empty {
-  color: var(--color-neutral-400);
-  font-size: var(--font-size-sm);
+  color: var(--label-secondary);
+  font-size: 15px;
   text-align: center;
   padding: var(--spacing-lg);
 }

@@ -1,16 +1,22 @@
+/* Apple HIG — Plan Create Form */
 .content {
   padding-top: var(--spacing-md);
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg);
 }
 
 .sectionTitle {
-  font-size: var(--font-size-base);
-  font-weight: 700;
-  margin-bottom: var(--spacing-md);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--label-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0 4px;
+  margin-bottom: var(--spacing-xs);
 }
 
+/* iOS Inset Grouped 폼 스타일 */
 .form {
   display: flex;
   flex-direction: column;
@@ -20,37 +26,55 @@
 .label {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--color-neutral-700);
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--label-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .input {
-  padding: 10px var(--spacing-md);
-  border: 1px solid var(--color-neutral-300);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-base);
+  padding: 12px var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 17px;
+  font-family: var(--font-family);
+  letter-spacing: -0.022em;
   outline: none;
-  transition: border-color 0.2s;
+  background: var(--bg-grouped-secondary);
+  color: var(--label-primary);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease;
+  width: 100%;
 }
 
 .input:focus {
-  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.20), var(--shadow-sm);
 }
 
 .select {
-  padding: 10px var(--spacing-md);
-  border: 1px solid var(--color-neutral-300);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-base);
-  background: white;
+  padding: 12px var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 17px;
+  font-family: var(--font-family);
+  letter-spacing: -0.022em;
+  background: var(--bg-grouped-secondary);
+  color: var(--label-primary);
   outline: none;
   cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238E8E93' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 40px;
 }
 
 .select:focus {
-  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.20), var(--shadow-sm);
 }
 
 /* 환자 정보 표시 */
@@ -59,13 +83,13 @@
   flex-direction: column;
   gap: var(--spacing-xs);
   padding: var(--spacing-sm) var(--spacing-md);
-  background: var(--color-neutral-50);
+  background: var(--fill-quaternary);
   border-radius: var(--radius-md);
 }
 
 .patientInfoItem {
-  font-size: var(--font-size-sm);
-  color: var(--color-neutral-600);
+  font-size: 15px;
+  color: var(--label-secondary);
 }
 
 /* 의약품 목록 */
@@ -81,10 +105,10 @@
   flex-direction: column;
   gap: var(--spacing-sm);
   padding: var(--spacing-md);
-  border: 1px solid var(--color-neutral-200);
-  border-radius: var(--radius-md);
-  margin-bottom: var(--spacing-md);
-  background: var(--color-neutral-50);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-sm);
+  background: var(--bg-grouped-secondary);
+  box-shadow: var(--shadow-sm);
 }
 
 .medicationRow {
@@ -101,7 +125,7 @@
 .schedule {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm);
+  gap: var(--spacing-xs);
   list-style: none;
   padding: 0;
   margin: 0;
@@ -111,74 +135,75 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 10px var(--spacing-md);
   background: var(--color-primary-light);
   border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
+  font-size: 15px;
 }
 
 .stepBadge {
   font-weight: 700;
   color: var(--color-primary-dark);
   min-width: 28px;
+  font-size: 13px;
 }
 
 .stepDate {
-  color: var(--color-neutral-700);
+  color: var(--label-primary);
   flex: 1;
+  font-size: 15px;
 }
 
 .stepDays {
   font-weight: 600;
   color: var(--color-primary-dark);
+  font-size: 13px;
 }
 
 .remainder {
   font-size: 11px;
-  color: var(--color-warning, #f59e0b);
-  background: rgba(245, 158, 11, 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
+  color: var(--color-warning);
+  background: var(--color-warning-light);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
 }
 
 /* 오류 메시지 */
 .error {
-  color: var(--color-error, #ef4444);
-  font-size: var(--font-size-sm);
+  color: var(--color-error);
+  font-size: 15px;
   padding: var(--spacing-sm) var(--spacing-md);
-  background: rgba(239, 68, 68, 0.08);
-  border-radius: var(--radius-md);
-  border-left: 3px solid var(--color-error, #ef4444);
+  background: var(--color-error-light);
+  border-radius: var(--radius-lg);
 }
 
-/* 인라인 필드 에러 메시지 */
+/* 인라인 필드 에러 */
 .fieldError {
   display: block;
-  color: var(--color-error, #ef4444);
-  font-size: var(--font-size-xs, 12px);
-  margin-top: var(--spacing-xs, 4px);
+  color: var(--color-error);
+  font-size: 12px;
+  margin-top: 4px;
+  letter-spacing: 0.01em;
 }
 
 /* 약물 상호작용 안전 표시 */
 .interactionSafe {
   margin-top: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
-  background: #F0FDF4;
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
-  color: #166534;
-  border: 1px solid #BBF7D0;
+  background: var(--color-success-light);
+  border-radius: var(--radius-lg);
+  font-size: 15px;
+  color: #1A7F3C;
 }
 
-/* 상호작용 확인 완료 표시 */
+/* 상호작용 확인 완료 */
 .interactionConfirmed {
   margin-top: var(--spacing-sm);
   padding: var(--spacing-sm) var(--spacing-md);
-  background: #FFFBEB;
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
-  color: #92400E;
-  border: 1px solid #FDE68A;
+  background: var(--color-warning-light);
+  border-radius: var(--radius-lg);
+  font-size: 15px;
+  color: #C45D00;
 }
 
 /* 모바일 반응형 */

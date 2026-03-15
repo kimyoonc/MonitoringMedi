@@ -1,14 +1,17 @@
+/* Apple HIG — Tab Bar */
 .nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 64px;
-  background: white;
-  border-top: 1px solid var(--color-neutral-200);
+  height: var(--tab-bar-height);
+  background: rgba(242, 242, 247, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 0.5px solid var(--separator-opaque);
   display: flex;
   z-index: 100;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
+  padding-bottom: 20px; /* home indicator 공간 */
 }
 
 .item {
@@ -17,9 +20,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  color: var(--color-neutral-400);
-  transition: color 0.2s;
+  gap: 3px;
+  color: var(--label-secondary);
+  transition: color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  padding-top: 6px;
 }
 
 .item.active {
@@ -27,12 +32,20 @@
 }
 
 .icon {
-  font-size: 20px;
+  font-size: 22px;
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+
+.item.active .icon {
+  transform: scale(1.05);
 }
 
 .label {
-  font-size: var(--font-size-xs);
+  font-size: 10px;
   font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
 }
 
 @media (min-width: 1280px) {

@@ -1,18 +1,20 @@
+/* Apple HIG — Patient Layout */
 .layout {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: var(--bg-grouped-primary);
 }
 
 .main {
   flex: 1;
   padding: var(--container-padding-mobile);
-  padding-bottom: 72px;
+  padding-bottom: calc(var(--tab-bar-height) + var(--spacing-md));
 }
 
 @media (min-width: 768px) {
   .main {
     padding: var(--container-padding-tablet);
-    padding-bottom: 72px;
+    padding-bottom: calc(var(--tab-bar-height) + var(--spacing-md));
   }
 }

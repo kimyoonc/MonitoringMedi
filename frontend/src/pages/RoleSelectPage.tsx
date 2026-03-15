@@ -38,14 +38,15 @@ export default function RoleSelectPage() {
     return (
       <div className={styles.page}>
         <div className={styles.hero}>
+          <div className={styles.logoMark}>🏥</div>
           <h1 className={styles.title}>환자 선택</h1>
           <p className={styles.subtitle}>복약 일정을 확인할 환자를 선택해주세요</p>
         </div>
         <div className={styles.roles}>
           {loadingPatients ? (
-            <p style={{ color: 'var(--color-neutral-500)', textAlign: 'center' }}>환자 목록 불러오는 중...</p>
+            <p style={{ color: 'var(--label-secondary)', textAlign: 'center', fontSize: '15px' }}>불러오는 중…</p>
           ) : patients.length === 0 ? (
-            <p style={{ color: 'var(--color-neutral-500)', textAlign: 'center' }}>등록된 환자가 없습니다.</p>
+            <p style={{ color: 'var(--label-secondary)', textAlign: 'center', fontSize: '15px' }}>등록된 환자가 없습니다.</p>
           ) : (
             patients.map(patient => (
               <button
@@ -53,9 +54,12 @@ export default function RoleSelectPage() {
                 className={`${styles.roleCard} ${styles.patient}`}
                 onClick={() => handleSelectPatient(patient.id)}
               >
-                <span className={styles.roleIcon}>🏥</span>
-                <span className={styles.roleName}>{patient.name}</span>
-                <span className={styles.roleDesc}>{patient.id}</span>
+                <div className={styles.roleIconWrap}>👤</div>
+                <div className={styles.roleText}>
+                  <div className={styles.roleName}>{patient.name}</div>
+                  <div className={styles.roleDesc}>{patient.id}</div>
+                </div>
+                <span className={styles.roleArrow}>›</span>
               </button>
             ))
           )}
@@ -66,9 +70,11 @@ export default function RoleSelectPage() {
             marginTop: 'var(--spacing-lg)',
             background: 'none',
             border: 'none',
-            color: 'var(--color-neutral-500)',
+            color: 'var(--color-primary)',
             cursor: 'pointer',
-            fontSize: 'var(--font-size-sm)',
+            fontSize: '15px',
+            fontFamily: 'var(--font-family)',
+            letterSpacing: '-0.015em',
           }}
         >
           ← 돌아가기
@@ -81,19 +87,26 @@ export default function RoleSelectPage() {
   return (
     <div className={styles.page}>
       <div className={styles.hero}>
+        <div className={styles.logoMark}>💊</div>
         <h1 className={styles.title}>복약 관리 시스템</h1>
         <p className={styles.subtitle}>장기 처방 의약품 복약 관리</p>
       </div>
       <div className={styles.roles}>
         <button className={`${styles.roleCard} ${styles.pharmacist}`} onClick={() => navigate('/pharmacist')}>
-          <span className={styles.roleIcon}>💊</span>
-          <span className={styles.roleName}>약사</span>
-          <span className={styles.roleDesc}>환자 관리 및 조제</span>
+          <div className={styles.roleIconWrap}>💊</div>
+          <div className={styles.roleText}>
+            <div className={styles.roleName}>약사</div>
+            <div className={styles.roleDesc}>환자 관리 및 조제</div>
+          </div>
+          <span className={styles.roleArrow}>›</span>
         </button>
         <button className={`${styles.roleCard} ${styles.patient}`} onClick={handlePatientRole}>
-          <span className={styles.roleIcon}>🏥</span>
-          <span className={styles.roleName}>환자</span>
-          <span className={styles.roleDesc}>일정 확인 및 신고</span>
+          <div className={styles.roleIconWrap}>🏥</div>
+          <div className={styles.roleText}>
+            <div className={styles.roleName}>환자</div>
+            <div className={styles.roleDesc}>일정 확인 및 신고</div>
+          </div>
+          <span className={styles.roleArrow}>›</span>
         </button>
       </div>
     </div>

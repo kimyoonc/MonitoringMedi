@@ -47,9 +47,9 @@ export default function ReportPage() {
   if (submitted) {
     return (
       <div className={styles.submitted}>
-        <div className={styles.checkIcon}>✅</div>
-        <h2>신고가 접수되었습니다</h2>
-        <p>{reportResult?.message || '약사에게 전달되었습니다.'}</p>
+        <div className={styles.checkIcon}>✓</div>
+        <p className={styles.submittedTitle}>신고가 접수되었습니다</p>
+        <p className={styles.submittedDesc}>{reportResult?.message || '약사에게 전달되었습니다.'}</p>
         {reportResult?.id && (
           <p className={styles.receiptId}>접수번호: {reportResult.id}</p>
         )}

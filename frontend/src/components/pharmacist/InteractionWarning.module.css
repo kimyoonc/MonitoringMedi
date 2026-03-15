@@ -1,181 +1,230 @@
-/* 오버레이 */
+/* Apple HIG — Action Sheet / Alert style */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: flex-end;
   justify-content: center;
   z-index: 1000;
   padding: 0;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  animation: fadeIn 0.2s ease;
 }
 
-/* 모달 */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 모달 — iOS Sheet 스타일 */
 .modal {
   width: 100%;
-  max-height: 80vh;
+  max-height: 82vh;
   overflow-y: auto;
-  background: white;
-  border-radius: var(--radius-lg, 16px) var(--radius-lg, 16px) 0 0;
-  padding: var(--spacing-lg, 24px);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+  padding: 0 0 20px;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md, 16px);
+  gap: 0;
+  animation: slideUp 0.35s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-/* 심각도별 모달 상단 색상 */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* 드래그 핸들 */
+.modal::before {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 5px;
+  background: var(--fill-secondary);
+  border-radius: 3px;
+  margin: 8px auto 4px;
+  flex-shrink: 0;
+}
+
 .modal.high {
-  border-top: 4px solid #EF4444;
+  /* 상단 색상 없이 내용으로 구분 */
 }
 
 .modal.moderate {
-  border-top: 4px solid #F59E0B;
+  /* 상단 색상 없이 내용으로 구분 */
 }
 
 /* 헤더 */
 .header {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm, 8px);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
 }
 
 .icon {
-  font-size: 24px;
+  font-size: 22px;
   flex-shrink: 0;
 }
 
 .title {
-  font-size: var(--font-size-base, 16px);
+  font-size: 17px;
   font-weight: 700;
-  color: var(--color-neutral-900, #111827);
+  color: var(--label-primary);
+  letter-spacing: -0.022em;
 }
 
 /* 상호작용 목록 */
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-sm, 8px);
+  gap: var(--spacing-sm);
+  padding: 0 var(--spacing-md);
 }
 
 .interactionItem {
-  padding: var(--spacing-md, 16px);
-  border-radius: var(--radius-md, 8px);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-lg);
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
 .interactionItem.high {
-  background: #FEF2F2;
-  border: 1px solid #FECACA;
+  background: var(--color-error-light);
 }
 
 .interactionItem.moderate {
-  background: #FFFBEB;
-  border: 1px solid #FDE68A;
+  background: var(--color-warning-light);
 }
 
 /* 약물명 행 */
 .drugs {
   display: flex;
   align-items: center;
-  gap: var(--spacing-xs, 4px);
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .drug {
   font-weight: 600;
-  font-size: var(--font-size-sm, 14px);
-  color: var(--color-neutral-900, #111827);
+  font-size: 15px;
+  color: var(--label-primary);
 }
 
 .plus {
-  color: var(--color-neutral-400, #9CA3AF);
+  color: var(--label-secondary);
   font-weight: 700;
 }
 
 /* 심각도 뱃지 */
 .severityBadge {
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: var(--font-size-xs, 12px);
+  padding: 2px 9px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
   font-weight: 600;
 }
 
 .badge_high {
-  background: #FEE2E2;
-  color: #B91C1C;
+  background: rgba(255, 59, 48, 0.15);
+  color: #CC1100;
 }
 
 .badge_moderate {
-  background: #FEF3C7;
-  color: #92400E;
+  background: rgba(255, 149, 0, 0.15);
+  color: #C45D00;
 }
 
 .badge_low {
-  background: var(--color-neutral-100, #F3F4F6);
-  color: var(--color-neutral-600, #4B5563);
+  background: var(--fill-tertiary);
+  color: var(--label-secondary);
 }
 
 .description {
-  font-size: var(--font-size-sm, 14px);
-  color: var(--color-neutral-700, #374151);
-  line-height: 1.4;
+  font-size: 15px;
+  color: var(--label-primary);
+  line-height: 1.45;
 }
 
 .action {
-  font-size: var(--font-size-xs, 12px);
-  color: var(--color-neutral-500, #6B7280);
-  font-style: italic;
+  font-size: 13px;
+  color: var(--label-secondary);
+  font-style: normal;
+  line-height: 1.4;
 }
 
 /* 버튼 그룹 */
 .actions {
   display: flex;
-  gap: var(--spacing-sm, 8px);
-  margin-top: var(--spacing-xs, 4px);
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md) var(--spacing-md) 0;
 }
 
 .btn {
-  flex: 1;
-  padding: 12px;
-  border-radius: var(--radius-md, 8px);
-  font-size: var(--font-size-sm, 14px);
+  width: 100%;
+  padding: 14px var(--spacing-md);
+  border-radius: var(--radius-lg);
+  font-size: 17px;
   font-weight: 600;
   border: none;
   cursor: pointer;
-  transition: opacity 0.2s;
-  min-height: 48px;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+  min-height: 50px;
+  letter-spacing: -0.022em;
+  font-family: var(--font-family);
 }
 
-.btn:hover {
+.btn:active {
+  transform: scale(0.98);
   opacity: 0.85;
 }
 
 .cancelBtn {
-  background: var(--color-neutral-100, #F3F4F6);
-  color: var(--color-neutral-700, #374151);
+  background: var(--fill-tertiary);
+  color: var(--label-primary);
 }
 
 .confirmBtn {
-  background: #F59E0B;
-  color: white;
+  background: var(--color-warning);
+  color: #FFFFFF;
 }
 
 .confirmHighBtn {
-  background: #EF4444;
-  color: white;
+  background: var(--color-error);
+  color: #FFFFFF;
 }
 
-/* PC/태블릿: 중앙 모달 */
+/* PC/태블릿: 중앙 모달 (iOS Alert 스타일) */
 @media (min-width: 768px) {
   .overlay {
     align-items: center;
   }
 
   .modal {
-    width: 480px;
-    border-radius: var(--radius-lg, 16px);
-    max-height: 70vh;
+    width: 400px;
+    border-radius: var(--radius-2xl);
+    max-height: 72vh;
+    animation: scaleIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes scaleIn {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .modal::before {
+    display: none;
+  }
+
+  .actions {
+    flex-direction: row;
+  }
+
+  .btn {
+    flex: 1;
   }
 }
