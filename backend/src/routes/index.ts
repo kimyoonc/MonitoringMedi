@@ -6,6 +6,7 @@ import exchangesRouter from './exchanges';
 import interactionsRouter from './interactions';
 import dashboardRouter from './dashboard';
 import notificationsRouter from './notifications';
+import calendarRouter from './calendar';
 
 export const router = Router();
 
@@ -16,3 +17,4 @@ router.use('/exchanges', exchangesRouter);
 router.use('/interactions', interactionsRouter);
 router.use('/dashboard', dashboardRouter);
 router.use('/notifications', notificationsRouter);
+router.use('/calendar', calendarRouter);

@@ -7,6 +7,7 @@ import Button from '@/components/common/Button'
 import Loading from '@/components/common/Loading'
 import { api } from '@/api/client'
 import type { Plan, Visit } from '@/types'
+import AdherenceChart from '@/components/pharmacist/AdherenceChart'
 import styles from './PatientDetailPage.module.css'
 
 interface PatientData {
@@ -184,6 +185,13 @@ export default function PatientDetailPage() {
             교환 이력 조회
           </Button>
         </div>
+
+        {/* 복약 순응도 차트 */}
+        {visits.length > 0 && (
+          <Card>
+            <AdherenceChart visits={visits} />
+          </Card>
+        )}
 
         {/* 방문 이력 */}
         <section>
