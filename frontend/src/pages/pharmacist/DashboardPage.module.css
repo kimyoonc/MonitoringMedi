@@ -16,39 +16,68 @@
 .summaryCard {
   text-align: center;
   padding: var(--spacing-md) var(--spacing-sm);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
+.summaryVisit  { background: linear-gradient(145deg, rgba(0,122,255,0.10) 0%, rgba(0,122,255,0.04) 100%); }
+.summaryPending{ background: linear-gradient(145deg, rgba(255,149,0,0.10) 0%, rgba(255,149,0,0.04) 100%); }
+.summaryAlert  { background: linear-gradient(145deg, rgba(120,120,128,0.08) 0%, rgba(120,120,128,0.03) 100%); }
+
 .summaryCard.alert {
-  background: var(--color-error-light);
+  background: linear-gradient(145deg, rgba(255,59,48,0.12) 0%, rgba(255,59,48,0.05) 100%);
+}
+
+/* 아이콘 컨테이너 */
+.summaryIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.summaryIcon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.iconVisit   { background: rgba(0,122,255,0.14); color: var(--color-primary); }
+.iconPending { background: rgba(255,149,0,0.14); color: var(--color-warning); }
+.iconAlert   { background: rgba(120,120,128,0.12); color: var(--label-secondary); }
+.summaryCard.alert .iconAlert {
+  background: rgba(255,59,48,0.14);
+  color: var(--color-error);
 }
 
 .summaryNumber {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 700;
   color: var(--label-primary);
   letter-spacing: -0.04em;
   line-height: 1.1;
 }
 
-.visitNumber {
-  color: var(--color-primary);
-}
-
-.pendingNumber {
-  color: var(--color-warning);
-}
-
-.summaryCard.alert .summaryNumber {
-  color: var(--color-error);
-}
+.visitNumber   { color: var(--color-primary); }
+.pendingNumber { color: var(--color-warning); }
+.alertNumber   { color: var(--color-error); }
 
 .summaryLabel {
   font-size: 11px;
   font-weight: 500;
   color: var(--label-secondary);
-  margin-top: 4px;
+  margin-top: 2px;
   letter-spacing: 0.01em;
+}
+
+/* 섹션 타이틀 아이콘 */
+.sectionIcon {
+  font-size: 15px;
 }
 
 /* 환자 목록 그리드 */
@@ -71,6 +100,9 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 0 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .list {
