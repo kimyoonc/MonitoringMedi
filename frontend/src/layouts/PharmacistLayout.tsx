@@ -12,7 +12,7 @@ const pharmacistNavItems = [
 export default function PharmacistLayout() {
   return (
     <div className={styles.layout}>
-      <SideNav items={pharmacistNavItems} title="복약관리" />
+      <SideNav items={pharmacistNavItems} title="분할조제 복약관리" />
       <main className={styles.main}>
         <Outlet />
       </main>

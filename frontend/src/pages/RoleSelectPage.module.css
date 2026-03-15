@@ -28,11 +28,12 @@
 }
 
 .title {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-3xl);
   font-weight: 700;
   color: var(--label-primary);
   margin-bottom: var(--spacing-sm);
   letter-spacing: -0.04em;
+  line-height: 1.18;
 }
 
 .subtitle {

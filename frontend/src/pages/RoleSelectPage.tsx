@@ -88,8 +88,8 @@ export default function RoleSelectPage() {
     <div className={styles.page}>
       <div className={styles.hero}>
         <div className={styles.logoMark}>💊</div>
-        <h1 className={styles.title}>복약 관리 시스템</h1>
-        <p className={styles.subtitle}>장기 처방 의약품 복약 관리</p>
+        <h1 className={styles.title}>장기처방 의약품<br />분할조제 복약 관리</h1>
+        <p className={styles.subtitle}>장기 처방 의약품의 단계적 조제와 복약 관리</p>
       </div>
       <div className={styles.roles}>
         <button className={`${styles.roleCard} ${styles.pharmacist}`} onClick={() => navigate('/pharmacist')}>
