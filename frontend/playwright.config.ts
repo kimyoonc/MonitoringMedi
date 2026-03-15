@@ -22,7 +22,7 @@ export default defineConfig({
     },
     {
       name: 'mobile',
-      use: { ...devices['iPhone 12'] },
+      use: { ...devices['iPhone 12'], browserName: 'chromium' },
     },
   ],
   webServer: {
