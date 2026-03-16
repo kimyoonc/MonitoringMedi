@@ -24,7 +24,6 @@ export default function AppRoutes() {
         <Route path="patients/:id/plans/new" element={<PlanCreatePage />} />
         <Route path="patients/:patientId/visits/new" element={<VisitRecordPage />} />
         <Route path="patients/:patientId/exchanges" element={<ExchangePage />} />
-        <Route path="patients/:patientId/exchanges/new" element={<ExchangePage />} />
         <Route path="calendar" element={<CalendarPage />} />
         <Route path="plans/new" element={<PlanCreatePage />} />
         <Route path="visits/:id" element={<VisitRecordPage />} />

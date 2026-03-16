@@ -168,16 +168,8 @@ export default function PatientDetailPage() {
           </div>
         )}
 
-        {/* 교환 관리 버튼 */}
+        {/* 교환 이력 조회 */}
         <div className={styles.actions}>
-          {activePlan && (
-            <Button
-              variant="secondary"
-              onClick={() => navigate(`/pharmacist/patients/${id}/exchanges/new`)}
-            >
-              의약품 교환 신청
-            </Button>
-          )}
           <Button
             variant="secondary"
             onClick={() => navigate(`/pharmacist/patients/${id}/exchanges`)}
