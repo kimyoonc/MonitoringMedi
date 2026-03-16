@@ -18,37 +18,16 @@ interface DispensedMed {
   unit: string
 }
 
-type ExchangeReason = 'contamination' | 'damage' | 'expiry'
-
-interface ExchangeMed {
-  name: string
-  quantity: number
-  unit: string
-}
-
-const EXCHANGE_REASON_OPTIONS: { value: ExchangeReason; label: string }[] = [
-  { value: 'contamination', label: '오염/훼손' },
-  { value: 'damage', label: '파손' },
-  { value: 'expiry', label: '유통기한 임박' },
-]
-
-const HANDLING_OPTIONS = ['폐기 후 신규 조제', '부분 교환 후 재지급', '전량 교환']
-
 export default function VisitRecordPage() {
-  // id: 기존 방문 기록 조회 모드 (/visits/:id)
-  // patientId: 신규 생성 모드 (/patients/:patientId/visits/new)
   const { id, patientId: patientIdFromPath } = useParams<{ id?: string; patientId?: string }>()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
-  // 신규 생성 모드 여부 판단
   const planId = searchParams.get('planId')
   const stepParam = searchParams.get('step') || searchParams.get('stepNumber')
   const isNewMode = !!patientIdFromPath || (!id && !!planId)
 
-  // 기존 방문 기록 (조회 모드)
   const [visit, setVisit] = useState<Visit | null>(null)
-  // 계획 정보 (신규 생성 모드)
   const [plan, setPlan] = useState<Plan | null>(null)
 
   const [loading, setLoading] = useState(true)
@@ -56,10 +35,8 @@ export default function VisitRecordPage() {
   const [errorModal, setErrorModal] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
 
-  // Toast 알림 훅
   const { toast, showToast, hideToast } = useToast()
 
-  // 폼 상태
   const [form, setForm] = useState({
     adherence: 'good' as 'good' | 'fair' | 'poor',
     adverseReaction: false,
@@ -68,32 +45,20 @@ export default function VisitRecordPage() {
     pharmacistNote: '',
   })
 
-  // 조제 의약품 목록 (신규 모드에서 편집 가능)
   const [dispensedMeds, setDispensedMeds] = useState<DispensedMed[]>([])
-
-  // 교환 신청 상태
-  const [includeExchange, setIncludeExchange] = useState(false)
-  const [exchangeReason, setExchangeReason] = useState<ExchangeReason>('contamination')
-  const [exchangeMeds, setExchangeMeds] = useState<ExchangeMed[]>([{ name: '', quantity: 1, unit: '정' }])
-  const [handlingMethod, setHandlingMethod] = useState(HANDLING_OPTIONS[0])
-  const [exchangeNote, setExchangeNote] = useState('')
 
   const stepNumber = stepParam ? parseInt(stepParam, 10) : undefined
 
   useEffect(() => {
     if (isNewMode && planId) {
-      // 신규 생성 모드: 계획 정보 조회
       api.get(`/plans/${planId}`)
         .then(res => {
           const planData: Plan = res.data.data
           setPlan(planData)
-
-          // 해당 단계의 의약품으로 조제 목록 초기화
           if (planData.medications) {
             const unit = planData.dispensingUnit
             const currentStep = planData.steps.find(s => s.stepNumber === stepNumber)
             const dispenseDays = currentStep?.dispenseDays || unit
-
             setDispensedMeds(
               planData.medications.map((med, idx) => ({
                 medicationId: `M_${idx + 1}`,
@@ -107,7 +72,6 @@ export default function VisitRecordPage() {
         })
         .catch(() => setLoading(false))
     } else if (id) {
-      // 조회 모드: 기존 방문 기록 조회
       api.get(`/visits/${id}`)
         .then(res => {
           setVisit(res.data.data)
@@ -121,7 +85,7 @@ export default function VisitRecordPage() {
 
   if (loading) return <Loading />
 
-  // 조회 모드 렌더링
+  // 조회 모드
   if (!isNewMode && visit) {
     const adherenceLabel = { good: '양호', fair: '보통', poor: '불량' }
     const storageLabel = { good: '양호', poor: '불량', damaged: '훼손' }
@@ -186,7 +150,7 @@ export default function VisitRecordPage() {
     )
   }
 
-  // 신규 생성 모드 렌더링
+  // 신규 생성 모드
   const currentStep = plan?.steps.find(s => s.stepNumber === stepNumber)
 
   const handleSave = async () => {
@@ -198,7 +162,6 @@ export default function VisitRecordPage() {
     const today = new Date().toISOString().split('T')[0]
 
     try {
-      // Step 1: 방문 기록 저장
       const visitRes = await api.post('/visits', {
         planId: plan.id,
         patientId,
@@ -214,13 +177,11 @@ export default function VisitRecordPage() {
 
       const newVisitId: string = visitRes.data.data.id
 
-      // Step 2: 조제 처리
       const dispenseRes = await api.post(`/visits/${newVisitId}/dispense`, {
         medications: dispensedMeds,
       })
 
       if (!dispenseRes.data.success) {
-        // 조제 불가 오류
         const errCode = dispenseRes.data.code
         if (errCode === 'PREVIOUS_VISIT_REQUIRED') {
           showToast('이전 방문 기록을 먼저 완료해주세요.', 'error')
@@ -232,29 +193,10 @@ export default function VisitRecordPage() {
         return
       }
 
-      // Step 3: 교환 신청 (선택)
-      if (includeExchange) {
-        const validMeds = exchangeMeds.filter(m => m.name.trim())
-        if (validMeds.length > 0) {
-          await api.post('/exchanges', {
-            visitId: newVisitId,
-            patientId,
-            exchangeDate: today,
-            reason: exchangeReason,
-            medications: validMeds,
-            handlingMethod,
-            pharmacistNote: exchangeNote,
-          })
-        }
-      }
-
       showToast('방문 기록이 저장되었습니다.', 'success')
-      if (includeExchange) setTimeout(() => showToast('교환 신청이 접수되었습니다.', 'success'), 400)
-      else setTimeout(() => showToast('조제가 완료되었습니다.', 'success'), 400)
+      setTimeout(() => showToast('조제가 완료되었습니다.', 'success'), 400)
       setSuccessMsg('방문 기록이 저장되고 조제가 완료되었습니다.')
-      setTimeout(() => {
-        navigate(`/pharmacist/patients/${patientId}`)
-      }, 1600)
+      setTimeout(() => navigate(`/pharmacist/patients/${patientId}`), 1600)
     } catch (err: any) {
       const data = err.response?.data
       if (data?.code === 'PREVIOUS_VISIT_REQUIRED') {
@@ -273,7 +215,6 @@ export default function VisitRecordPage() {
       <Header title={`방문 기록 작성 — ${stepNumber}차`} showBack />
       <div className={styles.content}>
 
-        {/* 계획 및 단계 정보 */}
         {plan && currentStep && (
           <Card>
             <h2 className={styles.sectionTitle}>조제 단계 정보</h2>
@@ -286,7 +227,6 @@ export default function VisitRecordPage() {
           </Card>
         )}
 
-        {/* 복약 상태 기록 폼 */}
         <Card>
           <h2 className={styles.sectionTitle}>복약 상태 기록</h2>
           <div className={styles.form}>
@@ -351,7 +291,6 @@ export default function VisitRecordPage() {
           </div>
         </Card>
 
-        {/* 조제 의약품 목록 */}
         {dispensedMeds.length > 0 && (
           <Card>
             <h2 className={styles.sectionTitle}>조제 의약품 확인</h2>
@@ -379,140 +318,13 @@ export default function VisitRecordPage() {
           </Card>
         )}
 
-        {/* 의약품 교환 신청 (선택) */}
-        <Card>
-          <label className={styles.toggleLabel}>
-            <input
-              type="checkbox"
-              checked={includeExchange}
-              onChange={e => setIncludeExchange(e.target.checked)}
-            />
-            <span className={styles.toggleText}>이번 방문 시 의약품 교환 신청</span>
-          </label>
-
-          {includeExchange && (
-            <div className={styles.exchangeSection}>
-              {/* 교환 사유 */}
-              <p className={styles.exchangeLabel}>교환 사유</p>
-              <div className={styles.exchangeReasons}>
-                {EXCHANGE_REASON_OPTIONS.map(opt => (
-                  <label
-                    key={opt.value}
-                    className={`${styles.reasonChip} ${exchangeReason === opt.value ? styles.reasonChipActive : ''}`}
-                  >
-                    <input
-                      type="radio"
-                      name="exchangeReason"
-                      value={opt.value}
-                      checked={exchangeReason === opt.value}
-                      onChange={() => setExchangeReason(opt.value)}
-                    />
-                    {opt.label}
-                  </label>
-                ))}
-              </div>
-
-              {/* 교환 의약품 */}
-              <p className={styles.exchangeLabel}>교환 의약품</p>
-              {exchangeMeds.map((med, idx) => (
-                <div key={idx} className={styles.exchangeMedRow}>
-                  <input
-                    className={styles.exchangeInput}
-                    value={med.name}
-                    onChange={e => {
-                      const next = [...exchangeMeds]
-                      next[idx] = { ...next[idx], name: e.target.value }
-                      setExchangeMeds(next)
-                    }}
-                    placeholder="의약품명"
-                  />
-                  <input
-                    className={`${styles.exchangeInput} ${styles.exchangeQty}`}
-                    type="number"
-                    value={med.quantity}
-                    min={1}
-                    onChange={e => {
-                      const next = [...exchangeMeds]
-                      next[idx] = { ...next[idx], quantity: +e.target.value }
-                      setExchangeMeds(next)
-                    }}
-                  />
-                  <select
-                    className={styles.exchangeSelect}
-                    value={med.unit}
-                    onChange={e => {
-                      const next = [...exchangeMeds]
-                      next[idx] = { ...next[idx], unit: e.target.value }
-                      setExchangeMeds(next)
-                    }}
-                  >
-                    <option value="정">정</option>
-                    <option value="캡슐">캡슐</option>
-                    <option value="ml">ml</option>
-                    <option value="포">포</option>
-                  </select>
-                  {exchangeMeds.length > 1 && (
-                    <button
-                      className={styles.exchangeRemove}
-                      onClick={() => setExchangeMeds(prev => prev.filter((_, i) => i !== idx))}
-                    >✕</button>
-                  )}
-                </div>
-              ))}
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => setExchangeMeds(prev => [...prev, { name: '', quantity: 1, unit: '정' }])}
-              >+ 의약품 추가</Button>
-
-              {/* 처리 방법 */}
-              <p className={styles.exchangeLabel}>처리 방법</p>
-              <div className={styles.exchangeReasons}>
-                {HANDLING_OPTIONS.map(opt => (
-                  <label
-                    key={opt}
-                    className={`${styles.reasonChip} ${handlingMethod === opt ? styles.reasonChipActive : ''}`}
-                  >
-                    <input
-                      type="radio"
-                      name="handlingMethod"
-                      value={opt}
-                      checked={handlingMethod === opt}
-                      onChange={() => setHandlingMethod(opt)}
-                    />
-                    {opt}
-                  </label>
-                ))}
-              </div>
-
-              {/* 메모 */}
-              <p className={styles.exchangeLabel}>메모 (선택)</p>
-              <textarea
-                className={styles.textarea}
-                rows={2}
-                value={exchangeNote}
-                onChange={e => setExchangeNote(e.target.value)}
-                placeholder="교환 사유 및 처리 내용"
-              />
-            </div>
-          )}
-        </Card>
-
-        {/* 성공 메시지 */}
         {successMsg && <p className={styles.success}>{successMsg}</p>}
 
-        {/* 저장 버튼 */}
-        <Button
-          fullWidth
-          size="lg"
-          onClick={handleSave}
-          disabled={submitting}
-        >
+        <Button fullWidth size="lg" onClick={handleSave} disabled={submitting}>
           {submitting ? '저장 중...' : '방문 기록 저장'}
         </Button>
       </div>
 
-      {/* 오류 Modal */}
       {errorModal && (
         <div className={styles.modalOverlay}>
           <div className={styles.modal}>
@@ -523,14 +335,8 @@ export default function VisitRecordPage() {
         </div>
       )}
 
-      {/* Toast 알림 */}
       {toast && (
-        <Toast
-          key={toast.id}
-          message={toast.message}
-          type={toast.type}
-          onClose={hideToast}
-        />
+        <Toast key={toast.id} message={toast.message} type={toast.type} onClose={hideToast} />
       )}
     </div>
   )
