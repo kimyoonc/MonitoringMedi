@@ -43,6 +43,13 @@ function getKstToday() {
   return new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]
 }
 
+// UTC 기반 날짜 덧셈 (timezone 영향 없음)
+function addDays(dateStr: string, days: number): string {
+  const [y, m, d] = dateStr.split('-').map(Number)
+  const date = new Date(Date.UTC(y, m - 1, d + days))
+  return date.toISOString().split('T')[0]
+}
+
 export default function DashboardPage() {
   const { data, loading, setData, setLoading } = useDashboardStore()
   const navigate = useNavigate()
@@ -56,8 +63,6 @@ export default function DashboardPage() {
     }).catch(() => setLoading(false))
   }, [selectedDate])
 
-  if (loading) return <Loading />
-
   const handlePatientClick = (patientId: string) => {
     navigate(`/pharmacist/patients/${patientId}`)
   }
@@ -70,9 +75,7 @@ export default function DashboardPage() {
         <div className={styles.dateBar}>
           <button
             className={styles.dateNavBtn}
-            onClick={() => setSelectedDate(d => {
-              const prev = new Date(d); prev.setDate(prev.getDate() - 1); return prev.toISOString().split('T')[0]
-            })}
+            onClick={() => setSelectedDate(d => addDays(d, -1))}
           >‹</button>
           <input
             type="date"
@@ -82,12 +85,12 @@ export default function DashboardPage() {
           />
           <button
             className={`${styles.dateNavBtn} ${selectedDate === getKstToday() ? styles.dateNavDisabled : ''}`}
-            onClick={() => setSelectedDate(d => {
-              const next = new Date(d); next.setDate(next.getDate() + 1); return next.toISOString().split('T')[0]
-            })}
+            onClick={() => setSelectedDate(d => addDays(d, 1))}
             disabled={selectedDate === getKstToday()}
           >›</button>
         </div>
+
+        {loading && <Loading />}
 
         {/* 요약 카드 */}
         <div className={styles.summaryGrid}>
