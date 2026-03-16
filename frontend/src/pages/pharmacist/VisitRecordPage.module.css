@@ -160,6 +160,142 @@
   color: var(--color-primary-dark);
 }
 
+/* 교환 신청 토글 */
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+}
+
+.toggleLabel input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.toggleText {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--label-primary);
+}
+
+/* 교환 신청 내용 */
+.exchangeSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--separator-opaque);
+}
+
+.exchangeLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--label-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 4px 0 0 0;
+}
+
+/* 교환 사유 / 처리방법 칩 */
+.exchangeReasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.reasonChip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--separator-opaque);
+  background: var(--bg-grouped-secondary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.reasonChip input[type="radio"] {
+  display: none;
+}
+
+.reasonChipActive {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  font-weight: 600;
+}
+
+/* 교환 의약품 행 */
+.exchangeMedRow {
+  display: grid;
+  grid-template-columns: 1fr 60px 70px auto;
+  gap: 6px;
+  align-items: center;
+}
+
+.exchangeInput {
+  padding: 9px var(--spacing-sm);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-family: var(--font-family);
+  background: var(--bg-grouped-secondary);
+  color: var(--label-primary);
+  outline: none;
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+}
+
+.exchangeInput:focus {
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.20), var(--shadow-sm);
+}
+
+.exchangeQty {
+  text-align: center;
+}
+
+.exchangeSelect {
+  padding: 9px 6px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-family: var(--font-family);
+  background: var(--bg-grouped-secondary);
+  color: var(--label-primary);
+  outline: none;
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  cursor: pointer;
+}
+
+.exchangeRemove {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: var(--color-error-light);
+  color: var(--color-error);
+  border-radius: 50%;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .exchangeMedRow {
+    grid-template-columns: 1fr 55px 60px auto;
+    gap: 4px;
+  }
+}
+
 /* 성공 메시지 */
 .success {
   font-size: 15px;
