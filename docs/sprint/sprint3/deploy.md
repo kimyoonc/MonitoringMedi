@@ -2,37 +2,27 @@
 
 **스프린트:** Sprint 3 — P1 확장 기능 구현
 **완료일:** 2026-03-15
-**브랜치:** sprint1 → main
-
----
-
-## 자동 검증 완료 항목
-
-### Vitest 단위 테스트
-- ✅ planCalculator.test.ts — 5/5 통과
-- ✅ canDispense.test.ts — 4/4 통과
-- ✅ interactionCheck.test.ts — 5/5 통과
-- ✅ adherenceStatus.test.ts — 7/7 통과
-- ✅ **총 21/21 테스트 통과**
-
-### GitHub Actions CI
-- ✅ 프론트엔드 빌드: `npm run build` 성공 (128 modules)
-- ✅ 백엔드 빌드: `tsc` 성공
-- ✅ CI 파이프라인: `.github/workflows/ci.yml`
-
-### 배포 검증 (Live API)
-- ✅ `GET https://monitoringmedi.onrender.com/api/patients` → 환자 3명 응답
-- ✅ `GET https://monitoringmedi.onrender.com/api/dashboard` → 집계 데이터 응답
-- ✅ `GET https://monitoringmedi.onrender.com/api/notifications?patientId=P001` → 알림 4건 응답
-- ✅ PostgreSQL (Supabase) 연동: 데이터 영구 저장 확인
-
-## 수동 검증 필요 항목
-- ⬜ 실제 브라우저에서 TC-01~TC-08 전체 플로우 확인
-- ⬜ 모바일(375px) 실기기 터치 이벤트 확인
+**브랜치:** sprint3 → main
 
 ---
 
 ## 자동 검증 완료
+
+### Vitest 단위 테스트
+
+| 테스트 파일 | 케이스 수 | 결과 |
+|---|---|---|
+| planCalculator.test.ts | 5 | ✅ 전체 통과 |
+| canDispense.test.ts | 4 | ✅ 전체 통과 |
+| interactionCheck.test.ts | 5 | ✅ 전체 통과 |
+| adherenceStatus.test.ts | 7 | ✅ 전체 통과 |
+| **합계** | **21** | **✅ 21/21 통과** |
+
+### GitHub Actions CI
+
+- ✅ 프론트엔드 빌드: `npm run build` 성공 (128 modules)
+- ✅ 백엔드 빌드: `tsc` 성공
+- ✅ CI 파이프라인: `.github/workflows/ci.yml`
 
 ### Mock API 응답 검증
 
@@ -71,21 +61,14 @@
 | TC-07 | 약물 상호작용 경고 발생 | ✅ 통과 |
 | TC-08 | 대시보드 오늘 방문 예정 환자 조회 | ✅ 통과 |
 
-### 배포 검증
+### 배포 검증 (Live API)
 
 - ✅ 프론트엔드: https://monitoringmedi.vercel.app 정상 응답
 - ✅ 백엔드: https://monitoringmedi.onrender.com/api/dashboard 정상 응답
+- ✅ `GET https://monitoringmedi.onrender.com/api/patients` → 환자 3명 응답
+- ✅ `GET https://monitoringmedi.onrender.com/api/notifications?patientId=P001` → 알림 4건 응답
+- ✅ PostgreSQL (Supabase) 연동: 데이터 영구 저장 확인
 - ✅ CORS 설정: Vercel → Render API 호출 정상
-
-### 단위 테스트 결과 (Vitest)
-
-| 테스트 파일 | 케이스 수 | 결과 |
-|---|---|---|
-| planCalculator.test.ts | 5 | ✅ 전체 통과 |
-| canDispense.test.ts | 4 | ✅ 전체 통과 |
-| interactionCheck.test.ts | 5 | ✅ 전체 통과 |
-| adherenceStatus.test.ts | 7 | ✅ 전체 통과 |
-| **합계** | **21** | **✅ 21/21 통과** |
 
 ---
 
@@ -95,10 +78,10 @@
 - ⬜ 모바일(375px) 교환 신청 폼 및 대시보드 스크롤 확인
 - ⬜ PC(1280px) 대시보드 3컬럼 레이아웃 확인
 - ⬜ 약물 상호작용 경고 애니메이션 확인
+- ⬜ 모바일(375px) 실기기 터치 이벤트 확인
 
 ---
 
 ## 알려진 제약사항
 
 - Render 무료 플랜: 15분 비활성 후 절전 (첫 요청 30~60초 지연)
-- 인메모리 store: 서버 재시작 시 데이터 초기화 (fixtures 기준 복원)

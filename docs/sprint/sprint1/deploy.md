@@ -31,15 +31,15 @@
 
 ```bash
 # 루트 의존성 (concurrently)
-cd D:/kimyoon/claude
+cd <프로젝트 루트>
 npm install
 
 # 백엔드 의존성
-cd D:/kimyoon/claude/backend
+cd backend
 npm install
 
 # 프론트엔드 의존성
-cd D:/kimyoon/claude/frontend
+cd frontend
 npm install
 ```
 
@@ -48,7 +48,6 @@ npm install
 루트 디렉토리에서:
 
 ```bash
-cd D:/kimyoon/claude
 npm run dev
 ```
 

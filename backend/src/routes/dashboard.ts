@@ -25,14 +25,14 @@ router.get('/', async (req, res) => {
 
     const todayVisits = todaySteps.length;
 
-    // 조제 대기 중: scheduled 상태인 step 수
+    // 조제 대기 중: 오늘 예정된 scheduled 상태 step 수
     const pendingDispense = await prisma.planStep.count({
-      where: { status: 'scheduled' },
+      where: { status: 'scheduled', scheduledDate: today },
     });
 
-    // 이상반응 환자 수
+    // 이상반응 환자 수: 오늘 방문 기록 중 이상반응 건수
     const adverseReactions = await prisma.visit.count({
-      where: { adverseReaction: true },
+      where: { adverseReaction: true, visitDate: today },
     });
 
     // 오늘 방문 예정 환자 목록
@@ -44,9 +44,9 @@ router.get('/', async (req, res) => {
       conditions: step.plan.patient.conditions,
     }));
 
-    // 조제 대기 환자 목록 (scheduled 상태 step이 있는 plan)
+    // 조제 대기 환자 목록 (오늘 예정된 scheduled 상태 step)
     const pendingSteps = await prisma.planStep.findMany({
-      where: { status: 'scheduled' },
+      where: { status: 'scheduled', scheduledDate: today },
       include: {
         plan: {
           include: {
@@ -72,9 +72,9 @@ router.get('/', async (req, res) => {
       };
     });
 
-    // 이상반응 환자 목록
+    // 이상반응 환자 목록 (오늘 방문 기록 기준)
     const adverseVisits = await prisma.visit.findMany({
-      where: { adverseReaction: true },
+      where: { adverseReaction: true, visitDate: today },
       include: { patient: true },
       orderBy: { visitDate: 'desc' },
     });
