@@ -1,9 +1,17 @@
-/* 복약 순응도 추이 — 가로 뱃지 한 줄 */
+/* 복약 순응도 추이 */
 .wrap {
   display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
+  align-items: flex-start;
+  gap: var(--spacing-md);
   flex-wrap: wrap;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
 }
 
 .title {
@@ -12,24 +20,29 @@
   color: var(--label-secondary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .track {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
 }
 
 .chip {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
+  gap: 3px;
+  padding: 3px 9px;
   border-radius: var(--radius-full);
   background: var(--fill-quaternary);
   border: 1.5px solid var(--chip-color);
+}
+
+.chipIcon {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--chip-color);
+  line-height: 1;
 }
 
 .chipStep {
@@ -42,4 +55,39 @@
   font-size: 11px;
   font-weight: 500;
   color: var(--chip-color);
+}
+
+/* 우측 범례 */
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legendIcon {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--chip-color);
+  width: 14px;
+  text-align: center;
+  line-height: 1;
+}
+
+.legendText {
+  font-size: 11px;
+  color: var(--label-secondary);
+  white-space: nowrap;
+}
+
+.legendText b {
+  font-weight: 700;
+  color: var(--chip-color);
+  margin-right: 2px;
 }
