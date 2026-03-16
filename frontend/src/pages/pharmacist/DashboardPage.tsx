@@ -84,9 +84,8 @@ export default function DashboardPage() {
             onChange={e => setSelectedDate(e.target.value)}
           />
           <button
-            className={`${styles.dateNavBtn} ${selectedDate === getKstToday() ? styles.dateNavDisabled : ''}`}
+            className={styles.dateNavBtn}
             onClick={() => setSelectedDate(d => addDays(d, 1))}
-            disabled={selectedDate === getKstToday()}
           >›</button>
         </div>
 

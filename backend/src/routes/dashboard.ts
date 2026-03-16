@@ -10,71 +10,48 @@ router.get('/', async (req, res) => {
     const kstToday = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]
     const today = (req.query.date as string) || kstToday
 
-    // 오늘 방문 예정: scheduled 상태이면서 scheduledDate가 오늘인 step
+    // 해당 날짜 plan step 전체 조회 (상태 무관 — 과거: completed, 오늘: scheduled, 미래: pending)
     const todaySteps = await prisma.planStep.findMany({
-      where: {
-        scheduledDate: today,
-        status: 'scheduled',
-      },
+      where: { scheduledDate: today },
       include: {
         plan: {
-          include: {
-            patient: true,
-          },
+          include: { patient: true },
         },
       },
     });
 
     const todayVisits = todaySteps.length;
 
-    // 조제 대기 중: 오늘 예정된 scheduled 상태 step 수
-    const pendingDispense = await prisma.planStep.count({
-      where: { status: 'scheduled', scheduledDate: today },
-    });
+    // 조제 미완료 수 (scheduled 또는 pending — 아직 방문하지 않은 step)
+    const pendingDispense = todaySteps.filter(s => s.status !== 'completed').length;
 
-    // 이상반응 환자 수: 오늘 방문 기록 중 이상반응 건수
+    // 이상반응 환자 수: 해당 날짜 방문 기록 중 이상반응 건수
     const adverseReactions = await prisma.visit.count({
       where: { adverseReaction: true, visitDate: today },
     });
 
-    // 오늘 방문 예정 환자 목록
+    // 방문 환자 목록 (해당 날짜 전체)
     const todayVisitPatients = todaySteps.map(step => ({
       patientId: step.plan.patientId,
       name: step.plan.patient.name,
       stepNumber: step.stepNumber,
       planId: step.planId,
+      status: step.status,
       conditions: step.plan.patient.conditions,
     }));
 
-    // 조제 대기 환자 목록 (오늘 예정된 scheduled 상태 step)
-    const pendingSteps = await prisma.planStep.findMany({
-      where: { status: 'scheduled', scheduledDate: today },
-      include: {
-        plan: {
-          include: {
-            patient: true,
-          },
-        },
-      },
-      orderBy: { scheduledDate: 'asc' },
-    });
+    // 조제 미완료 환자 목록 (scheduled / pending)
+    const pendingSteps = todaySteps.filter(s => s.status !== 'completed');
 
-    const pendingDispensePatients = pendingSteps.map(step => {
-      const scheduledDate = new Date(step.scheduledDate);
-      const todayDate = new Date(today);
-      const diffTime = todayDate.getTime() - scheduledDate.getTime();
-      const daysOverdue = Math.max(0, Math.floor(diffTime / (1000 * 60 * 60 * 24)));
+    const pendingDispensePatients = pendingSteps.map(step => ({
+      patientId: step.plan.patientId,
+      name: step.plan.patient.name,
+      nextVisitDate: step.scheduledDate,
+      stepNumber: step.stepNumber,
+      daysOverdue: 0,
+    }));
 
-      return {
-        patientId: step.plan.patientId,
-        name: step.plan.patient.name,
-        nextVisitDate: step.scheduledDate,
-        stepNumber: step.stepNumber,
-        daysOverdue,
-      };
-    });
-
-    // 이상반응 환자 목록 (오늘 방문 기록 기준)
+    // 이상반응 환자 목록 (해당 날짜 방문 기록 기준)
     const adverseVisits = await prisma.visit.findMany({
       where: { adverseReaction: true, visitDate: today },
       include: { patient: true },
