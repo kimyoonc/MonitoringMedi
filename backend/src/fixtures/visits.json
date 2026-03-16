@@ -284,5 +284,363 @@
       {"medicationId": "M_2", "quantity": 30, "unit": "캡슐"}
     ],
     "createdAt": "2026-01-30T10:30:00Z"
+  },
+  {
+    "id": "V018",
+    "planId": "PL002",
+    "patientId": "P002",
+    "visitDate": "2026-03-05",
+    "stepNumber": 2,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "처방 완료. 콜레스테롤 수치 개선 확인. 관절 통증도 많이 줄었다고 함.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 30, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 30, "unit": "캡슐"}
+    ],
+    "createdAt": "2026-03-05T11:00:00Z"
+  },
+  {
+    "id": "V019",
+    "planId": "PL001",
+    "patientId": "P001",
+    "visitDate": "2026-03-16",
+    "stepNumber": 3,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "3개월 처방 완료. 혈압 및 혈당 안정적. 신규 처방 필요.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 30, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 60, "unit": "정"}
+    ],
+    "createdAt": "2026-03-16T10:00:00Z"
+  },
+  {
+    "id": "V020",
+    "planId": "PL006",
+    "patientId": "P006",
+    "visitDate": "2026-03-16",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "골다공증 1차 조제. 공복 복용 및 낙상 주의사항 교육.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 4, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 30, "unit": "캡슐"}
+    ],
+    "createdAt": "2026-03-16T11:30:00Z"
+  },
+  {
+    "id": "V021",
+    "planId": "PL011",
+    "patientId": "P011",
+    "visitDate": "2026-03-16",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "3제 복합 처방 시작. 각 약물 복약 시간 및 주의사항 상세 교육.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 30, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 60, "unit": "정"},
+      {"medicationId": "M_3", "quantity": 30, "unit": "정"}
+    ],
+    "createdAt": "2026-03-16T14:00:00Z"
+  },
+  {
+    "id": "V022",
+    "planId": "PL014",
+    "patientId": "P014",
+    "visitDate": "2026-03-03",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "고혈압/부정맥 치료 시작. 베라파밀 어지럼증 가능성 안내. 심박수 정기 확인 권고.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 7, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 14, "unit": "정"}
+    ],
+    "createdAt": "2026-03-03T10:00:00Z"
+  },
+  {
+    "id": "V023",
+    "planId": "PL014",
+    "patientId": "P014",
+    "visitDate": "2026-03-10",
+    "stepNumber": 2,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "어지럼증 없음 확인. 혈압 수치 개선 중. 복약 순응도 양호.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 7, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 14, "unit": "정"}
+    ],
+    "createdAt": "2026-03-10T09:00:00Z"
+  },
+  {
+    "id": "V024",
+    "planId": "PL015",
+    "patientId": "P015",
+    "visitDate": "2026-03-05",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "당뇨 처방 시작. 저혈당 증상 주의사항 교육. 식이요법 병행 권고.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 14, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-05T10:30:00Z"
+  },
+  {
+    "id": "V025",
+    "planId": "PL015",
+    "patientId": "P015",
+    "visitDate": "2026-03-12",
+    "stepNumber": 2,
+    "adherence": "fair",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "poor",
+    "pharmacistNote": "복용 누락 2회 있었다고 함. 복약 시간 재교육. 혈당 소폭 상승, 주의 필요.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 14, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-12T11:00:00Z"
+  },
+  {
+    "id": "V026",
+    "planId": "PL016",
+    "patientId": "P016",
+    "visitDate": "2026-03-01",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "고지혈증 복합 처방 시작. 근육통 등 이상반응 발생 시 즉시 연락 당부.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 7, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-01T09:00:00Z"
+  },
+  {
+    "id": "V027",
+    "planId": "PL016",
+    "patientId": "P016",
+    "visitDate": "2026-03-08",
+    "stepNumber": 2,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "근육통 없음 확인. LDL 수치 개선 기대. 복약 순응도 양호.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 7, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-08T10:00:00Z"
+  },
+  {
+    "id": "V028",
+    "planId": "PL016",
+    "patientId": "P016",
+    "visitDate": "2026-03-15",
+    "stepNumber": 3,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "3주차 우수한 순응도. 다음 방문 전 혈액 검사 권고.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 7, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-15T11:00:00Z"
+  },
+  {
+    "id": "V029",
+    "planId": "PL017",
+    "patientId": "P017",
+    "visitDate": "2026-03-03",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "갑상선 항진증 및 고혈압 치료 시작. 발열/인후통 시 즉시 연락 당부. 가족 동반 방문.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 14, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-03T13:00:00Z"
+  },
+  {
+    "id": "V030",
+    "planId": "PL017",
+    "patientId": "P017",
+    "visitDate": "2026-03-10",
+    "stepNumber": 2,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "이상반응 없음 확인. 갑상선 증상 개선 중. 복약 지속 권고.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 14, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-10T10:00:00Z"
+  },
+  {
+    "id": "V031",
+    "planId": "PL018",
+    "patientId": "P013",
+    "visitDate": "2026-03-07",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "전립선비대증 재처방. 이전 처방 후 증상 재발. 기립성 저혈압 주의사항 재교육.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 7, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "캡슐"}
+    ],
+    "createdAt": "2026-03-07T09:00:00Z"
+  },
+  {
+    "id": "V032",
+    "planId": "PL018",
+    "patientId": "P013",
+    "visitDate": "2026-03-14",
+    "stepNumber": 2,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "야간 빈뇨 횟수 감소 확인. 복약 규칙적 유지 중.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 7, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "캡슐"}
+    ],
+    "createdAt": "2026-03-14T10:30:00Z"
+  },
+  {
+    "id": "V033",
+    "planId": "PL019",
+    "patientId": "P018",
+    "visitDate": "2026-03-07",
+    "stepNumber": 1,
+    "adherence": "fair",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "흡입기 사용법 교육. 스페이서 사용 권장. 흡입 후 구강 헹굼 지도.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 14, "unit": "포"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-07T14:00:00Z"
+  },
+  {
+    "id": "V034",
+    "planId": "PL019",
+    "patientId": "P018",
+    "visitDate": "2026-03-14",
+    "stepNumber": 2,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "스페이서 활용 후 흡입 방법 개선. 야간 증상 감소. 복약 순응도 향상.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 14, "unit": "포"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-14T11:00:00Z"
+  },
+  {
+    "id": "V035",
+    "planId": "PL020",
+    "patientId": "P019",
+    "visitDate": "2026-03-08",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "골다공증 및 고혈압 복합 처방. 알렌드론산 복용 후 30분 이상 눕지 말 것 교육.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 1, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-08T10:00:00Z"
+  },
+  {
+    "id": "V036",
+    "planId": "PL020",
+    "patientId": "P019",
+    "visitDate": "2026-03-15",
+    "stepNumber": 2,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "복약 방법 준수. 위장 불편감 없음. 혈압 안정적.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 1, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-15T09:30:00Z"
+  },
+  {
+    "id": "V037",
+    "planId": "PL021",
+    "patientId": "P020",
+    "visitDate": "2026-03-04",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "당뇨/심부전 복합 처방 시작. 엠파글리플로진 요로감염 주의사항 안내. 수분 충분히 권고.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 14, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-04T10:00:00Z"
+  },
+  {
+    "id": "V038",
+    "planId": "PL021",
+    "patientId": "P020",
+    "visitDate": "2026-03-12",
+    "stepNumber": 2,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "요로감염 증상 없음. 혈당 수치 개선 중. 심부전 증상 모니터링 중.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 14, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 7, "unit": "정"}
+    ],
+    "createdAt": "2026-03-12T15:00:00Z"
   }
 ]

@@ -1,10 +1,6 @@
 [
   {
-    "id": "PL001",
-    "prescriptionId": "RX001",
-    "patientId": "P001",
-    "totalVisits": 3,
-    "dispensingUnit": 30,
+    "id": "PL001", "prescriptionId": "RX001", "patientId": "P001", "totalVisits": 3, "dispensingUnit": 30,
     "medications": [
       {"name": "암로디핀 5mg", "category": "고혈압", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"},
       {"name": "메트포르민 500mg", "category": "당뇨", "dailyDose": 2, "unit": "정", "instructions": "아침/저녁 식후 복용"}
@@ -12,32 +8,24 @@
     "steps": [
       {"stepNumber": 1, "scheduledDate": "2026-01-15", "dispenseDays": 30, "status": "completed", "visitId": "V001"},
       {"stepNumber": 2, "scheduledDate": "2026-02-14", "dispenseDays": 30, "status": "completed", "visitId": "V002"},
-      {"stepNumber": 3, "scheduledDate": "2026-03-16", "dispenseDays": 30, "status": "scheduled", "visitId": null}
+      {"stepNumber": 3, "scheduledDate": "2026-03-16", "dispenseDays": 30, "status": "completed", "visitId": "V019"}
     ],
     "createdAt": "2026-01-15"
   },
   {
-    "id": "PL002",
-    "prescriptionId": "RX002",
-    "patientId": "P002",
-    "totalVisits": 2,
-    "dispensingUnit": 30,
+    "id": "PL002", "prescriptionId": "RX002", "patientId": "P002", "totalVisits": 2, "dispensingUnit": 30,
     "medications": [
       {"name": "로수바스타틴 10mg", "category": "고지혈증", "dailyDose": 1, "unit": "정", "instructions": "저녁 식후 복용"},
       {"name": "세레콕시브 200mg", "category": "관절염", "dailyDose": 1, "unit": "캡슐", "instructions": "아침 식후 복용"}
     ],
     "steps": [
       {"stepNumber": 1, "scheduledDate": "2026-02-03", "dispenseDays": 30, "status": "completed", "visitId": "V003"},
-      {"stepNumber": 2, "scheduledDate": "2026-03-05", "dispenseDays": 30, "status": "scheduled", "visitId": null}
+      {"stepNumber": 2, "scheduledDate": "2026-03-05", "dispenseDays": 30, "status": "completed", "visitId": "V018"}
     ],
     "createdAt": "2026-02-03"
   },
   {
-    "id": "PL003",
-    "prescriptionId": "RX003",
-    "patientId": "P003",
-    "totalVisits": 3,
-    "dispensingUnit": 30,
+    "id": "PL003", "prescriptionId": "RX003", "patientId": "P003", "totalVisits": 3, "dispensingUnit": 30,
     "medications": [
       {"name": "레보티록신 50mcg", "category": "갑상선", "dailyDose": 1, "unit": "정", "instructions": "아침 공복 복용"}
     ],
@@ -49,11 +37,7 @@
     "createdAt": "2026-02-20"
   },
   {
-    "id": "PL004",
-    "prescriptionId": "RX004",
-    "patientId": "P004",
-    "totalVisits": 3,
-    "dispensingUnit": 30,
+    "id": "PL004", "prescriptionId": "RX004", "patientId": "P004", "totalVisits": 3, "dispensingUnit": 30,
     "medications": [
       {"name": "암로디핀 5mg", "category": "고혈압", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"},
       {"name": "퓨로세미드 20mg", "category": "심부전", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"}
@@ -66,11 +50,7 @@
     "createdAt": "2026-01-20"
   },
   {
-    "id": "PL005",
-    "prescriptionId": "RX005",
-    "patientId": "P005",
-    "totalVisits": 2,
-    "dispensingUnit": 30,
+    "id": "PL005", "prescriptionId": "RX005", "patientId": "P005", "totalVisits": 2, "dispensingUnit": 30,
     "medications": [
       {"name": "메트포르민 500mg", "category": "당뇨", "dailyDose": 2, "unit": "정", "instructions": "아침/저녁 식후 복용"},
       {"name": "아토르바스타틴 20mg", "category": "고지혈증", "dailyDose": 1, "unit": "정", "instructions": "저녁 식후 복용"}
@@ -82,28 +62,20 @@
     "createdAt": "2026-02-16"
   },
   {
-    "id": "PL006",
-    "prescriptionId": "RX006",
-    "patientId": "P006",
-    "totalVisits": 3,
-    "dispensingUnit": 30,
+    "id": "PL006", "prescriptionId": "RX006", "patientId": "P006", "totalVisits": 3, "dispensingUnit": 30,
     "medications": [
       {"name": "알렌드론산 70mg", "category": "골다공증", "dailyDose": 1, "unit": "정", "instructions": "매주 월요일 아침 공복 복용"},
       {"name": "칼시트리올 0.25mcg", "category": "비타민D", "dailyDose": 1, "unit": "캡슐", "instructions": "아침 식후 복용"}
     ],
     "steps": [
-      {"stepNumber": 1, "scheduledDate": "2026-03-16", "dispenseDays": 30, "status": "scheduled", "visitId": null},
+      {"stepNumber": 1, "scheduledDate": "2026-03-16", "dispenseDays": 30, "status": "completed", "visitId": "V020"},
       {"stepNumber": 2, "scheduledDate": "2026-04-15", "dispenseDays": 30, "status": "pending", "visitId": null},
       {"stepNumber": 3, "scheduledDate": "2026-05-15", "dispenseDays": 30, "status": "pending", "visitId": null}
     ],
     "createdAt": "2026-03-16"
   },
   {
-    "id": "PL007",
-    "prescriptionId": "RX007",
-    "patientId": "P007",
-    "totalVisits": 4,
-    "dispensingUnit": 30,
+    "id": "PL007", "prescriptionId": "RX007", "patientId": "P007", "totalVisits": 4, "dispensingUnit": 30,
     "medications": [
       {"name": "메토트렉세이트 7.5mg", "category": "류마티스", "dailyDose": 1, "unit": "정", "instructions": "매주 1회 복용"},
       {"name": "엽산 5mg", "category": "보조제", "dailyDose": 1, "unit": "정", "instructions": "메토트렉세이트 복용 다음날 복용"}
@@ -117,11 +89,7 @@
     "createdAt": "2026-01-20"
   },
   {
-    "id": "PL008",
-    "prescriptionId": "RX008",
-    "patientId": "P008",
-    "totalVisits": 2,
-    "dispensingUnit": 30,
+    "id": "PL008", "prescriptionId": "RX008", "patientId": "P008", "totalVisits": 2, "dispensingUnit": 30,
     "medications": [
       {"name": "탄산칼슘 500mg", "category": "인 조절", "dailyDose": 3, "unit": "정", "instructions": "매 식사 직전 복용"},
       {"name": "에리스로포이에틴 2000IU", "category": "빈혈", "dailyDose": 1, "unit": "포", "instructions": "주 3회 피하주사"}
@@ -133,11 +101,7 @@
     "createdAt": "2026-02-25"
   },
   {
-    "id": "PL009",
-    "prescriptionId": "RX009",
-    "patientId": "P009",
-    "totalVisits": 3,
-    "dispensingUnit": 30,
+    "id": "PL009", "prescriptionId": "RX009", "patientId": "P009", "totalVisits": 3, "dispensingUnit": 30,
     "medications": [
       {"name": "레보도파/카르비도파 100/25mg", "category": "파킨슨", "dailyDose": 3, "unit": "정", "instructions": "식전 30분 복용"},
       {"name": "프라미펙솔 0.5mg", "category": "파킨슨", "dailyDose": 2, "unit": "정", "instructions": "아침/저녁 식후 복용"}
@@ -150,11 +114,7 @@
     "createdAt": "2026-02-18"
   },
   {
-    "id": "PL010",
-    "prescriptionId": "RX010",
-    "patientId": "P010",
-    "totalVisits": 6,
-    "dispensingUnit": 30,
+    "id": "PL010", "prescriptionId": "RX010", "patientId": "P010", "totalVisits": 6, "dispensingUnit": 30,
     "medications": [
       {"name": "레보티록신 100mcg", "category": "갑상선", "dailyDose": 1, "unit": "정", "instructions": "아침 공복 복용"}
     ],
@@ -169,29 +129,21 @@
     "createdAt": "2025-12-20"
   },
   {
-    "id": "PL011",
-    "prescriptionId": "RX011",
-    "patientId": "P011",
-    "totalVisits": 3,
-    "dispensingUnit": 30,
+    "id": "PL011", "prescriptionId": "RX011", "patientId": "P011", "totalVisits": 3, "dispensingUnit": 30,
     "medications": [
       {"name": "암로디핀 5mg", "category": "고혈압", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"},
       {"name": "메트포르민 1000mg", "category": "당뇨", "dailyDose": 2, "unit": "정", "instructions": "아침/저녁 식후 복용"},
       {"name": "아토르바스타틴 10mg", "category": "고지혈증", "dailyDose": 1, "unit": "정", "instructions": "저녁 식후 복용"}
     ],
     "steps": [
-      {"stepNumber": 1, "scheduledDate": "2026-03-16", "dispenseDays": 30, "status": "scheduled", "visitId": null},
+      {"stepNumber": 1, "scheduledDate": "2026-03-16", "dispenseDays": 30, "status": "completed", "visitId": "V021"},
       {"stepNumber": 2, "scheduledDate": "2026-04-15", "dispenseDays": 30, "status": "pending", "visitId": null},
       {"stepNumber": 3, "scheduledDate": "2026-05-15", "dispenseDays": 30, "status": "pending", "visitId": null}
     ],
     "createdAt": "2026-03-16"
   },
   {
-    "id": "PL012",
-    "prescriptionId": "RX012",
-    "patientId": "P012",
-    "totalVisits": 2,
-    "dispensingUnit": 30,
+    "id": "PL012", "prescriptionId": "RX012", "patientId": "P012", "totalVisits": 2, "dispensingUnit": 30,
     "medications": [
       {"name": "살메테롤/플루티카손 50/250mcg", "category": "천식", "dailyDose": 2, "unit": "포", "instructions": "아침/저녁 흡입"},
       {"name": "세티리진 10mg", "category": "알레르기", "dailyDose": 1, "unit": "정", "instructions": "저녁 식후 복용"}
@@ -203,11 +155,7 @@
     "createdAt": "2026-03-01"
   },
   {
-    "id": "PL013",
-    "prescriptionId": "RX013",
-    "patientId": "P013",
-    "totalVisits": 3,
-    "dispensingUnit": 30,
+    "id": "PL013", "prescriptionId": "RX013", "patientId": "P013", "totalVisits": 3, "dispensingUnit": 30,
     "medications": [
       {"name": "탐술로신 0.2mg", "category": "전립선비대증", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"},
       {"name": "두타스테리드 0.5mg", "category": "전립선비대증", "dailyDose": 1, "unit": "캡슐", "instructions": "아침 식후 복용"}
@@ -218,5 +166,117 @@
       {"stepNumber": 3, "scheduledDate": "2026-01-30", "dispenseDays": 30, "status": "completed", "visitId": "V017"}
     ],
     "createdAt": "2025-12-01"
+  },
+  {
+    "id": "PL014", "prescriptionId": "RX014", "patientId": "P014", "totalVisits": 4, "dispensingUnit": 7,
+    "medications": [
+      {"name": "암로디핀 10mg", "category": "고혈압", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"},
+      {"name": "베라파밀 80mg", "category": "부정맥", "dailyDose": 2, "unit": "정", "instructions": "아침/저녁 식후 복용"}
+    ],
+    "steps": [
+      {"stepNumber": 1, "scheduledDate": "2026-03-03", "dispenseDays": 7, "status": "completed", "visitId": "V022"},
+      {"stepNumber": 2, "scheduledDate": "2026-03-10", "dispenseDays": 7, "status": "completed", "visitId": "V023"},
+      {"stepNumber": 3, "scheduledDate": "2026-03-17", "dispenseDays": 7, "status": "scheduled", "visitId": null},
+      {"stepNumber": 4, "scheduledDate": "2026-03-24", "dispenseDays": 7, "status": "pending", "visitId": null}
+    ],
+    "createdAt": "2026-03-03"
+  },
+  {
+    "id": "PL015", "prescriptionId": "RX015", "patientId": "P015", "totalVisits": 4, "dispensingUnit": 7,
+    "medications": [
+      {"name": "메트포르민 500mg", "category": "당뇨", "dailyDose": 2, "unit": "정", "instructions": "아침/저녁 식후 복용"},
+      {"name": "글리메피리드 2mg", "category": "당뇨", "dailyDose": 1, "unit": "정", "instructions": "아침 식전 복용"}
+    ],
+    "steps": [
+      {"stepNumber": 1, "scheduledDate": "2026-03-05", "dispenseDays": 7, "status": "completed", "visitId": "V024"},
+      {"stepNumber": 2, "scheduledDate": "2026-03-12", "dispenseDays": 7, "status": "completed", "visitId": "V025"},
+      {"stepNumber": 3, "scheduledDate": "2026-03-19", "dispenseDays": 7, "status": "scheduled", "visitId": null},
+      {"stepNumber": 4, "scheduledDate": "2026-03-26", "dispenseDays": 7, "status": "pending", "visitId": null}
+    ],
+    "createdAt": "2026-03-05"
+  },
+  {
+    "id": "PL016", "prescriptionId": "RX016", "patientId": "P016", "totalVisits": 4, "dispensingUnit": 7,
+    "medications": [
+      {"name": "로수바스타틴 20mg", "category": "고지혈증", "dailyDose": 1, "unit": "정", "instructions": "저녁 식후 복용"},
+      {"name": "페노피브레이트 160mg", "category": "고지혈증", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"}
+    ],
+    "steps": [
+      {"stepNumber": 1, "scheduledDate": "2026-03-01", "dispenseDays": 7, "status": "completed", "visitId": "V026"},
+      {"stepNumber": 2, "scheduledDate": "2026-03-08", "dispenseDays": 7, "status": "completed", "visitId": "V027"},
+      {"stepNumber": 3, "scheduledDate": "2026-03-15", "dispenseDays": 7, "status": "completed", "visitId": "V028"},
+      {"stepNumber": 4, "scheduledDate": "2026-03-22", "dispenseDays": 7, "status": "scheduled", "visitId": null}
+    ],
+    "createdAt": "2026-03-01"
+  },
+  {
+    "id": "PL017", "prescriptionId": "RX017", "patientId": "P017", "totalVisits": 4, "dispensingUnit": 7,
+    "medications": [
+      {"name": "메티마졸 5mg", "category": "갑상선", "dailyDose": 2, "unit": "정", "instructions": "아침/저녁 식후 복용"},
+      {"name": "암로디핀 5mg", "category": "고혈압", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"}
+    ],
+    "steps": [
+      {"stepNumber": 1, "scheduledDate": "2026-03-03", "dispenseDays": 7, "status": "completed", "visitId": "V029"},
+      {"stepNumber": 2, "scheduledDate": "2026-03-10", "dispenseDays": 7, "status": "completed", "visitId": "V030"},
+      {"stepNumber": 3, "scheduledDate": "2026-03-17", "dispenseDays": 7, "status": "scheduled", "visitId": null},
+      {"stepNumber": 4, "scheduledDate": "2026-03-24", "dispenseDays": 7, "status": "pending", "visitId": null}
+    ],
+    "createdAt": "2026-03-03"
+  },
+  {
+    "id": "PL018", "prescriptionId": "RX018", "patientId": "P013", "totalVisits": 4, "dispensingUnit": 7,
+    "medications": [
+      {"name": "탐술로신 0.2mg", "category": "전립선비대증", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"},
+      {"name": "두타스테리드 0.5mg", "category": "전립선비대증", "dailyDose": 1, "unit": "캡슐", "instructions": "아침 식후 복용"}
+    ],
+    "steps": [
+      {"stepNumber": 1, "scheduledDate": "2026-03-07", "dispenseDays": 7, "status": "completed", "visitId": "V031"},
+      {"stepNumber": 2, "scheduledDate": "2026-03-14", "dispenseDays": 7, "status": "completed", "visitId": "V032"},
+      {"stepNumber": 3, "scheduledDate": "2026-03-21", "dispenseDays": 7, "status": "scheduled", "visitId": null},
+      {"stepNumber": 4, "scheduledDate": "2026-03-28", "dispenseDays": 7, "status": "pending", "visitId": null}
+    ],
+    "createdAt": "2026-03-07"
+  },
+  {
+    "id": "PL019", "prescriptionId": "RX019", "patientId": "P018", "totalVisits": 4, "dispensingUnit": 7,
+    "medications": [
+      {"name": "살메테롤/플루티카손 50/250mcg", "category": "천식", "dailyDose": 2, "unit": "포", "instructions": "아침/저녁 흡입"},
+      {"name": "몬테루카스트 10mg", "category": "알레르기", "dailyDose": 1, "unit": "정", "instructions": "저녁 복용"}
+    ],
+    "steps": [
+      {"stepNumber": 1, "scheduledDate": "2026-03-07", "dispenseDays": 7, "status": "completed", "visitId": "V033"},
+      {"stepNumber": 2, "scheduledDate": "2026-03-14", "dispenseDays": 7, "status": "completed", "visitId": "V034"},
+      {"stepNumber": 3, "scheduledDate": "2026-03-21", "dispenseDays": 7, "status": "scheduled", "visitId": null},
+      {"stepNumber": 4, "scheduledDate": "2026-03-28", "dispenseDays": 7, "status": "pending", "visitId": null}
+    ],
+    "createdAt": "2026-03-07"
+  },
+  {
+    "id": "PL020", "prescriptionId": "RX020", "patientId": "P019", "totalVisits": 4, "dispensingUnit": 7,
+    "medications": [
+      {"name": "알렌드론산 70mg", "category": "골다공증", "dailyDose": 1, "unit": "정", "instructions": "매주 아침 공복 복용"},
+      {"name": "암로디핀 5mg", "category": "고혈압", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"}
+    ],
+    "steps": [
+      {"stepNumber": 1, "scheduledDate": "2026-03-08", "dispenseDays": 7, "status": "completed", "visitId": "V035"},
+      {"stepNumber": 2, "scheduledDate": "2026-03-15", "dispenseDays": 7, "status": "completed", "visitId": "V036"},
+      {"stepNumber": 3, "scheduledDate": "2026-03-22", "dispenseDays": 7, "status": "scheduled", "visitId": null},
+      {"stepNumber": 4, "scheduledDate": "2026-03-29", "dispenseDays": 7, "status": "pending", "visitId": null}
+    ],
+    "createdAt": "2026-03-08"
+  },
+  {
+    "id": "PL021", "prescriptionId": "RX021", "patientId": "P020", "totalVisits": 4, "dispensingUnit": 7,
+    "medications": [
+      {"name": "메트포르민 1000mg", "category": "당뇨", "dailyDose": 2, "unit": "정", "instructions": "아침/저녁 식후 복용"},
+      {"name": "엠파글리플로진 10mg", "category": "당뇨/심부전", "dailyDose": 1, "unit": "정", "instructions": "아침 식후 복용"}
+    ],
+    "steps": [
+      {"stepNumber": 1, "scheduledDate": "2026-03-04", "dispenseDays": 7, "status": "completed", "visitId": "V037"},
+      {"stepNumber": 2, "scheduledDate": "2026-03-12", "dispenseDays": 7, "status": "completed", "visitId": "V038"},
+      {"stepNumber": 3, "scheduledDate": "2026-03-18", "dispenseDays": 7, "status": "scheduled", "visitId": null},
+      {"stepNumber": 4, "scheduledDate": "2026-03-25", "dispenseDays": 7, "status": "pending", "visitId": null}
+    ],
+    "createdAt": "2026-03-04"
   }
 ]

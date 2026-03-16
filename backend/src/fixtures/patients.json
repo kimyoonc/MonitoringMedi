@@ -1,132 +1,22 @@
 [
-  {
-    "id": "P001",
-    "name": "김영희",
-    "birthDate": "1965-03-22",
-    "phone": "010-1234-5678",
-    "address": "서울시 강남구 테헤란로 123",
-    "conditions": ["고혈압", "당뇨"],
-    "registeredAt": "2026-01-15",
-    "status": "active"
-  },
-  {
-    "id": "P002",
-    "name": "이철수",
-    "birthDate": "1958-07-10",
-    "phone": "010-9876-5432",
-    "address": "서울시 서초구 반포대로 56",
-    "conditions": ["고지혈증", "관절염"],
-    "registeredAt": "2026-02-03",
-    "status": "active"
-  },
-  {
-    "id": "P003",
-    "name": "박순자",
-    "birthDate": "1970-11-30",
-    "phone": "010-5555-7777",
-    "address": "서울시 송파구 올림픽로 200",
-    "conditions": ["갑상선 기능 저하증"],
-    "registeredAt": "2026-02-20",
-    "status": "adverse_reaction"
-  },
-  {
-    "id": "P004",
-    "name": "최민준",
-    "birthDate": "1960-05-15",
-    "phone": "010-2233-4455",
-    "address": "서울시 마포구 합정동 451",
-    "conditions": ["고혈압", "심부전"],
-    "registeredAt": "2026-01-20",
-    "status": "active"
-  },
-  {
-    "id": "P005",
-    "name": "정수연",
-    "birthDate": "1975-09-28",
-    "phone": "010-3344-5566",
-    "address": "서울시 용산구 이태원로 88",
-    "conditions": ["당뇨", "고지혈증"],
-    "registeredAt": "2026-02-16",
-    "status": "active"
-  },
-  {
-    "id": "P006",
-    "name": "한상철",
-    "birthDate": "1968-03-12",
-    "phone": "010-4455-6677",
-    "address": "경기도 성남시 분당구 판교로 33",
-    "conditions": ["골다공증"],
-    "registeredAt": "2026-03-16",
-    "status": "active"
-  },
-  {
-    "id": "P007",
-    "name": "윤미경",
-    "birthDate": "1955-11-07",
-    "phone": "010-5566-7788",
-    "address": "서울시 강서구 화곡로 120",
-    "conditions": ["류마티스 관절염"],
-    "registeredAt": "2026-01-20",
-    "status": "adverse_reaction"
-  },
-  {
-    "id": "P008",
-    "name": "강동원",
-    "birthDate": "1963-04-22",
-    "phone": "010-6677-8899",
-    "address": "인천시 남동구 구월로 55",
-    "conditions": ["만성 신장병"],
-    "registeredAt": "2026-02-25",
-    "status": "adverse_reaction"
-  },
-  {
-    "id": "P009",
-    "name": "오세진",
-    "birthDate": "1950-08-03",
-    "phone": "010-7788-9900",
-    "address": "서울시 노원구 동일로 300",
-    "conditions": ["파킨슨병"],
-    "registeredAt": "2026-02-18",
-    "status": "active"
-  },
-  {
-    "id": "P010",
-    "name": "임지혜",
-    "birthDate": "1978-06-19",
-    "phone": "010-8899-0011",
-    "address": "서울시 강동구 천호대로 210",
-    "conditions": ["갑상선암 수술 후"],
-    "registeredAt": "2025-12-20",
-    "status": "active"
-  },
-  {
-    "id": "P011",
-    "name": "서태양",
-    "birthDate": "1970-01-25",
-    "phone": "010-9900-1122",
-    "address": "경기도 수원시 영통구 광교로 45",
-    "conditions": ["고혈압", "당뇨", "고지혈증"],
-    "registeredAt": "2026-03-16",
-    "status": "active"
-  },
-  {
-    "id": "P012",
-    "name": "문채원",
-    "birthDate": "1982-12-05",
-    "phone": "010-1122-3344",
-    "address": "서울시 동작구 사당로 77",
-    "conditions": ["천식", "알레르기"],
-    "registeredAt": "2026-03-01",
-    "status": "active"
-  },
-  {
-    "id": "P013",
-    "name": "배준혁",
-    "birthDate": "1957-07-30",
-    "phone": "010-2244-6688",
-    "address": "서울시 관악구 봉천로 188",
-    "conditions": ["전립선비대증"],
-    "registeredAt": "2025-12-01",
-    "status": "active"
-  }
+  { "id": "P001", "name": "김영희", "birthDate": "1965-03-22", "phone": "010-1234-5678", "address": "서울시 강남구 테헤란로 123", "conditions": ["고혈압", "당뇨"], "registeredAt": "2026-01-15", "status": "active" },
+  { "id": "P002", "name": "이철수", "birthDate": "1958-07-10", "phone": "010-9876-5432", "address": "서울시 서초구 반포대로 56", "conditions": ["고지혈증", "관절염"], "registeredAt": "2026-02-03", "status": "active" },
+  { "id": "P003", "name": "박순자", "birthDate": "1970-11-30", "phone": "010-5555-7777", "address": "서울시 송파구 올림픽로 200", "conditions": ["갑상선 기능 저하증"], "registeredAt": "2026-02-20", "status": "adverse_reaction" },
+  { "id": "P004", "name": "최민준", "birthDate": "1960-05-15", "phone": "010-2233-4455", "address": "서울시 마포구 합정동 451", "conditions": ["고혈압", "심부전"], "registeredAt": "2026-01-20", "status": "active" },
+  { "id": "P005", "name": "정수연", "birthDate": "1975-09-28", "phone": "010-3344-5566", "address": "서울시 용산구 이태원로 88", "conditions": ["당뇨", "고지혈증"], "registeredAt": "2026-02-16", "status": "active" },
+  { "id": "P006", "name": "한상철", "birthDate": "1968-03-12", "phone": "010-4455-6677", "address": "경기도 성남시 분당구 판교로 33", "conditions": ["골다공증"], "registeredAt": "2026-03-16", "status": "active" },
+  { "id": "P007", "name": "윤미경", "birthDate": "1955-11-07", "phone": "010-5566-7788", "address": "서울시 강서구 화곡로 120", "conditions": ["류마티스 관절염"], "registeredAt": "2026-01-20", "status": "adverse_reaction" },
+  { "id": "P008", "name": "강동원", "birthDate": "1963-04-22", "phone": "010-6677-8899", "address": "인천시 남동구 구월로 55", "conditions": ["만성 신장병"], "registeredAt": "2026-02-25", "status": "adverse_reaction" },
+  { "id": "P009", "name": "오세진", "birthDate": "1950-08-03", "phone": "010-7788-9900", "address": "서울시 노원구 동일로 300", "conditions": ["파킨슨병"], "registeredAt": "2026-02-18", "status": "active" },
+  { "id": "P010", "name": "임지혜", "birthDate": "1978-06-19", "phone": "010-8899-0011", "address": "서울시 강동구 천호대로 210", "conditions": ["갑상선암 수술 후"], "registeredAt": "2025-12-20", "status": "active" },
+  { "id": "P011", "name": "서태양", "birthDate": "1970-01-25", "phone": "010-9900-1122", "address": "경기도 수원시 영통구 광교로 45", "conditions": ["고혈압", "당뇨", "고지혈증"], "registeredAt": "2026-03-16", "status": "active" },
+  { "id": "P012", "name": "문채원", "birthDate": "1982-12-05", "phone": "010-1122-3344", "address": "서울시 동작구 사당로 77", "conditions": ["천식", "알레르기"], "registeredAt": "2026-03-01", "status": "active" },
+  { "id": "P013", "name": "배준혁", "birthDate": "1957-07-30", "phone": "010-2244-6688", "address": "서울시 관악구 봉천로 188", "conditions": ["전립선비대증"], "registeredAt": "2025-12-01", "status": "active" },
+  { "id": "P014", "name": "강미선", "birthDate": "1967-08-24", "phone": "010-3355-7799", "address": "서울시 영등포구 여의도동 14", "conditions": ["고혈압", "부정맥"], "registeredAt": "2026-03-03", "status": "active" },
+  { "id": "P015", "name": "황준서", "birthDate": "1959-04-15", "phone": "010-4466-8800", "address": "경기도 고양시 일산동구 중앙로 77", "conditions": ["제2형 당뇨"], "registeredAt": "2026-03-05", "status": "active" },
+  { "id": "P016", "name": "노은지", "birthDate": "1972-01-30", "phone": "010-5577-9911", "address": "서울시 서대문구 연세로 22", "conditions": ["고지혈증", "지방간"], "registeredAt": "2026-03-01", "status": "active" },
+  { "id": "P017", "name": "전형준", "birthDate": "1951-11-18", "phone": "010-6688-0022", "address": "경기도 남양주시 다산동 300", "conditions": ["갑상선 기능 항진증", "고혈압"], "registeredAt": "2026-03-03", "status": "active" },
+  { "id": "P018", "name": "조민기", "birthDate": "1978-03-12", "phone": "010-7799-1133", "address": "서울시 성북구 정릉로 45", "conditions": ["천식", "알레르기"], "registeredAt": "2026-03-07", "status": "active" },
+  { "id": "P019", "name": "이나영", "birthDate": "1964-06-25", "phone": "010-8800-2244", "address": "서울시 중랑구 망우로 230", "conditions": ["골다공증", "고혈압"], "registeredAt": "2026-03-08", "status": "active" },
+  { "id": "P020", "name": "김재원", "birthDate": "1962-09-03", "phone": "010-9911-3355", "address": "경기도 부천시 원미구 길주로 100", "conditions": ["제2형 당뇨", "심부전"], "registeredAt": "2026-03-04", "status": "active" }
 ]
