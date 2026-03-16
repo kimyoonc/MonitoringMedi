@@ -65,6 +65,15 @@ export default function PatientDetailPage() {
     p.steps.some(s => s.status !== 'completed')
   )
 
+  // 처방일수 / 조제 완료 일수
+  const planForDays = activePlan ?? plans[0]
+  const totalPrescribedDays = planForDays
+    ? planForDays.steps.reduce((sum, s) => sum + s.dispenseDays, 0)
+    : null
+  const dispensedDays = planForDays
+    ? planForDays.steps.filter(s => s.status === 'completed').reduce((sum, s) => sum + s.dispenseDays, 0)
+    : null
+
   return (
     <div>
       <Header title={patient?.name || '환자 상세'} showBack />
@@ -77,6 +86,12 @@ export default function PatientDetailPage() {
             <dt>연락처</dt><dd>{patient?.phone}</dd>
             <dt>주소</dt><dd>{patient?.address}</dd>
             <dt>주요 질환</dt><dd>{patient?.conditions?.join(', ')}</dd>
+            {totalPrescribedDays !== null && (
+              <>
+                <dt>처방일수</dt><dd>{totalPrescribedDays}일</dd>
+                <dt>조제 완료</dt><dd>{dispensedDays}일 / {totalPrescribedDays}일</dd>
+              </>
+            )}
           </dl>
         </Card>
 
