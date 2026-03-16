@@ -49,5 +49,240 @@
       {"medicationId": "M004", "quantity": 30, "unit": "캡슐"}
     ],
     "createdAt": "2026-02-03T14:00:00Z"
+  },
+  {
+    "id": "V004",
+    "planId": "PL004",
+    "patientId": "P004",
+    "visitDate": "2026-01-20",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "초기 방문. 혈압 및 심부전 상태 안정적. 복약 지도 완료.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 30, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 30, "unit": "정"}
+    ],
+    "createdAt": "2026-01-20T09:30:00Z"
+  },
+  {
+    "id": "V005",
+    "planId": "PL004",
+    "patientId": "P004",
+    "visitDate": "2026-02-19",
+    "stepNumber": 2,
+    "adherence": "fair",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "복용 누락 2~3회 있었다고 함. 복약 알람 앱 사용 권고.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 30, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 30, "unit": "정"}
+    ],
+    "createdAt": "2026-02-19T10:00:00Z"
+  },
+  {
+    "id": "V006",
+    "planId": "PL005",
+    "patientId": "P005",
+    "visitDate": "2026-02-16",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "혈당 수치 개선 중. 식이요법 병행 권고.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 60, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 30, "unit": "정"}
+    ],
+    "createdAt": "2026-02-16T11:30:00Z"
+  },
+  {
+    "id": "V007",
+    "planId": "PL007",
+    "patientId": "P007",
+    "visitDate": "2026-01-20",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "메토트렉세이트 초기 투여 시작. 구역감 주의사항 안내.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 4, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 4, "unit": "정"}
+    ],
+    "createdAt": "2026-01-20T14:00:00Z"
+  },
+  {
+    "id": "V008",
+    "planId": "PL007",
+    "patientId": "P007",
+    "visitDate": "2026-02-19",
+    "stepNumber": 2,
+    "adherence": "poor",
+    "adverseReaction": true,
+    "adverseReactionNote": "심한 구역감과 구토 증상 호소. 관절 통증 오히려 악화됨.",
+    "storageCondition": "poor",
+    "pharmacistNote": "이상 반응 심각. 의사 재진 강력 권고. 다음 조제 전 의사 처방 재확인 필요.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 4, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 4, "unit": "정"}
+    ],
+    "createdAt": "2026-02-19T15:00:00Z"
+  },
+  {
+    "id": "V009",
+    "planId": "PL008",
+    "patientId": "P008",
+    "visitDate": "2026-02-25",
+    "stepNumber": 1,
+    "adherence": "fair",
+    "adverseReaction": true,
+    "adverseReactionNote": "식욕 저하 및 피로감 호소. 신장 기능 지표 모니터링 필요.",
+    "storageCondition": "good",
+    "pharmacistNote": "신장병 환자 복약 주의사항 재교육. 수분 섭취 충분히 권고.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 90, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 12, "unit": "포"}
+    ],
+    "createdAt": "2026-02-25T13:00:00Z"
+  },
+  {
+    "id": "V010",
+    "planId": "PL009",
+    "patientId": "P009",
+    "visitDate": "2026-02-18",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "보호자 동반 방문. 복약 방법 보호자에게도 상세 안내. 증상 다소 개선됨.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 90, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 60, "unit": "정"}
+    ],
+    "createdAt": "2026-02-18T10:30:00Z"
+  },
+  {
+    "id": "V011",
+    "planId": "PL010",
+    "patientId": "P010",
+    "visitDate": "2025-12-20",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "수술 후 첫 방문. 갑상선 호르몬 수치 안정화 목표. 공복 복용 철저히 지도.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 30, "unit": "정"}
+    ],
+    "createdAt": "2025-12-20T11:00:00Z"
+  },
+  {
+    "id": "V012",
+    "planId": "PL010",
+    "patientId": "P010",
+    "visitDate": "2026-01-19",
+    "stepNumber": 2,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "TSH 수치 점진적 개선. 복약 순응도 우수.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 30, "unit": "정"}
+    ],
+    "createdAt": "2026-01-19T10:00:00Z"
+  },
+  {
+    "id": "V013",
+    "planId": "PL010",
+    "patientId": "P010",
+    "visitDate": "2026-02-18",
+    "stepNumber": 3,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "TSH 정상 범위 진입. 현 용량 유지. 다음 방문 시 혈액검사 결과 지참 요청.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 30, "unit": "정"}
+    ],
+    "createdAt": "2026-02-18T09:30:00Z"
+  },
+  {
+    "id": "V014",
+    "planId": "PL012",
+    "patientId": "P012",
+    "visitDate": "2026-03-01",
+    "stepNumber": 1,
+    "adherence": "fair",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "흡입기 사용법 재교육 필요. 보조기구(스페이서) 사용 권장.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 60, "unit": "포"},
+      {"medicationId": "M_2", "quantity": 30, "unit": "정"}
+    ],
+    "createdAt": "2026-03-01T14:30:00Z"
+  },
+  {
+    "id": "V015",
+    "planId": "PL013",
+    "patientId": "P013",
+    "visitDate": "2025-12-01",
+    "stepNumber": 1,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "초기 방문. 복약 지도 완료. 기립성 저혈압 주의사항 안내.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 30, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 30, "unit": "캡슐"}
+    ],
+    "createdAt": "2025-12-01T10:00:00Z"
+  },
+  {
+    "id": "V016",
+    "planId": "PL013",
+    "patientId": "P013",
+    "visitDate": "2025-12-31",
+    "stepNumber": 2,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "증상 개선 확인. 복약 순응도 우수.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 30, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 30, "unit": "캡슐"}
+    ],
+    "createdAt": "2025-12-31T11:00:00Z"
+  },
+  {
+    "id": "V017",
+    "planId": "PL013",
+    "patientId": "P013",
+    "visitDate": "2026-01-30",
+    "stepNumber": 3,
+    "adherence": "good",
+    "adverseReaction": false,
+    "adverseReactionNote": null,
+    "storageCondition": "good",
+    "pharmacistNote": "전체 처방 완료. 증상 안정적. 정기 진료 권고.",
+    "dispensedMedications": [
+      {"medicationId": "M_1", "quantity": 30, "unit": "정"},
+      {"medicationId": "M_2", "quantity": 30, "unit": "캡슐"}
+    ],
+    "createdAt": "2026-01-30T10:30:00Z"
   }
 ]

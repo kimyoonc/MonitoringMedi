@@ -28,5 +28,105 @@
     "conditions": ["갑상선 기능 저하증"],
     "registeredAt": "2026-02-20",
     "status": "adverse_reaction"
+  },
+  {
+    "id": "P004",
+    "name": "최민준",
+    "birthDate": "1960-05-15",
+    "phone": "010-2233-4455",
+    "address": "서울시 마포구 합정동 451",
+    "conditions": ["고혈압", "심부전"],
+    "registeredAt": "2026-01-20",
+    "status": "active"
+  },
+  {
+    "id": "P005",
+    "name": "정수연",
+    "birthDate": "1975-09-28",
+    "phone": "010-3344-5566",
+    "address": "서울시 용산구 이태원로 88",
+    "conditions": ["당뇨", "고지혈증"],
+    "registeredAt": "2026-02-16",
+    "status": "active"
+  },
+  {
+    "id": "P006",
+    "name": "한상철",
+    "birthDate": "1968-03-12",
+    "phone": "010-4455-6677",
+    "address": "경기도 성남시 분당구 판교로 33",
+    "conditions": ["골다공증"],
+    "registeredAt": "2026-03-16",
+    "status": "active"
+  },
+  {
+    "id": "P007",
+    "name": "윤미경",
+    "birthDate": "1955-11-07",
+    "phone": "010-5566-7788",
+    "address": "서울시 강서구 화곡로 120",
+    "conditions": ["류마티스 관절염"],
+    "registeredAt": "2026-01-20",
+    "status": "adverse_reaction"
+  },
+  {
+    "id": "P008",
+    "name": "강동원",
+    "birthDate": "1963-04-22",
+    "phone": "010-6677-8899",
+    "address": "인천시 남동구 구월로 55",
+    "conditions": ["만성 신장병"],
+    "registeredAt": "2026-02-25",
+    "status": "adverse_reaction"
+  },
+  {
+    "id": "P009",
+    "name": "오세진",
+    "birthDate": "1950-08-03",
+    "phone": "010-7788-9900",
+    "address": "서울시 노원구 동일로 300",
+    "conditions": ["파킨슨병"],
+    "registeredAt": "2026-02-18",
+    "status": "active"
+  },
+  {
+    "id": "P010",
+    "name": "임지혜",
+    "birthDate": "1978-06-19",
+    "phone": "010-8899-0011",
+    "address": "서울시 강동구 천호대로 210",
+    "conditions": ["갑상선암 수술 후"],
+    "registeredAt": "2025-12-20",
+    "status": "active"
+  },
+  {
+    "id": "P011",
+    "name": "서태양",
+    "birthDate": "1970-01-25",
+    "phone": "010-9900-1122",
+    "address": "경기도 수원시 영통구 광교로 45",
+    "conditions": ["고혈압", "당뇨", "고지혈증"],
+    "registeredAt": "2026-03-16",
+    "status": "active"
+  },
+  {
+    "id": "P012",
+    "name": "문채원",
+    "birthDate": "1982-12-05",
+    "phone": "010-1122-3344",
+    "address": "서울시 동작구 사당로 77",
+    "conditions": ["천식", "알레르기"],
+    "registeredAt": "2026-03-01",
+    "status": "active"
+  },
+  {
+    "id": "P013",
+    "name": "배준혁",
+    "birthDate": "1957-07-30",
+    "phone": "010-2244-6688",
+    "address": "서울시 관악구 봉천로 188",
+    "conditions": ["전립선비대증"],
+    "registeredAt": "2025-12-01",
+    "status": "active"
   }
 ]
