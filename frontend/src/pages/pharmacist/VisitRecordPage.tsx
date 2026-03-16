@@ -315,23 +315,6 @@ export default function VisitRecordPage() {
                 placeholder="상담 내용 또는 특이사항 기록"
               />
             </label>
-
-            <label className={styles.label}>
-              의약품 보관 상태
-              <select
-                className={styles.select}
-                value={form.storageCondition}
-                onChange={e => {
-                  const val = e.target.value as 'good' | 'poor' | 'damaged'
-                  setForm({ ...form, storageCondition: val })
-                  if (val === 'poor' || val === 'damaged') setIncludeExchange(true)
-                }}
-              >
-                <option value="good">양호</option>
-                <option value="poor">불량</option>
-                <option value="damaged">훼손</option>
-              </select>
-            </label>
           </div>
         </Card>
 
@@ -362,15 +345,23 @@ export default function VisitRecordPage() {
           </Card>
         )}
 
-        {/* 의약품 교환 신청 (선택) */}
+        {/* 의약품 보관 상태 + 교환 신청 */}
         <Card>
-          <label className={styles.toggleLabel}>
-            <input
-              type="checkbox"
-              checked={includeExchange}
-              onChange={e => setIncludeExchange(e.target.checked)}
-            />
-            <span className={styles.toggleText}>이번 방문 시 의약품 교환 신청</span>
+          <label className={styles.label}>
+            의약품 보관 상태
+            <select
+              className={styles.select}
+              value={form.storageCondition}
+              onChange={e => {
+                const val = e.target.value as 'good' | 'poor' | 'damaged'
+                setForm({ ...form, storageCondition: val })
+                setIncludeExchange(val === 'poor' || val === 'damaged')
+              }}
+            >
+              <option value="good">양호</option>
+              <option value="poor">불량</option>
+              <option value="damaged">훼손</option>
+            </select>
           </label>
 
           {includeExchange && (
