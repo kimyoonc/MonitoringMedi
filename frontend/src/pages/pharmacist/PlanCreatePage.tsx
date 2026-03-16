@@ -81,7 +81,7 @@ export default function PlanCreatePage() {
   const calcSchedule = () => {
     if (!totalDays || !visitCount) return
     if (visitCount > totalDays) {
-      setError('방문 횟수는 총 처방 기간보다 클 수 없습니다.')
+      setError('방문 예정 횟수는 총 처방 기간보다 클 수 없습니다.')
       setPreview([])
       return
     }
@@ -157,11 +157,11 @@ export default function PlanCreatePage() {
       return false
     }
     if (visitCount < 1) {
-      setError('방문 횟수는 1회 이상이어야 합니다.')
+      setError('방문 예정 횟수는 1회 이상이어야 합니다.')
       return false
     }
     if (visitCount > totalDays) {
-      setError('방문 횟수는 총 처방 기간보다 클 수 없습니다.')
+      setError('방문 예정 횟수는 총 처방 기간보다 클 수 없습니다.')
       return false
     }
     return true
@@ -211,6 +211,33 @@ export default function PlanCreatePage() {
       <Header title="복약 관리 계획 수립" showBack />
       <div className={styles.content}>
 
+        {/* 사용 예시 카드 */}
+        <div className={styles.exampleCard}>
+          <div className={styles.exampleHeader}>
+            <span className={styles.exampleIcon}>💊</span>
+            <div>
+              <p className={styles.exampleTitle}>이렇게 사용하세요</p>
+              <p className={styles.exampleSubtitle}>처방 정보를 입력하면 방문 일정이 자동으로 계산됩니다</p>
+            </div>
+          </div>
+          <div className={styles.exampleFlow}>
+            <div className={styles.exampleStep}>
+              <span className={styles.exampleNum}>1</span>
+              <span className={styles.exampleText}>총 처방 기간 입력<br /><em>예: 90일</em></span>
+            </div>
+            <span className={styles.exampleArrow}>→</span>
+            <div className={styles.exampleStep}>
+              <span className={styles.exampleNum}>2</span>
+              <span className={styles.exampleText}>방문 예정 횟수 설정<br /><em>예: 3회</em></span>
+            </div>
+            <span className={styles.exampleArrow}>→</span>
+            <div className={styles.exampleStep}>
+              <span className={styles.exampleNum}>3</span>
+              <span className={styles.exampleText}>자동 일정 계산<br /><em>30일씩 × 3회</em></span>
+            </div>
+          </div>
+        </div>
+
         {/* 환자 선택 */}
         <Card>
           <h2 className={styles.sectionTitle}>환자 선택</h2>
@@ -255,7 +282,7 @@ export default function PlanCreatePage() {
               {totalDaysError && <span className={styles.fieldError}>{totalDaysError}</span>}
             </label>
             <label className={styles.label}>
-              방문 횟수
+              방문 예정 횟수
               <input
                 className={styles.input}
                 type="number"

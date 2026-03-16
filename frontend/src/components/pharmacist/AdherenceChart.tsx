@@ -13,10 +13,10 @@ const ADHERENCE_COLOR: Record<string, string> = {
   poor: 'var(--color-error)',
 }
 
-const CHART_H = 80   // 막대 최대 높이 px
-const BAR_W = 28     // 막대 너비 px
-const GAP = 16       // 막대 간격 px
-const RADIUS = 6     // 모서리 반경
+const CHART_H = 52   // 막대 최대 높이 px
+const BAR_W = 20     // 막대 너비 px
+const GAP = 12       // 막대 간격 px
+const RADIUS = 4     // 모서리 반경
 
 export default function AdherenceChart({ visits }: Props) {
   if (visits.length === 0) return null
@@ -27,7 +27,10 @@ export default function AdherenceChart({ visits }: Props) {
   return (
     <div className={styles.wrap}>
       <div className={styles.header}>
-        <span className={styles.title}>복약 순응도 추이</span>
+        <div>
+          <span className={styles.title}>복약 순응도 추이</span>
+          <p className={styles.description}>방문 차수별로 환자가 약을 얼마나 잘 복용했는지 보여줍니다</p>
+        </div>
         <div className={styles.legend}>
           {(['good', 'fair', 'poor'] as const).map(k => (
             <span key={k} className={styles.legendItem}>
@@ -38,7 +41,7 @@ export default function AdherenceChart({ visits }: Props) {
         </div>
       </div>
 
-      <div className={styles.chart}>
+      <div className={styles.chart} aria-label="복약 순응도 막대 그래프">
         <svg
           width="100%"
           viewBox={`0 0 ${svgW} ${CHART_H + 32}`}
