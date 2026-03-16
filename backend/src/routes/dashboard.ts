@@ -6,7 +6,9 @@ const router = Router();
 // 대시보드 현황 조회
 router.get('/', async (req, res) => {
   try {
-    const today = new Date().toISOString().split('T')[0];
+    // KST 기준 오늘 날짜 (UTC+9), query param으로 날짜 지정 가능
+    const kstToday = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]
+    const today = (req.query.date as string) || kstToday
 
     // 오늘 방문 예정: scheduled 상태이면서 scheduledDate가 오늘인 step
     const todaySteps = await prisma.planStep.findMany({

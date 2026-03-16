@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '@/components/common/Header'
 import Card from '@/components/common/Card'
@@ -38,18 +38,23 @@ const IconHeart = () => (
   </svg>
 )
 
+// KST 기준 오늘 날짜
+function getKstToday() {
+  return new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]
+}
+
 export default function DashboardPage() {
   const { data, loading, setData, setLoading } = useDashboardStore()
   const navigate = useNavigate()
+  const [selectedDate, setSelectedDate] = useState(getKstToday)
 
   useEffect(() => {
-    if (data !== null) return
     setLoading(true)
-    api.get('/dashboard').then(res => {
+    api.get(`/dashboard?date=${selectedDate}`).then(res => {
       setData(res.data.data)
       setLoading(false)
     }).catch(() => setLoading(false))
-  }, [])
+  }, [selectedDate])
 
   if (loading) return <Loading />
 
@@ -61,6 +66,28 @@ export default function DashboardPage() {
     <div>
       <Header title="대시보드" />
       <div className={styles.content}>
+        {/* 날짜 선택 */}
+        <div className={styles.dateBar}>
+          <button
+            className={styles.dateNavBtn}
+            onClick={() => setSelectedDate(d => {
+              const prev = new Date(d); prev.setDate(prev.getDate() - 1); return prev.toISOString().split('T')[0]
+            })}
+          >‹</button>
+          <input
+            type="date"
+            className={styles.dateInput}
+            value={selectedDate}
+            onChange={e => setSelectedDate(e.target.value)}
+          />
+          <button
+            className={`${styles.dateNavBtn} ${selectedDate === getKstToday() ? styles.dateNavDisabled : ''}`}
+            onClick={() => setSelectedDate(d => {
+              const next = new Date(d); next.setDate(next.getDate() + 1); return next.toISOString().split('T')[0]
+            })}
+            disabled={selectedDate === getKstToday()}
+          >›</button>
+        </div>
 
         {/* 요약 카드 */}
         <div className={styles.summaryGrid}>

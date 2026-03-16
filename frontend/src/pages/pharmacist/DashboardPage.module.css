@@ -6,6 +6,57 @@
   gap: var(--spacing-lg);
 }
 
+/* 날짜 선택 바 */
+.dateBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+}
+
+.dateNavBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--fill-secondary);
+  color: var(--color-primary);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.dateNavBtn:hover:not(:disabled) {
+  background: var(--fill-tertiary);
+}
+
+.dateNavDisabled {
+  color: var(--label-tertiary);
+  cursor: default;
+}
+
+.dateInput {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--label-primary);
+  border: none;
+  background: var(--fill-secondary);
+  border-radius: var(--radius-md);
+  padding: 6px 10px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+}
+
+.dateInput:focus {
+  background: var(--fill-tertiary);
+}
+
 /* 요약 카드 그리드 */
 .summaryGrid {
   display: grid;
