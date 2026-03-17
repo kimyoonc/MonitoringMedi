@@ -1,4 +1,32 @@
 /* Apple HIG — Patient List */
+
+/* 검색 */
+.searchWrap {
+  padding-top: var(--spacing-md);
+}
+
+.searchInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  font-size: 15px;
+  font-family: var(--font-family);
+  color: var(--label-primary);
+  background: var(--fill-secondary);
+  border: none;
+  border-radius: var(--radius-lg);
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.searchInput::placeholder {
+  color: var(--label-tertiary);
+}
+
+.searchInput:focus {
+  background: var(--fill-tertiary);
+}
+
 .content {
   padding-top: var(--spacing-md);
   display: flex;

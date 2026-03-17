@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from '@/components/common/Header'
 import Card from '@/components/common/Card'
@@ -19,6 +19,14 @@ const statusMap: Record<string, { label: string; variant: 'success' | 'error' | 
 export default function PatientListPage() {
   const { patients, loading, setPatients, setLoading } = usePatientStore()
   const navigate = useNavigate()
+  const [query, setQuery] = useState('')
+
+  const filtered = query.trim()
+    ? patients.filter(p =>
+        p.name.includes(query.trim()) ||
+        p.conditions?.some(c => c.includes(query.trim()))
+      )
+    : patients
 
   useEffect(() => {
     // store에 이미 환자 목록이 있으면 API 호출 스킵 (캐싱 효과)
@@ -35,10 +43,19 @@ export default function PatientListPage() {
   return (
     <div>
       <Header title="환자 관리" rightAction={<Button size="sm" onClick={() => navigate('/pharmacist/plans/new')}>+ 등록</Button>} />
+      <div className={styles.searchWrap}>
+        <input
+          className={styles.searchInput}
+          type="search"
+          placeholder="이름 또는 질환으로 검색"
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+        />
+      </div>
       <div className={styles.content}>
-        {patients.length === 0
-          ? <EmptyState title="등록된 환자가 없습니다" description="새 환자를 등록해주세요" action={<Button onClick={() => navigate('/pharmacist/plans/new')}>환자 등록</Button>} />
-          : patients.map(p => {
+        {filtered.length === 0
+          ? <EmptyState title={query ? '검색 결과가 없습니다' : '등록된 환자가 없습니다'} description={query ? '' : '새 환자를 등록해주세요'} action={!query ? <Button onClick={() => navigate('/pharmacist/plans/new')}>환자 등록</Button> : undefined} />
+          : filtered.map(p => {
               const s = statusMap[p.status] || statusMap.inactive
               return (
                 <Card key={p.id} onClick={() => navigate(`/pharmacist/patients/${p.id}`)} className={styles.patientCard}>
