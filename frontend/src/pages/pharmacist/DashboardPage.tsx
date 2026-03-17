@@ -132,11 +132,11 @@ export default function DashboardPage() {
               <span className={styles.sectionIcon}>📅</span>
               오늘 방문 예정
             </h2>
-            <div className={styles.list}>
-              {(data?.todayVisitPatients?.length ?? 0) === 0 ? (
-                <EmptyState title="오늘 방문 예정 환자가 없습니다." />
-              ) : (
-                data?.todayVisitPatients.map(p => (
+            {(data?.todayVisitPatients?.length ?? 0) === 0 ? (
+              <EmptyState title="오늘 방문 예정 환자가 없습니다." />
+            ) : (
+              <div className={styles.list}>
+                {data?.todayVisitPatients.map(p => (
                   <Card
                     key={p.patientId}
                     className={`${styles.patientCard} ${styles.clickable}`}
@@ -155,9 +155,9 @@ export default function DashboardPage() {
                       </div>
                     )}
                   </Card>
-                ))
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </section>
 
           {/* 조제 대기 환자 */}
@@ -166,11 +166,11 @@ export default function DashboardPage() {
               <span className={styles.sectionIcon}>💊</span>
               조제 대기 환자
             </h2>
-            <div className={styles.list}>
-              {(data?.pendingDispensePatients?.length ?? 0) === 0 ? (
-                <EmptyState title="조제 대기 환자가 없습니다." />
-              ) : (
-                data?.pendingDispensePatients.map(p => (
+            {(data?.pendingDispensePatients?.length ?? 0) === 0 ? (
+              <EmptyState title="조제 대기 환자가 없습니다." />
+            ) : (
+              <div className={styles.list}>
+                {data?.pendingDispensePatients.map(p => (
                   <Card
                     key={p.patientId}
                     className={`${styles.patientCard} ${styles.clickable} ${p.daysOverdue && p.daysOverdue > 0 ? styles.overdueCard : ''}`}
@@ -190,9 +190,9 @@ export default function DashboardPage() {
                       <div className={styles.nextVisitDate}>방문 예정일: {p.nextVisitDate}</div>
                     )}
                   </Card>
-                ))
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </section>
 
           {/* 이상 반응 환자 */}
@@ -201,11 +201,11 @@ export default function DashboardPage() {
               <span className={styles.sectionIcon}>🚨</span>
               이상 반응 환자
             </h2>
-            <div className={styles.list}>
-              {(data?.adverseReactionPatients?.length ?? 0) === 0 ? (
-                <EmptyState title="이상 반응 환자가 없습니다." />
-              ) : (
-                data?.adverseReactionPatients.map(p => (
+            {(data?.adverseReactionPatients?.length ?? 0) === 0 ? (
+              <EmptyState title="이상 반응 환자가 없습니다." />
+            ) : (
+              <div className={styles.list}>
+                {data?.adverseReactionPatients.map(p => (
                   <Card
                     key={p.patientId}
                     className={`${styles.alertCard} ${styles.clickable}`}
@@ -215,9 +215,9 @@ export default function DashboardPage() {
                     {p.symptom && <div className={styles.symptom}>{p.symptom}</div>}
                     {p.reportedDate && <div className={styles.reportDate}>신고일: {p.reportedDate}</div>}
                   </Card>
-                ))
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </section>
         </div>
 
