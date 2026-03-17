@@ -113,11 +113,11 @@ export default function DashboardPage() {
             <div className={styles.summaryLabel}>조제 대기</div>
           </Card>
 
-          <Card className={`${styles.summaryCard} ${data?.summary.adverseReactions ? styles.alert : styles.summaryAlert}`}>
+          <Card className={`${styles.summaryCard} ${styles.summaryAlert}`}>
             <div className={`${styles.summaryIcon} ${styles.iconAlert}`}>
               <IconHeart />
             </div>
-            <div className={`${styles.summaryNumber} ${data?.summary.adverseReactions ? styles.alertNumber : ''}`}>
+            <div className={`${styles.summaryNumber} ${styles.alertNumber}`}>
               {data?.summary.adverseReactions ?? 0}
             </div>
             <div className={styles.summaryLabel}>이상 반응</div>
