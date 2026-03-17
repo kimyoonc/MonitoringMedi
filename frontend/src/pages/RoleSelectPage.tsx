@@ -20,7 +20,8 @@ export default function RoleSelectPage() {
     setStep('patient-select')
     try {
       const res = await api.get('/patients')
-      setPatients(res.data.data || [])
+      const all: PatientSummary[] = res.data.data || []
+      setPatients(all.filter(p => p.name === '이나영'))
     } catch {
       setPatients([])
     } finally {
