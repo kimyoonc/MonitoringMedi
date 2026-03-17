@@ -231,7 +231,11 @@ export default function DashboardPage() {
                 주간 방문 추이
               </h2>
               <Card className={styles.chartCard}>
-                <WeeklyChart data={data.weeklyVisits} today={data.date} />
+                <WeeklyChart
+                  data={data.weeklyVisits}
+                  today={data.date}
+                  targetHeight={(data.conditionStats?.length ?? 8) * 36 - 8}
+                />
               </Card>
             </section>
           )}
@@ -255,37 +259,49 @@ export default function DashboardPage() {
 }
 
 // ── 주간 방문 추이 차트 ──────────────────────────────────────
-function WeeklyChart({ data, today }: { data: { date: string; count: number }[]; today: string }) {
+function WeeklyChart({ data, today, targetHeight }: { data: { date: string; count: number }[]; today: string; targetHeight: number }) {
   const max = Math.max(...data.map(d => d.count), 1)
-  const BAR_W = 28
-  const GAP = 10
-  const CHART_H = 80
+  const BAR_W = 32
+  const GAP = 12
+  const NUM_H = 18  // 숫자 영역
+  const LABEL_H = 18 // 날짜 레이블 영역
+  const CHART_H = Math.max(80, targetHeight - NUM_H - LABEL_H)
   const W = data.length * (BAR_W + GAP) - GAP
 
   return (
     <div className={styles.chartWrap}>
-      <svg viewBox={`0 0 ${W} ${CHART_H + 32}`} width="100%" style={{ display: 'block' }}>
+      <svg viewBox={`0 0 ${W} ${CHART_H + NUM_H + LABEL_H}`} width="100%" style={{ display: 'block' }}>
         {data.map((d, i) => {
           const barH = d.count === 0 ? 2 : Math.max(6, Math.round((d.count / max) * CHART_H))
           const x = i * (BAR_W + GAP)
-          const y = CHART_H - barH
+          const barY = NUM_H + CHART_H - barH
           const isToday = d.date === today
           const mm = d.date.slice(5, 7).replace(/^0/, '')
           const dd = d.date.slice(8, 10).replace(/^0/, '')
           return (
             <g key={d.date}>
+              {/* 방문 수 — 항상 표시 */}
+              <text
+                x={x + BAR_W / 2} y={NUM_H + CHART_H - barH - 4}
+                textAnchor="middle" fontSize={10}
+                fill={isToday ? 'var(--color-primary)' : 'var(--label-secondary)'}
+                fontWeight={isToday ? 700 : 400}
+              >
+                {d.count}
+              </text>
               <rect
-                x={x} y={y} width={BAR_W} height={barH}
+                x={x} y={barY} width={BAR_W} height={barH}
                 rx={5}
                 fill={isToday ? 'var(--color-primary)' : 'var(--fill-tertiary)'}
                 opacity={isToday ? 1 : 0.7}
               />
-              {d.count > 0 && (
-                <text x={x + BAR_W / 2} y={y - 4} textAnchor="middle" fontSize={10} fill={isToday ? 'var(--color-primary)' : 'var(--label-secondary)'} fontWeight={isToday ? 700 : 400}>
-                  {d.count}
-                </text>
-              )}
-              <text x={x + BAR_W / 2} y={CHART_H + 14} textAnchor="middle" fontSize={10} fill={isToday ? 'var(--color-primary)' : 'var(--label-tertiary)'} fontWeight={isToday ? 700 : 400}>
+              {/* 날짜 레이블 */}
+              <text
+                x={x + BAR_W / 2} y={NUM_H + CHART_H + LABEL_H - 2}
+                textAnchor="middle" fontSize={10}
+                fill={isToday ? 'var(--color-primary)' : 'var(--label-tertiary)'}
+                fontWeight={isToday ? 700 : 400}
+              >
                 {mm}/{dd}
               </text>
             </g>
