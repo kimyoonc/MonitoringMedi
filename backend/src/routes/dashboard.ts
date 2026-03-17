@@ -88,7 +88,9 @@ router.get('/', async (req, res) => {
     const allPatients = await prisma.patient.findMany({ select: { conditions: true } });
     const conditionMap = new Map<string, number>();
     allPatients.forEach(p => {
-      p.conditions.forEach(c => conditionMap.set(c, (conditionMap.get(c) ?? 0) + 1));
+      (p.conditions as string[] | null)?.forEach((c: string) =>
+        conditionMap.set(c, (conditionMap.get(c) ?? 0) + 1)
+      );
     });
     const conditionStats = Array.from(conditionMap.entries())
       .map(([condition, count]) => ({ condition, count }))
