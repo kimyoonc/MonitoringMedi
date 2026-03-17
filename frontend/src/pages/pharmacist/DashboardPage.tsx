@@ -262,7 +262,7 @@ function WeeklyChart({ data, today }: { data: { date: string; count: number }[];
 
   return (
     <div className={styles.conditionChart}>
-      {data.map((d, i) => {
+      {data.map((d) => {
         const barW = d.count === 0 ? 2 : Math.max(4, Math.round((d.count / max) * BAR_MAX_W))
         const isToday = d.date === today
         const mm = d.date.slice(5, 7).replace(/^0/, '')
