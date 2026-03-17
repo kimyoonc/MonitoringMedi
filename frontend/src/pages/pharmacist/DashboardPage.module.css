@@ -262,6 +262,70 @@
   color: var(--label-secondary);
 }
 
+/* 차트 섹션 */
+.chartsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.chartSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.chartCard {
+  padding: var(--spacing-md);
+}
+
+.chartWrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* 질환별 차트 */
+.conditionChart {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.conditionRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.conditionLabel {
+  font-size: 13px;
+  color: var(--label-primary);
+  width: 90px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conditionBarWrap {
+  flex: 1;
+}
+
+.conditionBar {
+  height: 10px;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.conditionCount {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--label-secondary);
+  width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
 /* 태블릿: 2컬럼 */
 @media (min-width: 768px) {
   .patientsGrid {
@@ -280,5 +344,11 @@
 @media (min-width: 1280px) {
   .patientsGrid {
     grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .chartsGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
   }
 }

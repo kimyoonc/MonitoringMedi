@@ -246,6 +246,8 @@ export interface DashboardData {
   todayVisitPatients: DashboardPatient[]
   adverseReactionPatients: DashboardPatient[]
   pendingDispensePatients: DashboardPatient[]
+  weeklyVisits?: { date: string; count: number }[]
+  conditionStats?: { condition: string; count: number }[]
 }
 
 // API 공통 응답

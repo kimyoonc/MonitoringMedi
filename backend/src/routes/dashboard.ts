@@ -3,12 +3,19 @@ import prisma from '../lib/prisma';
 
 const router = Router();
 
+// UTC 기반 날짜 덧셈
+function addDays(dateStr: string, days: number): string {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const date = new Date(Date.UTC(y, m - 1, d + days));
+  return date.toISOString().split('T')[0];
+}
+
 // 대시보드 현황 조회
 router.get('/', async (req, res) => {
   try {
     // KST 기준 오늘 날짜 (UTC+9), query param으로 날짜 지정 가능
-    const kstToday = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]
-    const today = (req.query.date as string) || kstToday
+    const kstToday = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const today = (req.query.date as string) || kstToday;
 
     // 해당 날짜 plan step 전체 조회 (상태 무관 — 과거: completed, 오늘: scheduled, 미래: pending)
     const todaySteps = await prisma.planStep.findMany({
@@ -65,6 +72,29 @@ router.get('/', async (req, res) => {
       symptom: visit.adverseReactionNote || '이상 반응',
     }));
 
+    // 주간 방문 추이 (선택 날짜 기준 최근 7일)
+    const weekDates = Array.from({ length: 7 }, (_, i) => addDays(today, i - 6));
+    const weeklySteps = await prisma.planStep.groupBy({
+      by: ['scheduledDate'],
+      where: { scheduledDate: { in: weekDates } },
+      _count: { id: true },
+    });
+    const weeklyVisits = weekDates.map(date => ({
+      date,
+      count: weeklySteps.find(s => s.scheduledDate === date)?._count.id ?? 0,
+    }));
+
+    // 질환별 환자 수
+    const allPatients = await prisma.patient.findMany({ select: { conditions: true } });
+    const conditionMap = new Map<string, number>();
+    allPatients.forEach(p => {
+      p.conditions.forEach(c => conditionMap.set(c, (conditionMap.get(c) ?? 0) + 1));
+    });
+    const conditionStats = Array.from(conditionMap.entries())
+      .map(([condition, count]) => ({ condition, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 8);
+
     res.json({
       success: true,
       data: {
@@ -78,6 +108,8 @@ router.get('/', async (req, res) => {
         todayVisitPatients,
         adverseReactionPatients,
         pendingDispensePatients,
+        weeklyVisits,
+        conditionStats,
       },
     });
   } catch (err) {

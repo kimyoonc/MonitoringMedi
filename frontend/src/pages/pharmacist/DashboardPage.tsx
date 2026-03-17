@@ -220,7 +220,104 @@ export default function DashboardPage() {
             </div>
           </section>
         </div>
+
+        {/* 차트 섹션 */}
+        <div className={styles.chartsGrid}>
+          {/* 주간 방문 추이 */}
+          {data?.weeklyVisits && data.weeklyVisits.length > 0 && (
+            <section className={styles.chartSection}>
+              <h2 className={styles.sectionTitle}>
+                <span className={styles.sectionIcon}>📊</span>
+                주간 방문 추이
+              </h2>
+              <Card className={styles.chartCard}>
+                <WeeklyChart data={data.weeklyVisits} today={data.date} />
+              </Card>
+            </section>
+          )}
+
+          {/* 질환별 환자 수 */}
+          {data?.conditionStats && data.conditionStats.length > 0 && (
+            <section className={styles.chartSection}>
+              <h2 className={styles.sectionTitle}>
+                <span className={styles.sectionIcon}>🏥</span>
+                질환별 환자 수
+              </h2>
+              <Card className={styles.chartCard}>
+                <ConditionChart data={data.conditionStats} />
+              </Card>
+            </section>
+          )}
+        </div>
       </div>
+    </div>
+  )
+}
+
+// ── 주간 방문 추이 차트 ──────────────────────────────────────
+function WeeklyChart({ data, today }: { data: { date: string; count: number }[]; today: string }) {
+  const max = Math.max(...data.map(d => d.count), 1)
+  const BAR_W = 28
+  const GAP = 10
+  const CHART_H = 80
+  const W = data.length * (BAR_W + GAP) - GAP
+
+  return (
+    <div className={styles.chartWrap}>
+      <svg viewBox={`0 0 ${W} ${CHART_H + 32}`} width="100%" style={{ display: 'block' }}>
+        {data.map((d, i) => {
+          const barH = d.count === 0 ? 2 : Math.max(6, Math.round((d.count / max) * CHART_H))
+          const x = i * (BAR_W + GAP)
+          const y = CHART_H - barH
+          const isToday = d.date === today
+          const mm = d.date.slice(5, 7).replace(/^0/, '')
+          const dd = d.date.slice(8, 10).replace(/^0/, '')
+          return (
+            <g key={d.date}>
+              <rect
+                x={x} y={y} width={BAR_W} height={barH}
+                rx={5}
+                fill={isToday ? 'var(--color-primary)' : 'var(--fill-tertiary)'}
+                opacity={isToday ? 1 : 0.7}
+              />
+              {d.count > 0 && (
+                <text x={x + BAR_W / 2} y={y - 4} textAnchor="middle" fontSize={10} fill={isToday ? 'var(--color-primary)' : 'var(--label-secondary)'} fontWeight={isToday ? 700 : 400}>
+                  {d.count}
+                </text>
+              )}
+              <text x={x + BAR_W / 2} y={CHART_H + 14} textAnchor="middle" fontSize={10} fill={isToday ? 'var(--color-primary)' : 'var(--label-tertiary)'} fontWeight={isToday ? 700 : 400}>
+                {mm}/{dd}
+              </text>
+            </g>
+          )
+        })}
+      </svg>
+    </div>
+  )
+}
+
+// ── 질환별 환자 수 차트 ──────────────────────────────────────
+function ConditionChart({ data }: { data: { condition: string; count: number }[] }) {
+  const max = Math.max(...data.map(d => d.count), 1)
+  const ROW_H = 28
+  const BAR_MAX_W = 120
+
+  return (
+    <div className={styles.conditionChart}>
+      {data.map((d, i) => {
+        const barW = Math.max(4, Math.round((d.count / max) * BAR_MAX_W))
+        const colors = ['var(--color-primary)', 'var(--color-warning)', 'var(--color-success)', 'var(--color-error)']
+        const color = colors[i % colors.length]
+        return (
+          <div key={d.condition} className={styles.conditionRow} style={{ height: ROW_H }}>
+            <span className={styles.conditionLabel}>{d.condition}</span>
+            <div className={styles.conditionBarWrap}>
+              <div className={styles.conditionBar} style={{ width: barW, background: color }} />
+            </div>
+            <span className={styles.conditionCount}>{d.count}명</span>
+          </div>
+        )
+      })}
     </div>
   )
 }
