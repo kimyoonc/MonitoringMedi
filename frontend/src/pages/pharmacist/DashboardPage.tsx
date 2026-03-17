@@ -270,7 +270,7 @@ function WeeklyChart({ data, today, targetHeight }: { data: { date: string; coun
 
   return (
     <div className={styles.chartWrap}>
-      <svg viewBox={`0 0 ${W} ${CHART_H + NUM_H + LABEL_H}`} width="100%" style={{ display: 'block' }}>
+      <svg viewBox={`0 0 ${W} ${CHART_H + NUM_H + LABEL_H}`} width="100%" height={targetHeight} style={{ display: 'block' }}>
         {data.map((d, i) => {
           const barH = d.count === 0 ? 2 : Math.max(6, Math.round((d.count / max) * CHART_H))
           const x = i * (BAR_W + GAP)
