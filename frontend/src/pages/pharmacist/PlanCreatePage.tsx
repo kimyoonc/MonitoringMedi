@@ -43,10 +43,11 @@ export default function PlanCreatePage() {
   const [interactionConfirmed, setInteractionConfirmed] = useState(false)
   const [showInteractionWarning, setShowInteractionWarning] = useState(false)
 
-  // 환자 목록 로드
+  // 환자 목록 로드 (이나영만 표시)
   useEffect(() => {
     api.get('/patients').then(res => {
-      setPatients(res.data.data || [])
+      const all: Patient[] = res.data.data || []
+      setPatients(all.filter(p => p.name === '이나영'))
     })
   }, [])
 
