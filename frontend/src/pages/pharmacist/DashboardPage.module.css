@@ -279,11 +279,6 @@
   padding: var(--spacing-md);
 }
 
-.chartWrap {
-  width: 100%;
-  overflow-x: auto;
-}
-
 /* 질환별 차트 */
 .conditionChart {
   display: flex;
@@ -315,6 +310,17 @@
   height: 10px;
   border-radius: 5px;
   transition: width 0.3s ease;
+}
+
+/* 주간 차트 오늘 강조 */
+.weeklyLabelToday {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.weeklyCountToday {
+  color: var(--color-primary);
+  font-weight: 700;
 }
 
 .conditionCount {
