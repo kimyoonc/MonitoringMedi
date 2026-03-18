@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import styles from './Header.module.css'
 
 interface HeaderProps {
-  title: string
+  title: React.ReactNode
   showBack?: boolean
   rightAction?: React.ReactNode
 }
