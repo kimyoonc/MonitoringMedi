@@ -82,7 +82,7 @@ export default function RoleSelectPage() {
   }
 
   return (
-    <div className={styles.page}>
+    <div className={styles.page} onClick={() => navigate('/pharmacist')}>
       {/* ── 인트로 섹션 ── */}
       <div className={styles.introSection}>
         <div className={styles.sectionHeader}>
@@ -188,7 +188,7 @@ export default function RoleSelectPage() {
           </div>
           <span className={styles.roleArrow}>›</span>
         </button>
-        <button className={`${styles.roleCard} ${styles.patient}`} onClick={handlePatientRole}>
+        <button className={`${styles.roleCard} ${styles.patient}`} onClick={e => { e.stopPropagation(); handlePatientRole() }}>
           <div className={styles.roleIconWrap}>🏥</div>
           <div className={styles.roleText}>
             <div className={styles.roleName}>환자</div>
