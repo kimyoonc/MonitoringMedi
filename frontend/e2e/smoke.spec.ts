@@ -13,8 +13,7 @@ test.describe('역할 선택 화면', () => {
 test.describe('약사 화면', () => {
   test('약사 대시보드로 진입할 수 있다', async ({ page }) => {
     await page.goto('/pharmacist')
-    // h1 제목으로 한정 (SideNav/BottomNav에도 '대시보드' 텍스트 존재)
-    await expect(page.getByRole('heading', { name: '대시보드' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /나눠서/ })).toBeVisible()
   })
 
   test('환자 목록 페이지가 표시된다', async ({ page }) => {
@@ -40,6 +39,6 @@ test.describe('반응형 레이아웃', () => {
   test('PC(1280px)에서 대시보드가 정상 렌더링된다', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 })
     await page.goto('/pharmacist')
-    await expect(page.getByRole('heading', { name: '대시보드' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /나눠서/ })).toBeVisible()
   })
 })
