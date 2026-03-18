@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Header from '@/components/common/Header'
 import Card from '@/components/common/Card'
 import Badge from '@/components/common/Badge'
 import Loading from '@/components/common/Loading'
@@ -72,7 +71,6 @@ export default function DashboardPage() {
       <div className={styles.pageTitleBar}>
         <h1 className={styles.pageTitle}>하나의 처방전을 <em className={styles.pageTitleEm}>나눠서</em> 조제합니다.</h1>
       </div>
-      <Header title="" />
       <div className={styles.content}>
         {/* 날짜 선택 */}
         <div className={styles.dateBar}>

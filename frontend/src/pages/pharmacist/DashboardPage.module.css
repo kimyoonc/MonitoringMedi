@@ -11,7 +11,7 @@
   background: rgba(242, 242, 247, 0.85);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  padding: 8px var(--spacing-md);
+  padding: 6px var(--spacing-md);
   text-align: center;
 }
 
@@ -20,7 +20,8 @@
   font-weight: 900;
   color: #1a1a2e;
   letter-spacing: -0.04em;
-  line-height: 1.2;
+  line-height: 1;
+  margin: 0;
 }
 
 .pageTitleEm {
