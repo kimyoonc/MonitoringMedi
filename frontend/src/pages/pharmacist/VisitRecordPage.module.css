@@ -296,6 +296,103 @@
   }
 }
 
+/* 상담 체크리스트 */
+.checklistHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.checklistBadge {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--label-tertiary);
+  background: var(--fill-tertiary);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.checklistBadgeDone {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1A7F3C;
+  background: var(--color-success-light);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.checklistProgress {
+  height: 4px;
+  background: var(--fill-tertiary);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+}
+
+.checklistProgressBar {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+
+.checklistGroups {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.checklistGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.checklistCategory {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--label-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 4px 2px;
+}
+
+.checklistItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.checklistItem:hover {
+  background: var(--fill-quaternary);
+}
+
+.checklistItem input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.checklistLabel {
+  font-size: 15px;
+  color: var(--label-primary);
+  line-height: 1.4;
+}
+
+.checklistLabelDone {
+  font-size: 15px;
+  color: var(--label-tertiary);
+  line-height: 1.4;
+  text-decoration: line-through;
+}
+
 /* 이전 방문 요약 — 카드 행 */
 .prevCards {
   display: grid;

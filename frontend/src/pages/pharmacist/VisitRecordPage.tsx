@@ -34,6 +34,41 @@ const EXCHANGE_REASON_OPTIONS: { value: ExchangeReason; label: string }[] = [
 
 const HANDLING_OPTIONS = ['폐기 후 신규 조제', '부분 교환 후 재지급', '전량 교환']
 
+const CONSULTATION_CHECKLIST = [
+  {
+    category: '복약 이행',
+    items: [
+      { id: 'adherence_confirm', label: '처방대로 복용 중인지 확인' },
+      { id: 'missed_dose', label: '빠뜨린 복용이 있었는지 확인' },
+      { id: 'timing', label: '복용 시간·방법 재확인' },
+    ],
+  },
+  {
+    category: '이상반응',
+    items: [
+      { id: 'new_symptoms', label: '새로운 증상·불편함 여부 확인' },
+      { id: 'known_reaction', label: '기존 이상반응 경과 확인' },
+    ],
+  },
+  {
+    category: '병용 약물',
+    items: [
+      { id: 'new_rx', label: '새로 추가된 처방약·일반의약품 확인' },
+      { id: 'supplements', label: '건강기능식품·한약 복용 여부 확인' },
+    ],
+  },
+  {
+    category: '생활습관',
+    items: [
+      { id: 'diet', label: '식사 규칙성·공복 복용 준수 확인' },
+      { id: 'lifestyle', label: '음주·흡연 상태 변화 확인' },
+    ],
+  },
+] as const
+
+type ChecklistId = typeof CONSULTATION_CHECKLIST[number]['items'][number]['id']
+const ALL_CHECKLIST_IDS = CONSULTATION_CHECKLIST.flatMap(g => g.items.map(i => i.id)) as ChecklistId[]
+
 export default function VisitRecordPage() {
   const { id, patientId: patientIdFromPath } = useParams<{ id?: string; patientId?: string }>()
   const navigate = useNavigate()
@@ -73,6 +108,9 @@ export default function VisitRecordPage() {
   })
 
   const [dispensedMeds, setDispensedMeds] = useState<DispensedMed[]>([])
+  const [checklist, setChecklist] = useState<Record<ChecklistId, boolean>>(
+    () => Object.fromEntries(ALL_CHECKLIST_IDS.map(id => [id, false])) as Record<ChecklistId, boolean>
+  )
 
   // 교환 신청 상태
   const [includeExchange, setIncludeExchange] = useState(false)
@@ -458,6 +496,44 @@ export default function VisitRecordPage() {
             </label>
           </div>
         </Card>
+
+        {(() => {
+          const checkedCount = ALL_CHECKLIST_IDS.filter(id => checklist[id]).length
+          const total = ALL_CHECKLIST_IDS.length
+          const allDone = checkedCount === total
+          return (
+            <Card>
+              <div className={styles.checklistHeader}>
+                <h2 className={styles.sectionTitle}>상담 체크리스트</h2>
+                <span className={allDone ? styles.checklistBadgeDone : styles.checklistBadge}>
+                  {checkedCount}/{total}
+                </span>
+              </div>
+              <div className={styles.checklistProgress}>
+                <div className={styles.checklistProgressBar} style={{ width: `${(checkedCount / total) * 100}%` }} />
+              </div>
+              <div className={styles.checklistGroups}>
+                {CONSULTATION_CHECKLIST.map(group => (
+                  <div key={group.category} className={styles.checklistGroup}>
+                    <p className={styles.checklistCategory}>{group.category}</p>
+                    {group.items.map(item => (
+                      <label key={item.id} className={styles.checklistItem}>
+                        <input
+                          type="checkbox"
+                          checked={checklist[item.id]}
+                          onChange={e => setChecklist(prev => ({ ...prev, [item.id]: e.target.checked }))}
+                        />
+                        <span className={checklist[item.id] ? styles.checklistLabelDone : styles.checklistLabel}>
+                          {item.label}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )
+        })()}
 
         {dispensedMeds.length > 0 && (
           <Card>
