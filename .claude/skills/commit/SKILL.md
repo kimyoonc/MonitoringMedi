@@ -33,6 +33,6 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
 ## 규칙
 
 - 제목은 50자 이내, 마침표 없음
-- `.md` 파일만 변경된 경우 빌드 확인 생략
+- `.md` 파일만 변경된 경우 빌드 실행 불필요 — 바로 커밋
 - 소스 코드 변경이 포함된 경우 `npm run build` 성공 확인 후 커밋
 - 민감 정보(.env, credentials)가 포함된 파일은 커밋하지 않음

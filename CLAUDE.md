@@ -59,18 +59,6 @@ CLAUDE.md          # Claude Code 설정 파일
 | 백엔드 배포 | Render | https://monitoringmedi.onrender.com |
 | 소스코드 | GitHub | https://github.com/kimyoonc/MonitoringMedi |
 
-## 핵심 기능 (PRD 요약)
-
-| 기능 ID | 기능명 | 우선순위 | 상태 |
-|---|---|---|---|
-| F-001 | 복약 관리 계획 수립 (방문 일정 자동 계산) | P0 | ✅ 완료 |
-| F-002 | 단계적 조제 관리 | P0 | ✅ 완료 |
-| F-003 | 환자 방문 일정 알림 (D-3, D-1) | P1 | ✅ 완료 |
-| F-004 | 복약 상태 기록 | P0 | ✅ 완료 |
-| F-005 | 의약품 교환/보충 관리 | P1 | ✅ 완료 |
-| F-006 | 약물 상호작용 확인 | P1 | ✅ 완료 |
-| F-007 | 복약 관리 현황 대시보드 | P1 | ✅ 완료 |
-
 ## 로컬 개발 환경 설정
 
 ### 필수 환경 변수
@@ -128,31 +116,6 @@ cd backend && npm run build
 | CSS 변수 | `globals.css`에 정의된 변수 사용 (`var(--color-primary)` 등) |
 | 상태 관리 | 전역 상태는 Zustand store, 로컬 상태는 `useState` |
 
-## 에이전트 파일 형식 (`.claude/agents/*.md`)
-
-각 에이전트 파일은 YAML frontmatter로 시작합니다:
-
-```yaml
----
-name: agent-name
-description: 에이전트 설명
-model: inherit | opus | sonnet | haiku
-color: red | blue | green | ...
-memory: project   # 프로젝트 메모리 자동 주입
----
-```
-
-**중요:** 에이전트 파일에 절대 경로(`/Users/...`)를 하드코딩하지 않습니다. `memory: project`가 런타임에 올바른 경로를 자동 주입합니다.
-
-## 스킬 파일 형식 (`.claude/skills/<name>/SKILL.md`)
-
-```yaml
----
-name: skill-name
-description: 스킬 설명
----
-```
-
 ## 스프린트 워크플로우
 
 1. **prd-to-roadmap** 에이전트: `docs/PRD.md` → `docs/ROADMAP.md` 생성
@@ -175,15 +138,6 @@ description: 스킬 설명
 ## Playwright MCP 검증
 
 `sprint-close` 및 `prd-to-roadmap` 에이전트는 Playwright MCP 도구(`browser_navigate`, `browser_snapshot`, `browser_click`, `browser_console_messages`, `browser_network_requests` 등)를 사용하여 `npm run dev` 실행 상태에서 UI를 직접 검증합니다. 검증 결과는 `docs/sprint/sprint{N}/playwright-report.md`에 저장합니다.
-
-**이 프로젝트의 주요 검증 시나리오:**
-- TC-01: 환자 신규 등록 및 복약 관리 계획 수립
-- TC-02~03: 정기 방문 및 단계별 조제
-- TC-04: 이상 반응 신고 접수
-- TC-05~06: 의약품 교환 요청 (오염/훼손/유통기한)
-- TC-07: 약물 상호작용 경고
-- TC-08: 대시보드 환자 현황 조회
-- 반응형 레이아웃: 모바일(375px), 태블릿(768px), PC(1280px)
 
 ## 언어 및 커뮤니케이션 규칙
 
@@ -228,7 +182,7 @@ description: 스킬 설명
 - **배포 전 빌드 확인 규칙**: `git push` 전에 반드시 `cd frontend && npm run build`를 실행하고, 빌드가 성공한 경우에만 push한다. 빌드 실패 시 오류를 수정한 후 재시도한다.
 - **E2E 테스트 동기화 규칙**: UI 텍스트·구조를 변경할 때 `frontend/e2e/` 테스트 파일에서 영향받는 셀렉터(heading, role, text 등)를 함께 확인하고 자동으로 수정한다. 별도 지시 없이도 변경 내용과 테스트를 항상 동기화한다.
 - **README.md 동기화 규칙**: 기능 추가·변경·삭제 시 `README.md`를 함께 업데이트한다.
-- **문서만 변경된 경우**: `.md` 파일만 수정된 커밋은 빌드 확인 없이 `git push`만 수행한다. Vercel/Render 배포는 소스 코드 변경 시에만 의미가 있으므로 별도 배포 언급 없이 종료한다.
+- **문서만 변경된 경우**: `.md` 파일만 수정된 경우 빌드 실행 불필요 — 바로 커밋 후 `git push`만 수행한다. Vercel/Render 배포는 소스 코드 변경 시에만 의미가 있으므로 별도 배포 언급 없이 종료한다.
 
 - 사용자가 직접 수행해야 하는 작업은 deploy.md 파일을 생성하거나 기존에 존재하는 deploy.md에 수행해야하는 작업을 자세히 정리해주세요.
 - 체크리스트 작성 형식:
