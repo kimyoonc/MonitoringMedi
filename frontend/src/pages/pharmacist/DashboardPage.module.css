@@ -11,8 +11,9 @@
   background: rgba(242, 242, 247, 0.85);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  padding: 6px var(--spacing-md);
+  padding: 24px var(--spacing-md) 24px;
   text-align: center;
+  border-bottom: 0.5px solid var(--separator-opaque);
 }
 
 .pageTitle {
