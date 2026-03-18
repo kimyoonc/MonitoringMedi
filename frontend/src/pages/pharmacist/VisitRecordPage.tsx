@@ -45,6 +45,7 @@ export default function VisitRecordPage() {
 
   const [visit, setVisit] = useState<Visit | null>(null)
   const [plan, setPlan] = useState<Plan | null>(null)
+  const [prevVisit, setPrevVisit] = useState<Visit | null>(null)
 
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
@@ -52,6 +53,10 @@ export default function VisitRecordPage() {
   const [successMsg, setSuccessMsg] = useState('')
 
   const { toast, showToast, hideToast } = useToast()
+
+  const kstToday = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]
+  const [visitDate, setVisitDate] = useState(kstToday)
+  const [nextStepDate, setNextStepDate] = useState<string | null>(null)
 
   const [form, setForm] = useState({
     adherence: 'good' as 'good' | 'fair' | 'poor',
@@ -75,7 +80,7 @@ export default function VisitRecordPage() {
   useEffect(() => {
     if (isNewMode && planId) {
       api.get(`/plans/${planId}`)
-        .then(res => {
+        .then(async res => {
           const planData: Plan = res.data.data
           setPlan(planData)
           if (planData.medications) {
@@ -90,6 +95,21 @@ export default function VisitRecordPage() {
                 unit: med.unit,
               }))
             )
+          }
+          // 다음 방문 예정일
+          if (stepNumber) {
+            const nextStep = planData.steps.find(s => s.stepNumber === stepNumber + 1)
+            if (nextStep) setNextStepDate(nextStep.scheduledDate)
+          }
+          // 이전 방문 기록 로드
+          if (stepNumber && stepNumber > 1) {
+            const prevStep = planData.steps.find(s => s.stepNumber === stepNumber - 1)
+            if (prevStep?.visitId) {
+              try {
+                const vRes = await api.get(`/visits/${prevStep.visitId}`)
+                setPrevVisit(vRes.data.data)
+              } catch { /* 이전 방문 없으면 무시 */ }
+            }
           }
           setLoading(false)
         })
@@ -182,13 +202,12 @@ export default function VisitRecordPage() {
     setErrorModal('')
 
     const patientId = plan.patientId
-    const today = new Date().toISOString().split('T')[0]
 
     try {
       const visitRes = await api.post('/visits', {
         planId: plan.id,
         patientId,
-        visitDate: today,
+        visitDate,
         stepNumber,
         adherence: form.adherence,
         adverseReaction: form.adverseReaction,
@@ -223,7 +242,7 @@ export default function VisitRecordPage() {
           await api.post('/exchanges', {
             visitId: newVisitId,
             patientId,
-            exchangeDate: today,
+            exchangeDate: visitDate,
             reason: exchangeReason,
             medications: validMeds,
             handlingMethod,
@@ -259,7 +278,6 @@ export default function VisitRecordPage() {
           <Card>
             <h2 className={styles.sectionTitle}>조제 단계 정보</h2>
             <dl className={styles.infoGrid}>
-              <dt>계획 ID</dt><dd>{plan.id}</dd>
               <dt>방문 차수</dt><dd>{stepNumber}차 / {plan.totalVisits}차</dd>
               <dt>예정일</dt><dd>{currentStep.scheduledDate}</dd>
               <dt>조제일수</dt><dd>{currentStep.dispenseDays}일분</dd>
@@ -267,9 +285,49 @@ export default function VisitRecordPage() {
           </Card>
         )}
 
+        {prevVisit && (
+          <Card>
+            <h2 className={styles.sectionTitle}>이전 방문 요약 ({stepNumber! - 1}차)</h2>
+            <dl className={styles.infoGrid}>
+              <dt>방문일</dt><dd>{prevVisit.visitDate}</dd>
+              <dt>복약 순응도</dt>
+              <dd>
+                <Badge variant={prevVisit.adherence === 'good' ? 'success' : prevVisit.adherence === 'poor' ? 'error' : 'warning'}>
+                  {{ good: '양호', fair: '보통', poor: '불량' }[prevVisit.adherence]}
+                </Badge>
+              </dd>
+              <dt>이상 반응</dt>
+              <dd>
+                <Badge variant={prevVisit.adverseReaction ? 'error' : 'success'}>
+                  {prevVisit.adverseReaction ? '발생' : '없음'}
+                </Badge>
+              </dd>
+              {prevVisit.adverseReaction && prevVisit.adverseReactionNote && (
+                <>
+                  <dt>내용</dt><dd>{prevVisit.adverseReactionNote}</dd>
+                </>
+              )}
+              {prevVisit.pharmacistNote && (
+                <>
+                  <dt>약사 메모</dt><dd>{prevVisit.pharmacistNote}</dd>
+                </>
+              )}
+            </dl>
+          </Card>
+        )}
+
         <Card>
           <h2 className={styles.sectionTitle}>복약 상태 기록</h2>
           <div className={styles.form}>
+            <label className={styles.label}>
+              방문일
+              <input
+                type="date"
+                className={styles.select}
+                value={visitDate}
+                onChange={e => setVisitDate(e.target.value)}
+              />
+            </label>
             <label className={styles.label}>
               복약 순응도
               <select
@@ -472,7 +530,14 @@ export default function VisitRecordPage() {
           )}
         </Card>
 
-        {successMsg && <p className={styles.success}>{successMsg}</p>}
+        {successMsg && (
+          <div className={styles.successBox}>
+            <p className={styles.success}>{successMsg}</p>
+            {nextStepDate && (
+              <p className={styles.nextVisit}>다음 방문 예정일 · {nextStepDate}</p>
+            )}
+          </div>
+        )}
 
         <Button fullWidth size="lg" onClick={handleSave} disabled={submitting}>
           {submitting ? '저장 중...' : '방문 기록 저장'}
