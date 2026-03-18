@@ -69,7 +69,7 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <Header title="대시보드" />
+      <Header title="" />
       <div className={styles.content}>
         {/* 날짜 선택 */}
         <div className={styles.dateBar}>
