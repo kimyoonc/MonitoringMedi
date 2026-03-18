@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '@/api/client'
 import styles from './RoleSelectPage.module.css'
@@ -13,6 +13,12 @@ export default function RoleSelectPage() {
   const [step, setStep] = useState<'role' | 'patient-select'>('role')
   const [patients, setPatients] = useState<PatientSummary[]>([])
   const [loadingPatients, setLoadingPatients] = useState(false)
+
+  // 첫 화면 진입 시 백엔드 워밍업 — 콜드 스타트 대기 시간 선행 처리
+  useEffect(() => {
+    const today = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0]
+    api.get(`/dashboard?date=${today}`).catch(() => {})
+  }, [])
 
   const handlePatientRole = async () => {
     setLoadingPatients(true)
