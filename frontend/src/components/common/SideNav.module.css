@@ -69,3 +69,45 @@
   text-align: center;
   flex-shrink: 0;
 }
+
+.chevron {
+  margin-left: auto;
+  font-size: 16px;
+  color: var(--label-tertiary);
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.chevronOpen {
+  transform: rotate(90deg);
+}
+
+/* 서브 메뉴 */
+.subList {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 2px 0 4px 0;
+}
+
+.subItem {
+  display: flex;
+  align-items: center;
+  padding: 7px var(--spacing-sm) 7px 42px;
+  border-radius: var(--radius-sm);
+  color: var(--label-secondary);
+  font-size: 14px;
+  font-weight: 400;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.subItem:hover {
+  background: var(--fill-tertiary);
+  color: var(--label-primary);
+}
+
+.subItemActive {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+  font-weight: 600;
+}

@@ -9,6 +9,8 @@ import PlanCreatePage from '@/pages/pharmacist/PlanCreatePage'
 import VisitRecordPage from '@/pages/pharmacist/VisitRecordPage'
 import ExchangePage from '@/pages/pharmacist/ExchangePage'
 import CalendarPage from '@/pages/pharmacist/CalendarPage'
+import ScheduledPatientsPage from '@/pages/pharmacist/ScheduledPatientsPage'
+import PendingPatientsPage from '@/pages/pharmacist/PendingPatientsPage'
 import PatientSchedulePage from '@/pages/patient/SchedulePage'
 import PatientReportPage from '@/pages/patient/ReportPage'
 import NotFoundPage from '@/pages/NotFoundPage'
@@ -20,6 +22,8 @@ export default function AppRoutes() {
       <Route path="/pharmacist" element={<PharmacistLayout />}>
         <Route index element={<PharmacistDashboard />} />
         <Route path="patients" element={<PatientListPage />} />
+        <Route path="patients/scheduled" element={<ScheduledPatientsPage />} />
+        <Route path="patients/pending" element={<PendingPatientsPage />} />
         <Route path="patients/:id" element={<PatientDetailPage />} />
         <Route path="patients/:id/plans/new" element={<PlanCreatePage />} />
         <Route path="patients/:patientId/visits/new" element={<VisitRecordPage />} />

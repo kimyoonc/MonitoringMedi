@@ -5,7 +5,15 @@ import styles from './PharmacistLayout.module.css'
 
 const pharmacistNavItems = [
   { path: '/pharmacist', label: '대시보드', icon: '📊', exact: true },
-  { path: '/pharmacist/patients', label: '환자 관리', icon: '👥' },
+  {
+    path: '/pharmacist/patients',
+    label: '환자 관리',
+    icon: '👥',
+    children: [
+      { path: '/pharmacist/patients/scheduled', label: '오늘 방문 예정' },
+      { path: '/pharmacist/patients/pending', label: '조제 대기' },
+    ],
+  },
   { path: '/pharmacist/calendar', label: '캘린더', icon: '📅' },
 ]
 
