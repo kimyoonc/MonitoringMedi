@@ -71,6 +71,63 @@ CLAUDE.md          # Claude Code 설정 파일
 | F-006 | 약물 상호작용 확인 | P1 | ✅ 완료 |
 | F-007 | 복약 관리 현황 대시보드 | P1 | ✅ 완료 |
 
+## 로컬 개발 환경 설정
+
+### 필수 환경 변수
+
+`backend/.env` 파일을 생성하고 아래 값을 설정한다:
+
+```env
+DATABASE_URL="postgresql://..."   # Supabase 세션 풀러 (포트 6543)
+DIRECT_URL="postgresql://..."     # Supabase 다이렉트 연결 (포트 5432, 마이그레이션용)
+```
+
+### 설치 및 실행
+
+```bash
+# 의존성 설치
+npm install          # 루트 (concurrently 등)
+cd frontend && npm install
+cd backend && npm install
+
+# DB 초기화 (최초 1회)
+cd backend && npx prisma generate && npx prisma db push && npx tsx prisma/seed.ts
+
+# 개발 서버 실행 (프론트 + 백엔드 동시)
+npm run dev          # 루트에서 실행
+
+# 테스트
+cd frontend && npm run test      # Vitest 단위 테스트
+cd frontend && npm run e2e       # Playwright E2E 테스트
+
+# 빌드
+cd frontend && npm run build
+cd backend && npm run build
+```
+
+## 브랜치 전략
+
+| 브랜치 | 용도 |
+|---|---|
+| `main` | 프로덕션 배포 브랜치 (Vercel/Render 자동 배포) |
+| `sprint{N}` | 스프린트 개발 브랜치 — 완료 후 main에 머지 |
+
+- 스프린트 시작 시 `git checkout -b sprint{N}` 으로 브랜치 생성
+- `main`에 직접 push 가능 (소규모 프로젝트), 단 빌드 확인 필수
+- worktree 사용 금지
+
+## 코딩 컨벤션
+
+| 항목 | 규칙 |
+|---|---|
+| 컴포넌트 파일명 | PascalCase (`PatientDetailPage.tsx`) |
+| CSS 모듈 파일명 | 컴포넌트와 동일 (`PatientDetailPage.module.css`) |
+| 훅/유틸 파일명 | camelCase (`usePatientStore.ts`) |
+| API 라우터 파일명 | camelCase (`dashboard.ts`) |
+| 타입 정의 위치 | `frontend/src/types/index.ts` (공통), 컴포넌트 내 인터페이스는 해당 파일 상단 |
+| CSS 변수 | `globals.css`에 정의된 변수 사용 (`var(--color-primary)` 등) |
+| 상태 관리 | 전역 상태는 Zustand store, 로컬 상태는 `useState` |
+
 ## 에이전트 파일 형식 (`.claude/agents/*.md`)
 
 각 에이전트 파일은 YAML frontmatter로 시작합니다:
@@ -111,6 +168,9 @@ description: 스킬 설명
 | `sprint-planner` | 스프린트 계획 수립 | `ROADMAP.md` | `docs/sprint/sprint{N}.md` |
 | `sprint-close` | 스프린트 마무리 | 현재 브랜치 | PR, 검증 보고서 |
 | `code-reviewer` | 코드 리뷰 | 구현 완료 단계 | 이슈 분류 보고 (Critical/Important/Suggestion) |
+| `test-writer` | 테스트 자동 작성 | 테스트 대상 파일 | Vitest 단위 테스트, Playwright E2E 테스트 |
+| `db-migrator` | DB 마이그레이션 | Prisma 스키마 변경 | 마이그레이션 파일, 적용 결과 |
+| `doc-writer` | 문서 자동 작성 | 코드베이스 | README.md, API 문서 |
 
 ## Playwright MCP 검증
 
