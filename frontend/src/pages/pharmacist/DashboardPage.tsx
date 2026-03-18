@@ -71,6 +71,9 @@ export default function DashboardPage() {
     <div>
       <Header title="" />
       <div className={styles.content}>
+        <h1 className={styles.pageTitle}>
+          하나의 처방전을 <em className={styles.pageTitleEm}>나눠서</em> 조제합니다.
+        </h1>
         {/* 날짜 선택 */}
         <div className={styles.dateBar}>
           <button

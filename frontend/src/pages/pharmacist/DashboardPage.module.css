@@ -6,6 +6,23 @@
   gap: var(--spacing-lg);
 }
 
+/* 페이지 타이틀 */
+.pageTitle {
+  font-size: 22px;
+  font-weight: 900;
+  color: #1a1a2e;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+}
+
+.pageTitleEm {
+  font-style: normal;
+  background: linear-gradient(135deg, #4285f4, #ea4335);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* 날짜 선택 바 */
 .dateBar {
   display: flex;
