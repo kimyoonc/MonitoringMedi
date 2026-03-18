@@ -45,10 +45,13 @@ export default function VisitRecordPage() {
 
   const [visit, setVisit] = useState<Visit | null>(null)
   const [plan, setPlan] = useState<Plan | null>(null)
-  const [prevVisit, setPrevVisit] = useState<Visit | null>(null)
-  const [prevVisitLoading, setPrevVisitLoading] = useState(false)
-  const [prevVisitCache, setPrevVisitCache] = useState<Record<number, Visit>>({})
-  const [selectedPrevStep, setSelectedPrevStep] = useState<number | null>(null)
+  // 최근 3건 카드
+  const [recentPastVisits, setRecentPastVisits] = useState<Record<number, Visit>>({})
+  // 드롭다운으로 선택한 이전 방문
+  const [oldVisitCache, setOldVisitCache] = useState<Record<number, Visit>>({})
+  const [selectedOldStep, setSelectedOldStep] = useState<number | null>(null)
+  const [selectedOldVisit, setSelectedOldVisit] = useState<Visit | null>(null)
+  const [oldVisitLoading, setOldVisitLoading] = useState(false)
 
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
@@ -104,17 +107,23 @@ export default function VisitRecordPage() {
             const nextStep = planData.steps.find(s => s.stepNumber === stepNumber + 1)
             if (nextStep) setNextStepDate(nextStep.scheduledDate)
           }
-          // 이전 방문 기록 로드 (직전 차수 기본)
+          // 최근 3건 이전 방문 병렬 로드
           if (stepNumber && stepNumber > 1) {
-            const prevStep = planData.steps.find(s => s.stepNumber === stepNumber - 1)
-            if (prevStep?.visitId) {
-              try {
-                const vRes = await api.get(`/visits/${prevStep.visitId}`)
-                const vData: Visit = vRes.data.data
-                setPrevVisit(vData)
-                setSelectedPrevStep(prevStep.stepNumber)
-                setPrevVisitCache({ [prevStep.stepNumber]: vData })
-              } catch { /* 이전 방문 없으면 무시 */ }
+            const completedPast = planData.steps
+              .filter(s => s.stepNumber < stepNumber && !!s.visitId)
+              .sort((a, b) => b.stepNumber - a.stepNumber)
+              .slice(0, 3)
+            if (completedPast.length > 0) {
+              const results = await Promise.allSettled(
+                completedPast.map(s => api.get(`/visits/${s.visitId}`))
+              )
+              const cache: Record<number, Visit> = {}
+              completedPast.forEach((s, i) => {
+                const r = results[i]
+                if (r.status === 'fulfilled') cache[s.stepNumber] = r.value.data.data
+              })
+              setRecentPastVisits(cache)
+              setOldVisitCache(cache)
             }
           }
           setLoading(false)
@@ -202,23 +211,25 @@ export default function VisitRecordPage() {
   // 신규 생성 모드
   const currentStep = plan?.steps.find(s => s.stepNumber === stepNumber)
   const pastSteps = plan?.steps.filter(s => s.stepNumber < (stepNumber ?? 0) && !!s.visitId) ?? []
+  const recentStepNums = pastSteps.slice().sort((a, b) => b.stepNumber - a.stepNumber).slice(0, 3).map(s => s.stepNumber)
+  const olderSteps = pastSteps.filter(s => !recentStepNums.includes(s.stepNumber))
 
-  const handlePrevStepChange = async (step: number) => {
-    setSelectedPrevStep(step)
-    if (prevVisitCache[step]) {
-      setPrevVisit(prevVisitCache[step])
+  const handleOldStepChange = async (step: number) => {
+    setSelectedOldStep(step)
+    if (oldVisitCache[step]) {
+      setSelectedOldVisit(oldVisitCache[step])
       return
     }
     const targetStep = plan?.steps.find(s => s.stepNumber === step)
     if (!targetStep?.visitId) return
-    setPrevVisitLoading(true)
+    setOldVisitLoading(true)
     try {
       const res = await api.get(`/visits/${targetStep.visitId}`)
       const vData: Visit = res.data.data
-      setPrevVisit(vData)
-      setPrevVisitCache(prev => ({ ...prev, [step]: vData }))
+      setSelectedOldVisit(vData)
+      setOldVisitCache(prev => ({ ...prev, [step]: vData }))
     } catch { /* 무시 */ } finally {
-      setPrevVisitLoading(false)
+      setOldVisitLoading(false)
     }
   }
 
@@ -316,47 +327,74 @@ export default function VisitRecordPage() {
           </Card>
         )}
 
-        {pastSteps.length > 0 && (
+        {recentStepNums.length > 0 && (
           <Card>
-            <div className={styles.prevHeader}>
-              <h2 className={styles.sectionTitle}>이전 방문 요약</h2>
-              <select
-                className={styles.prevSelect}
-                value={selectedPrevStep ?? ''}
-                onChange={e => handlePrevStepChange(+e.target.value)}
-              >
-                {pastSteps.map(s => (
-                  <option key={s.stepNumber} value={s.stepNumber}>{s.stepNumber}차 ({s.scheduledDate})</option>
-                ))}
-              </select>
+            <h2 className={styles.sectionTitle}>이전 방문 요약</h2>
+            <div className={styles.prevCards}>
+              {recentStepNums.map(step => {
+                const v = recentPastVisits[step]
+                const ps = pastSteps.find(s => s.stepNumber === step)
+                return (
+                  <div key={step} className={styles.prevCard}>
+                    <span className={styles.prevCardStep}>{step}차</span>
+                    <span className={styles.prevCardDate}>{v ? v.visitDate : ps?.scheduledDate}</span>
+                    {v ? (
+                      <>
+                        <Badge variant={v.adherence === 'good' ? 'success' : v.adherence === 'poor' ? 'error' : 'warning'}>
+                          {{ good: '양호', fair: '보통', poor: '불량' }[v.adherence]}
+                        </Badge>
+                        <span className={styles.prevCardReaction}>
+                          {v.adverseReaction ? '⚠ 이상반응' : '이상반응 없음'}
+                        </span>
+                        {v.pharmacistNote && (
+                          <p className={styles.prevCardNote}>{v.pharmacistNote}</p>
+                        )}
+                      </>
+                    ) : (
+                      <p className={styles.prevLoading}>불러오는 중…</p>
+                    )}
+                  </div>
+                )
+              })}
             </div>
-            {prevVisitLoading && <p className={styles.prevLoading}>불러오는 중...</p>}
-            {!prevVisitLoading && prevVisit && (
-              <dl className={styles.infoGrid}>
-                <dt>방문일</dt><dd>{prevVisit.visitDate}</dd>
-                <dt>복약 순응도</dt>
-                <dd>
-                  <Badge variant={prevVisit.adherence === 'good' ? 'success' : prevVisit.adherence === 'poor' ? 'error' : 'warning'}>
-                    {{ good: '양호', fair: '보통', poor: '불량' }[prevVisit.adherence]}
-                  </Badge>
-                </dd>
-                <dt>이상 반응</dt>
-                <dd>
-                  <Badge variant={prevVisit.adverseReaction ? 'error' : 'success'}>
-                    {prevVisit.adverseReaction ? '발생' : '없음'}
-                  </Badge>
-                </dd>
-                {prevVisit.adverseReaction && prevVisit.adverseReactionNote && (
-                  <>
-                    <dt>내용</dt><dd>{prevVisit.adverseReactionNote}</dd>
-                  </>
+
+            {olderSteps.length > 0 && (
+              <div className={styles.oldStepRow}>
+                <select
+                  className={styles.prevSelect}
+                  value={selectedOldStep ?? ''}
+                  onChange={e => handleOldStepChange(+e.target.value)}
+                >
+                  <option value="">이전 방문 날짜 선택…</option>
+                  {olderSteps.sort((a, b) => b.stepNumber - a.stepNumber).map(s => (
+                    <option key={s.stepNumber} value={s.stepNumber}>{s.stepNumber}차 ({s.scheduledDate})</option>
+                  ))}
+                </select>
+                {oldVisitLoading && <p className={styles.prevLoading}>불러오는 중…</p>}
+                {!oldVisitLoading && selectedOldVisit && (
+                  <dl className={styles.infoGrid}>
+                    <dt>방문일</dt><dd>{selectedOldVisit.visitDate}</dd>
+                    <dt>복약 순응도</dt>
+                    <dd>
+                      <Badge variant={selectedOldVisit.adherence === 'good' ? 'success' : selectedOldVisit.adherence === 'poor' ? 'error' : 'warning'}>
+                        {{ good: '양호', fair: '보통', poor: '불량' }[selectedOldVisit.adherence]}
+                      </Badge>
+                    </dd>
+                    <dt>이상 반응</dt>
+                    <dd>
+                      <Badge variant={selectedOldVisit.adverseReaction ? 'error' : 'success'}>
+                        {selectedOldVisit.adverseReaction ? '발생' : '없음'}
+                      </Badge>
+                    </dd>
+                    {selectedOldVisit.adverseReaction && selectedOldVisit.adverseReactionNote && (
+                      <><dt>내용</dt><dd>{selectedOldVisit.adverseReactionNote}</dd></>
+                    )}
+                    {selectedOldVisit.pharmacistNote && (
+                      <><dt>약사 메모</dt><dd>{selectedOldVisit.pharmacistNote}</dd></>
+                    )}
+                  </dl>
                 )}
-                {prevVisit.pharmacistNote && (
-                  <>
-                    <dt>약사 메모</dt><dd>{prevVisit.pharmacistNote}</dd>
-                  </>
-                )}
-              </dl>
+              </div>
             )}
           </Card>
         )}
