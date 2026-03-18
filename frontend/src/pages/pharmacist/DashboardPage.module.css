@@ -11,7 +11,7 @@
   background: rgba(242, 242, 247, 0.85);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  padding: 20px var(--spacing-md) 16px;
+  padding: 8px var(--spacing-md);
   text-align: center;
 }
 
