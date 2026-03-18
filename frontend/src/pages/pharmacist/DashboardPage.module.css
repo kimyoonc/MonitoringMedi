@@ -6,14 +6,21 @@
   gap: var(--spacing-lg);
 }
 
-/* 페이지 타이틀 (헤더 내부) */
+/* 페이지 타이틀 바 */
+.pageTitleBar {
+  background: rgba(242, 242, 247, 0.85);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  padding: 20px var(--spacing-md) 16px;
+  text-align: center;
+}
+
 .pageTitle {
-  font-size: 16px;
-  font-weight: 800;
+  font-size: 24px;
+  font-weight: 900;
   color: #1a1a2e;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   line-height: 1.2;
-  white-space: nowrap;
 }
 
 .pageTitleEm {

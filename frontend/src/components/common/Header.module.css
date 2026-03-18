@@ -30,7 +30,6 @@
   color: var(--label-primary);
   letter-spacing: -0.022em;
   text-align: center;
-  flex: 1;
 }
 
 .backBtn {
