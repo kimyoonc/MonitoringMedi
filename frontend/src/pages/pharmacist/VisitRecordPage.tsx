@@ -111,6 +111,10 @@ export default function VisitRecordPage() {
   const [checklist, setChecklist] = useState<Record<ChecklistId, boolean>>(
     () => Object.fromEntries(ALL_CHECKLIST_IDS.map(id => [id, false])) as Record<ChecklistId, boolean>
   )
+  const [checklistMemos, setChecklistMemos] = useState<Record<ChecklistId, string>>(
+    () => Object.fromEntries(ALL_CHECKLIST_IDS.map(id => [id, ''])) as Record<ChecklistId, string>
+  )
+  const [manualNote, setManualNote] = useState('')
 
   // 교환 신청 상태
   const [includeExchange, setIncludeExchange] = useState(false)
@@ -271,6 +275,12 @@ export default function VisitRecordPage() {
     }
   }
 
+  const allItems = CONSULTATION_CHECKLIST.flatMap(g => g.items as readonly { id: string; label: string }[])
+  const checklistNoteLines = ALL_CHECKLIST_IDS
+    .filter(id => checklistMemos[id]?.trim())
+    .map(id => `${allItems.find(i => i.id === id)?.label ?? id}: ${checklistMemos[id].trim()}`)
+  const composedNote = [...checklistNoteLines, manualNote].filter(Boolean).join('\n')
+
   const handleSave = async () => {
     if (!plan || !stepNumber) return
     setSubmitting(true)
@@ -288,7 +298,7 @@ export default function VisitRecordPage() {
         adverseReaction: form.adverseReaction,
         adverseReactionNote: form.adverseReaction ? form.adverseReactionNote : null,
         storageCondition: form.storageCondition,
-        pharmacistNote: form.pharmacistNote,
+        pharmacistNote: composedNote,
         dispensedMedications: dispensedMeds,
       })
 
@@ -484,16 +494,23 @@ export default function VisitRecordPage() {
               </label>
             )}
 
-            <label className={styles.label}>
+            <div className={styles.label}>
               약사 메모
+              {checklistNoteLines.length > 0 && (
+                <div className={styles.notePreview}>
+                  {checklistNoteLines.map((line, i) => (
+                    <p key={i} className={styles.notePreviewLine}>· {line}</p>
+                  ))}
+                </div>
+              )}
               <textarea
                 className={styles.textarea}
-                value={form.pharmacistNote}
-                onChange={e => setForm({ ...form, pharmacistNote: e.target.value })}
+                value={manualNote}
+                onChange={e => setManualNote(e.target.value)}
                 rows={3}
-                placeholder="상담 내용 또는 특이사항 기록"
+                placeholder="추가 메모 입력…"
               />
-            </label>
+            </div>
           </div>
         </Card>
 
@@ -517,16 +534,25 @@ export default function VisitRecordPage() {
                   <div key={group.category} className={styles.checklistGroup}>
                     <p className={styles.checklistCategory}>{group.category}</p>
                     {group.items.map(item => (
-                      <label key={item.id} className={styles.checklistItem}>
+                      <div key={item.id} className={styles.checklistItemWrap}>
+                        <label className={styles.checklistItem}>
+                          <input
+                            type="checkbox"
+                            checked={checklist[item.id]}
+                            onChange={e => setChecklist(prev => ({ ...prev, [item.id]: e.target.checked }))}
+                          />
+                          <span className={checklist[item.id] ? styles.checklistLabelDone : styles.checklistLabel}>
+                            {item.label}
+                          </span>
+                        </label>
                         <input
-                          type="checkbox"
-                          checked={checklist[item.id]}
-                          onChange={e => setChecklist(prev => ({ ...prev, [item.id]: e.target.checked }))}
+                          className={styles.checklistMemoInput}
+                          type="text"
+                          placeholder="메모 입력…"
+                          value={checklistMemos[item.id]}
+                          onChange={e => setChecklistMemos(prev => ({ ...prev, [item.id]: e.target.value }))}
                         />
-                        <span className={checklist[item.id] ? styles.checklistLabelDone : styles.checklistLabel}>
-                          {item.label}
-                        </span>
-                      </label>
+                      </div>
                     ))}
                   </div>
                 ))}
